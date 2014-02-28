@@ -11,4 +11,13 @@ class ApplicationController
     {	
         return $app['twig']->render('index.html.twig');
     }
+   
+   public function contactAction(Application $app)
+    {	
+        return $app['twig']->render('contact.html.twig');
+    }
+   public function aboutAction(Application $app)
+    {	
+        return $app['twig']->render('about.html.twig');
+    }
 }

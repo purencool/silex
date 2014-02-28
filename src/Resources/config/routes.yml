@@ -2,3 +2,11 @@ index:
   path: /
   defaults: { _controller: 'Controller\ApplicationController::indexAction' }
 
+about:
+  path: /about
+  defaults: { _controller: 'Controller\ApplicationController::aboutAction' }
+
+contact:
+  path: /contact
+  defaults: { _controller: 'Controller\ApplicationController::contactAction' }
+

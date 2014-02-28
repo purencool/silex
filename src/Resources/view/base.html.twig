@@ -3,7 +3,8 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Untitled{% endblock %}</title>
-        <base href="{{ app.config.base_url }}">
+         <link href="{{ app.request.basepath }}/style.css" rel="stylesheet" media="all" /> 
+		<base href="{{ app.config.base_url }}">
         <!-- Styles -->
         <!--[if lt IE 9]>
           <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>

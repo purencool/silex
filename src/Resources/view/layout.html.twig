@@ -1,6 +1,15 @@
 {% extends 'base.html.twig' %}
+{% set navigation_bar = [['index', 'Home'], ['contact', 'Contact'], ['about', 'About']] %}
+
 {% block body %}
 	<h1>Trace</h1>
+	<ul id="navigation">
+     {% for item in navigation_bar %}
+        <li>
+          <a href="{{ app.url_generator.generate(item[0]) }}">{{item[1]}}</a>
+		</li>
+      {% endfor %}
+    </ul>
 	{% block content %}
 	{% endblock %}
 {% endblock %}

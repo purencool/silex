@@ -1,0 +1,32 @@
+* {
+   margin: 0px;
+   padding: 0px;
+}
+
+#trace {
+ background-color: red;
+}
+
+#trace span {
+ display:block;
+ background-color: plum;
+}
+
+#navigation {
+ background-color: orange;
+} 
+
+#navigation li {
+ background-color: pink;
+}
+
+#navigation li a {
+  background-color: yellow;
+}
+
+#crazy-people{
+  width: 100%;	
+  height:100px;
+  background-color: black;
+}
+

@@ -2,13 +2,19 @@
    margin: 0px;
    padding: 0px;
 }
+body {
+  font-family: "Open sans";
+}
 
 #trace {
  display: block;
  height: 65px;
  width : 202px;
+ padding-top: 20px;
  background-image: url("../images/mobile-logo.jpg");
  background-repeat: no-repeat;
+ background-position: center;
+ margin: 0 auto;
 }
 
 #trace span {
@@ -17,20 +23,40 @@
  }
 
 #navigation {
-padding-top: 20px;
+ padding-top: 8px;
 }
+
 #navigation li{
- padding:20px 0 20px 0;
+ padding:7px 0 7px 0;
  margin-bottom: 10px;
+ border-radius: 10px;
+-moz-border-radius: 10px;
+-webkit-border-radius: 10px;
+
 } 
 #navigation li a {
-display:block;
-width: 100%;
-color : white;
+ text-decoration: none;
+ text-transform:capitalize;
+ display:block;
+ width: 100%;
+ color : white;
+ text-indent: 25px;
+ font-size: 18px;
 }
+#navigation li a span {
+ float:right;
+ margin-right:20px;
+ margin-top:10px;
+ height: 9px;
+ width : 15px;
+ background-image: url("../images/white-arrow.png");
+ background-repeat: no-repeat;
+}
+
 
 #navigation .about {
  background-color: #bd2842;
+ 
 }
 
 #navigation .contact {
@@ -42,11 +68,11 @@ color : white;
 }
 
 
-
 #crazy-people{
-  width: 100%;	
+  width: 940px;	
   height: 540px;
   background-image: url("../images/desktop-crazy-people.jpg");
   background-repeat: no-repeat;
+  margin: 0 auto;
 }
 

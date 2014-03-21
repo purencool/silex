@@ -5,7 +5,6 @@ use Symfony\Component\Routing\RouteCollection;
 use Silex\Provider\FormServiceProvider;
 
 $app = new Silex\Application();
-
 //-- Telling Silex where the yaml settings file is kept
 $app->register(new DerAlex\Silex\YamlConfigServiceProvider(__DIR__ . '/../src/Resources/config/settings.yml'));
 $app['debug'] = $app['config']['debug'];
@@ -30,7 +29,7 @@ $app['routes'] = $app->extend('routes', function (RouteCollection $routes) use (
 
 $app->register(new FormServiceProvider());
 $app->register(new Silex\Provider\SessionServiceProvider());
-
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
+
 
 

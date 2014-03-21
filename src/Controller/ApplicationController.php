@@ -1,13 +1,32 @@
 <?php 
+/**
+ * Routes the trace path to the relavant pagess
+ *
+ * @package    Trace
+ * @category   Routing
+ * @author     Purencool Website Development
+ * @license    GPL3
+ */
 namespace Controller;
 
 use Silex\Application;
-
 //use Symfony\Component\HttpFoundation\Request;
 //use Symfony\Component\HttpFoundation\Response;
 
 class ApplicationController
 {
+   private function loginForm(Application $app)
+   {
+        $data = array();
+        $formBuilder = $app['form.factory']->createBuilder(new src\Forms\LoginForm() , $data);
+        $form = $formBuilder->getForm();
+        $form_view = $form->createView();
+        
+        return $param = array(
+           'form' => $form_view,  
+        );
+    }   
+    
     public function indexAction(Application $app)
     {
         return $app['twig']->render('index.html.twig');
@@ -20,14 +39,8 @@ class ApplicationController
 
     public function aboutAction(Application $app)
     {
-        $data = array();
-        $formBuilder = $app['form.factory']->createBuilder(new \Trace\LoginForm, $data);
-        $form = $formBuilder->getForm();
-        $form_view = $form->createView();
-        
-        $param = array(
-           'form' => $form_view,  
-        );
+        $param =$this->loginForm($app);
         return $app['twig']->render('about.html.twig',$param);
     }
+     
 }

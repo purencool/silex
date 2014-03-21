@@ -2,6 +2,7 @@
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Routing\Loader\YamlFileLoader as YamlRouting;
 use Symfony\Component\Routing\RouteCollection;
+use Silex\Provider\FormServiceProvider;
 
 $app = new Silex\Application();
 
@@ -20,7 +21,6 @@ $app['twig'] = $app->share($app->extend('twig', function($twig) use ($app){
 
 //-- Loading yaml url routes file is kept and then loading file 
 $app['routes'] = $app->extend('routes', function (RouteCollection $routes) use ($app) {
-
     $loader     = new YamlRouting(new FileLocator(__DIR__ . '/../src/Resources/config'));
     $collection = $loader->load('routes.yml');
     $routes->addCollection($collection);
@@ -28,6 +28,7 @@ $app['routes'] = $app->extend('routes', function (RouteCollection $routes) use (
     return $routes;
 });
 
+$app->register(new FormServiceProvider());
 $app->register(new Silex\Provider\SessionServiceProvider());
 
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());

@@ -11,7 +11,7 @@
  * @author     Purencool Website Development
  * @license    GPL3
  */
-namespace Forms\LoginForm;
+namespace Forms;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

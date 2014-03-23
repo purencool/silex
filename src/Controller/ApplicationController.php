@@ -18,7 +18,7 @@ class ApplicationController
    private function loginForm(Application $app)
    {
         $data = array();
-        $formBuilder = $app['form.factory']->createBuilder(new \src\Forms\LoginForm() , $data);
+        $formBuilder = $app['form.factory']->createBuilder(new Forms\LoginForm() , $data);
         $form = $formBuilder->getForm();
         $form_view = $form->createView();
         

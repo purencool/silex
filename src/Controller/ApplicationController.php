@@ -23,7 +23,7 @@ class ApplicationController
         $form_view = $form->createView();
         
         return $param = array(
-           'form' => $form_view,  
+           'login_form' => $form_view,  
         );
     }   
     
@@ -39,8 +39,8 @@ class ApplicationController
 
     public function aboutAction(Application $app)
     {
-        $param =$this->loginForm($app);
-        return $app['twig']->render('about.html.twig',$param);
+        $param = $this->loginForm($app);
+        return $app['twig']->render('about.html.twig', $param);
     }
      
 }

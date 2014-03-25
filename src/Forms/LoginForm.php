@@ -20,9 +20,8 @@ class LoginForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name');
-        $builder->add('email');
-        $builder->add('comments');
+        $builder->add('login', 'email');
+        $builder->add('password', 'password');
     }
 
     /**
@@ -30,7 +29,7 @@ class LoginForm extends AbstractType
      *
      * @return string The name of this type
      */
-    public function getName() 
+    public function getName()
     {
         return 'login_form';
     }

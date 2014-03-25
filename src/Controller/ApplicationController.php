@@ -21,20 +21,22 @@ class ApplicationController
         $formBuilder = $app['form.factory']->createBuilder(new \Forms\LoginForm() , $data);
         $form = $formBuilder->getForm();
         $form_view = $form->createView();
-        
+
         return $param = array(
-           'login_form' => $form_view,  
+           'login_form' => $form_view,
         );
-    }   
-    
+    }
+
     public function indexAction(Application $app)
     {
-        return $app['twig']->render('index.html.twig');
+        $param = $this->loginForm($app);
+        return $app['twig']->render('index.html.twig', $param);
     }
   
     public function contactAction(Application $app)
     {
-        return $app['twig']->render('contact.html.twig');
+        $param = $this->loginForm($app);
+        return $app['twig']->render('contact.html.twig', $param);
     }
 
     public function aboutAction(Application $app)

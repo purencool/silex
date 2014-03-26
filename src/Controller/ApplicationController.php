@@ -32,7 +32,7 @@ class ApplicationController
         $param = $this->loginForm($app);
         return $app['twig']->render('index.html.twig', $param);
     }
-  
+
     public function contactAction(Application $app)
     {
         $param = $this->loginForm($app);
@@ -44,5 +44,4 @@ class ApplicationController
         $param = $this->loginForm($app);
         return $app['twig']->render('about.html.twig', $param);
     }
-     
 }

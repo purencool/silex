@@ -1,6 +1,24 @@
 {% extends 'base.html.twig' %}
+{% set navigation_bar = [ ['about', 'about'],['contact', 'contact'] ] %}
+
 {% block body %}
-	<h1></h1>
-	{% block content %}
-	{% endblock %}
+  <h1 id="trace"><span>Trace</span></h1>
+  <ul id="login_form">
+    <li>
+      <span>Login</span>
+      <form action="#" method="posts">
+        {{ form_widget(login_form) }}
+        <input type="submit" value="login" />
+     </form>
+    </li>
+  </ul>
+  <ul id="navigation">
+  {% for item in navigation_bar %}
+    <li class="{{item[1]}}">
+      <a href="{{ app.url_generator.generate(item[0]) }}" >{{item[1]}} <span></span></a>
+    </li>
+  {% endfor %}
+  </ul>
+  {% block content %}
+  {% endblock %}
 {% endblock %}

@@ -1,0 +1,23 @@
+Options +FollowSymLinks +ExecCGI
+# This denies access to all yml files
+<Files ~ "\.ya?ml$">
+	Order allow,deny
+	Deny from all
+</Files>
+<IfModule mod_rewrite.c>
+    Options -MultiViews
+    RewriteEngine On
+
+    # Removes the need to see index.php in the url.
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ index.php [QSA,L]
+
+    # Silex .htacess does not always allow files like css and js to load from
+    # the root directory. The rule below says if the file can't be found request
+    # it from the root directory if the path to the file is correct it should 
+    # work.
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule . / [L]
+
+</IfModule>

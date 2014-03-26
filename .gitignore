@@ -16,3 +16,4 @@ app/config/parameters.yml
 composer.lock
 composer.phar
 .phpcomplete_extended/*
+/nbproject/private/

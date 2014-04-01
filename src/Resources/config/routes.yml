@@ -10,3 +10,7 @@ contact:
   path: /contact
   defaults: { _controller: 'Controller\ApplicationController::contactAction' }
 
+contact:
+  path: /user-panel
+  defaults: { _controller: 'Controller\ApplicationController::userPanelAction' }
+

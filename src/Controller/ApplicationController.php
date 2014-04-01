@@ -44,4 +44,8 @@ class ApplicationController
         $param = $this->loginForm($app);
         return $app['twig']->render('about.html.twig', $param);
     }
+    public function userPanelAction(Application $app)
+    {
+        return $app['twig']->render('user_panel.html.twig');
+    }
 }

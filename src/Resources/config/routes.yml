@@ -10,7 +10,11 @@ contact:
   path: /contact
   defaults: { _controller: 'Controller\ApplicationController::contactAction' }
 
-contact:
+user-panel:
   path: /user-panel
   defaults: { _controller: 'Controller\ApplicationController::userPanelAction' }
 
+
+get-todo-json:
+  path: /todo-json
+  defaults: { _controller: 'Controller\JsonController::getTodoJsonAction' }

@@ -68,7 +68,6 @@ class ApplicationController {
         $param = $this->loginForm($app);
         return $app['twig']->render('about.html.twig', $param);
     }
-
     /**
      *  User pannel action controller
      *  

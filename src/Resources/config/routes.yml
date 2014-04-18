@@ -2,19 +2,19 @@ index:
   path: /
   defaults: { _controller: 'Controller\ApplicationController::indexAction' }
 
-about:
-  path: /about
-  defaults: { _controller: 'Controller\ApplicationController::aboutAction' }
-
 contact:
-  path: /contact
+  path: /contact-us
   defaults: { _controller: 'Controller\ApplicationController::contactAction' }
 
-user-panel:
-  path: /user-panel
+user-panel: 
+  path: /user
   defaults: { _controller: 'Controller\ApplicationController::userPanelAction' }
 
 
 get-todo-json:
   path: /todo-json
   defaults: { _controller: 'Controller\JsonController::getTodoJsonAction' }
+
+about:
+  path: /about-us
+  defaults: { _controller: 'Controller\ApplicationController::aboutAction' }

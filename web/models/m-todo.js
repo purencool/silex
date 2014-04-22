@@ -18,25 +18,8 @@ toDo.models.toDoNote = Backbone.Model.extend({
 
 //-- create collections
 toDo.collections.toDoNotes = Backbone.Collection.extend({
-    initialize: function() {
-        this.on('all', function(e) {
-            console.log(JSON.stringify(this, null, 2) + " event: " + e);
-        });
-    },
     model: toDo.models.toDoNote, // creates model
-    url: "/todo-json"
+    url: "/todo-json",
+    initialize: function() {
+    }
 });
-
-toDo.views.toDoNoteView = Backbone.View.extend({
-  initialize : function() {
-    console.log("This is  the view");
-     this.render();
-  },
-  render:function() {
-    this.$el.html("<div>Testing to see if this will work</div>");
-    return this;
-  }   
-});
-    var toDoNotes = new toDo.collections.toDoNotes;
-    toDoNotes.fetch();
-    var sx = new toDo.views.toDoNoteView;

@@ -1,0 +1,9 @@
+#!/bin/bash
+# Configuration file
+
+###
+#  Global System paths
+###
+DRUSHPATH='/usr/bin';
+DIRPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+WEBSITESPATH="/var/www/html/purencool_build_tools/test_sites";

@@ -1,0 +1,27 @@
+#!/bin/bash
+#This script is designed install websites from git purencool.com
+
+#Get new sitename
+SITENAME=$1;
+USERNAME=$2;
+PASSWORD=$3;
+SITEPATH=$4;
+
+DIRPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+DATE=`date +%Y-%m-%d-%H-%M-%S`
+
+#$SITENAME $DATABASEUSER $DATABASEPASSWORD $SITEPATHBUILD
+#USERNAME='root'
+#PASSWORD='qzxcvbnm'
+#SITENAME='purencooltests12345';
+#SITEPATH='/var/www/html/test/purencooltests12345/databases/production/';
+
+cd $SITEPATH;
+
+/usr/bin/mysqldump -u $USERNAME -p"$PASSWORD" $SITENAME | gzip > "$SITEPATH$DATE-$SITENAME.sql"
+echo $SITEPATH$DATE-$SITENAME.sql;
+echo $SITEPATH$DATE-$SITENAME.sql.gz;
+gzip -c "$SITEPATH$DATE-$SITENAME.sql" > "$SITEPATH$DATE-$SITENAME.sql.gz"
+#drush sql-dump > $DATE-$SITENAME.sql
+#echo "mysqldump -u $USERNAME -p$PASSWORD $SITENAME | gzip > '$SITEPATH$DATE-$SITENAME.sql'"
+cd $DIRPATH;

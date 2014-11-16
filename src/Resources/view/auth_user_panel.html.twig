@@ -1,0 +1,14 @@
+{# user_panel page template #}
+{% extends 'authenticated_user/layout.html.twig' %}
+{% import "modules/macro.html.twig" as macros %}
+
+{% block content %}
+    <div id="wrapper">
+        <h3>To Do List</h3>
+        <div class="to-do-list">
+            <div id="page">
+            </div>
+        </div>
+        <div id="list-todo"></div>
+    </div>
+{% endblock %}

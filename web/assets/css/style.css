@@ -75,4 +75,6 @@ body {
   background-repeat: no-repeat;
   margin: 0 auto;
 }
-
+.hideElement {
+  display: none;
+}

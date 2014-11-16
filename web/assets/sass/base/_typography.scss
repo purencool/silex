@@ -1,0 +1,70 @@
+//-- Links
+body {
+  font-family: $baseFontFamily;
+  font-size: $baseFontSize;
+  line-height: $baseLineHeight;
+  color: $textColor;
+  background: $bodyBackground;
+}
+
+a {  @include link-colors($aNormal,$aHover,$aActive,$aVisited,$aFocus);}
+
+//-- Default comment out if not going to use it
+//*
+h1, h2, h3, h4, h5, h6 {
+  color:$h1Normal;
+  font-size:25px;
+  a {  @include link-colors($h1Normal,$h1Hover,$h1Active,$h1Visited,$h1Focus);}
+}
+//*/
+
+/*
+h1 {
+  color:$h1Normal;
+  a {  @include link-colors($h1Normal,$h1Hover,$h1Active,$h1Visited,$h1Focus);}
+}
+//*/
+
+/*
+h2 {
+  color:$h2Normal;
+  a {  @include link-colors($h2Normal,$h2Hover,$h2Active,$h2Visited,$h2Focus);}
+}
+//*/
+
+/*
+h3 {
+  color:$h3Normal;
+  a {  @include link-colors($h3Normal,$h3Hover,$h3Active,$h3Visited,$h3Focus);}
+}
+//*/
+
+/*
+h4 {
+  color:$h4Normal;
+  a {  @include link-colors($h4Normal,$h4Hover,$h4Active,$h4Visited,$h4Focus);}
+}
+//*/
+
+/*
+h5 {
+  color:$h5Normal;
+  a {  @include link-colors($h5Normal,$h5Hover,$h5Active,$h5Visited,$h5Focus);}
+}
+//*/
+
+/*
+h6 {
+  color:$h6Normal;
+  a {  @include link-colors($h6Normal,$h6Hover,$h6Active,$h6Visited,$h6Focus);}
+}
+//*/
+
+ul {
+  li {a{}}
+}
+
+lo {
+  li {a{}}
+}
+p{}

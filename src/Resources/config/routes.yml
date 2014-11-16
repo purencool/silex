@@ -6,11 +6,9 @@ contact:
   path: /contact-us
   defaults: { _controller: 'Controller\ApplicationController::contactAction' }
 
-<<<<<<< HEAD
 user-panel:
   path: /user
   defaults: { _controller: 'Controller\ApplicationController::userPanelAction' }
-
 
 get-todo-json:
   path: /todo-json
@@ -23,9 +21,3 @@ about:
 build-new-website:
   path: /build-new-website
   defaults: { _controller: 'Controller\ApplicationController::aboutAction' }
-=======
-contact:
-  path: /user-panel
-  defaults: { _controller: 'Controller\ApplicationController::userPanelAction' }
-
->>>>>>> 9e7360692498ae6e8a11e5ca18bba3b4c2d85bbb

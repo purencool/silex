@@ -40,20 +40,31 @@ $DRUSHPATH/drush dis -y toolbar
 ##
 # Structure
 ##
-
 $DRUSHPATH/drush en -y features
 $DRUSHPATH/drush en -y views
 $DRUSHPATH/drush en -y views_ui
+
+
+$DRUSHPATH/drush en -y bean
+$DRUSHPATH/drush en -y bean_admin_ui
+$DRUSHPATH/drush en -y bean_all
+$DRUSHPATH/drush en -y bean_uuid
+
+
+$DRUSHPATH/drush en -y ds
+$DRUSHPATH/drush en -y ds_devel
+$DRUSHPATH/drush en -y ds_extras
+$DRUSHPATH/drush en -y ds_extra_layouts
+$DRUSHPATH/drush en -y ds_forms
+$DRUSHPATH/drush en -y ds_search
+$DRUSHPATH/drush en -y ds_ui
 
 
 ##
 # System
 ##
 $DRUSHPATH/drush en -y backup_migrate
-$DRUSHPATH/drush en -y bean
-$DRUSHPATH/drush en -y bean_admin_ui
-$DRUSHPATH/drush en -y bean_all
-$DRUSHPATH/drush en -y bean_uuid
+
 
 
 ##

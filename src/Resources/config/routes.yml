@@ -20,4 +20,4 @@ about:
 
 build-new-website:
   path: /build-new-website
-  defaults: { _controller: 'Controller\ApplicationController::aboutAction' }
+  defaults: { _controller: 'Controller\ApplicationController::authBuildNewWebsite' }

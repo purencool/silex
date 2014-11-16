@@ -71,16 +71,20 @@ class ApplicationController {
     {
         $param = $this->loginForm($app);
         return $app['twig']->render('about.html.twig', $param);
+
     }
+
     /**
-     *  User pannel action controller
+     *  Create an new website action controller
      *
      *  @param array $app application container
      *  @return array for twig templating file
      *
      */
-    public function userPanelAction(Application $app)
+    public function authBuildNewWebsite(Application $app)
     {
-        return $app['twig']->render('user_panel.html.twig');
+        $param = $this->loginForm($app);
+        return $app['twig']->render('auth_build_new_website.html.twig');
     }
+
 }

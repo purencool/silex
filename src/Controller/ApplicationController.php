@@ -68,6 +68,7 @@ class ApplicationController {
         $param = $this->loginForm($app);
         return $app['twig']->render('about.html.twig', $param);
     }
+<<<<<<< HEAD
     /**
      *  User pannel action controller
      *  
@@ -76,6 +77,10 @@ class ApplicationController {
      *  
      */
     public function userPanelAction(Application $app) {
+=======
+    public function userPanelAction(Application $app)
+    {
+>>>>>>> 9e7360692498ae6e8a11e5ca18bba3b4c2d85bbb
         return $app['twig']->render('user_panel.html.twig');
     }
 }

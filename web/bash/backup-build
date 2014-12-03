@@ -10,12 +10,7 @@ SITEBACKUP=$3;
 DIRPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 DATE=`date +%Y-%m-%d-%H-%M-%S`
 
-#SITEPATH='/var/www/html/test/purencooltests1234567891011121314/build';
-#SITEBACKUP='/var/www/html/test/purencooltests1234567891011121314/backup-build/';
-
 cd $SITEBACKUP;
-#zip -r $SITEBACKUP$DATE-$SITENAME.zip $SITEPATH
-#-x *.git* *./sites/default*
 echo $SITEPATH
 echo $SITEBACKUP$DATE-$SITENAME.tar.gz
 tar -zcvf $DATE-$SITENAME.tar.gz  --exclude='.git' --exclude='sites/default' -C $SITEPATH .

@@ -23,10 +23,20 @@ $DRUSHPATH/drush site-install -y $WEBSITETYPE --site-name=$SITENAME --account-na
 
 
 ##
+# System
+##
+$DRUSHPATH/drush vset -y file_public_path sites/default/files/public
+$DRUSHPATH/drush vset -y file_private_path sites/default/files/private
+$DRUSHPATH/drush vset -y file_temporary_path sites/default/files/tmp
+$DRUSHPATH/drush en -y backup_migrate
+
+
+##
 # Development
 ##
 $DRUSHPATH/drush en -y admin_menu
 $DRUSHPATH/drush en -y coffee
+$DRUSHPATH/drush en -y ds_devel
 $DRUSHPATH/drush en -y module_filter
 
 
@@ -38,21 +48,34 @@ $DRUSHPATH/drush dis -y toolbar
 
 
 ##
+# Theme and design
+##
+$DRUSHPATH/drush en -y ckeditor
+$DRUSHPATH/drush en -y pncmbtheme
+$DRUSHPATH/drush en -y mobile_navigation
+$DRUSHPATH/drush vset  theme_default pncmbtheme
+
+
+##
+# Social buttons
+##
+#$DRUSHPATH/drush en -y socialmedia
+#$DRUSHPATH/drush en -y widgets
+
+
+
+##
 # Structure
 ##
 $DRUSHPATH/drush en -y features
 $DRUSHPATH/drush en -y views
 $DRUSHPATH/drush en -y views_ui
-
-
 $DRUSHPATH/drush en -y bean
 $DRUSHPATH/drush en -y bean_admin_ui
-$DRUSHPATH/drush en -y bean_all
+# @todo This takes over the whole block system
+#$DRUSHPATH/drush en -y bean_all
 $DRUSHPATH/drush en -y bean_uuid
-
-
 $DRUSHPATH/drush en -y ds
-$DRUSHPATH/drush en -y ds_devel
 $DRUSHPATH/drush en -y ds_extras
 $DRUSHPATH/drush en -y ds_extra_layouts
 $DRUSHPATH/drush en -y ds_forms
@@ -60,19 +83,10 @@ $DRUSHPATH/drush en -y ds_search
 $DRUSHPATH/drush en -y ds_ui
 
 
-##
-# System
-##
-$DRUSHPATH/drush en -y backup_migrate
-
-
 
 ##
-# Theme and design
+# Purencool Modules
 ##
-$DRUSHPATH/drush en -y ckeditor
-$DRUSHPATH/drush en -y pncmbtheme
-$DRUSHPATH/drush vset theme_default pncmbtheme
-
+$DRUSHPATH/drush en -y pncextras
 
 cd $DIRPATH;

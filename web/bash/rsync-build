@@ -1,0 +1,28 @@
+#!/bin/bash
+# Directory Path
+
+##
+# Build System
+##
+systemDir=$(dirname $(readlink -f $0))
+source "$systemDir/config"
+
+
+SYNCFROMPATH=$1;
+SYNCTOPATH=$2;
+EXCLUDEFILE=$3;
+#FLAGS=$4;
+
+FLAGS="rtv";
+
+
+if [ ! -d "$SYNCTOPATH" ]; then
+  mkdir $SYNCTOPATH;
+fi
+
+if [ -a "$EXCLUDEFILE" ]; then
+  $RSYNC/rsync -$FLAGS  --exclude-from=$EXCLUDEFILE $SYNCFROMPATH/ $SYNCTOPATH/
+else
+  $RSYNC/rsync -$FLAGS  $SYNCFROMPATH/ $SYNCTOPATH/
+fi
+cd $DIRPATH;

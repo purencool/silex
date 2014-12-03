@@ -13,8 +13,7 @@ SITEPATH=$1;
 
 cd $SITEPATH;
 ##
-# Finds all modules that are not installed
+# @todo need to test this to see if it works
 ##
-$DRUSHPATH/drush pm-list --no-core --pipe --type=module --status='not installed' | awk '{print "\x27" $1 "\x27" }'
-
+$DRUSHPATH/drush pml --no-core --type=module --status=enabled --pipe | xargs drush -y dis
 cd $DIRPATH;

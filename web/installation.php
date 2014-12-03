@@ -1,4 +1,5 @@
 <?php
+   //$websiteDetails = array('name'=>'a_theme_build');
    $websiteDetails = array('name'=>'purencooltests');
    $buildToolsPath = "./bash/";
    $buildBashPath = $buildToolsPath.'build '.$websiteDetails['name'];
@@ -104,10 +105,10 @@
     exec($gitInit, $gitInitOutput, $gitInitReturn);
     print_r($gitInitOutput);
 
-    $gitAdd = "cd $SITEPATH && git add .";
-    print $gitAdd.'<br/>';
-    exec($gitAdd, $gitAddOutput, $gitAddReturn);
-    print_r($gitAddOutput);
+    //$gitAdd = "cd $SITEPATH && git add .";
+    //print $gitAdd.'<br/>';
+    //exec($gitAdd, $gitAddOutput, $gitAddReturn);
+    //print_r($gitAddOutput);
 
     //--- not working
     //$gitCommit = "cd $SITEPATH && git commit -m 'Inital Commit'";

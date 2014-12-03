@@ -16,13 +16,14 @@ namespace Forms;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class LoginForm extends AbstractType
+
+class BuildAWebsite extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('login', 'email');
-        $builder->add('password', 'password');
-      
+        $builder->add('email', 'email');
+        $builder->add('password', 'text', array( 'label'  => 'Password') );
+        $builder->add('url', 'text', array( 'label'  => 'Website name') );
     }
 
     /**
@@ -32,7 +33,7 @@ class LoginForm extends AbstractType
      */
     public function getName()
     {
-        return 'login_form';
+        return 'new_site';
     }
 
 }

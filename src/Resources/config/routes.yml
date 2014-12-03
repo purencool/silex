@@ -18,6 +18,10 @@ about:
   path: /about-us
   defaults: { _controller: 'Controller\ApplicationController::aboutAction' }
 
-build-new-website:
-  path: /build-new-website
+new-website:
+  path: /new-website
   defaults: { _controller: 'Controller\ApplicationController::authBuildNewWebsite' }
+
+process-new-website:
+  path: /new-website/{slug}
+  defaults: { _controller: 'Controller\ApplicationController::authProcessNewWebsite' }

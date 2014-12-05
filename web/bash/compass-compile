@@ -3,14 +3,16 @@
 systemDir=$(dirname $(readlink -f $0))
 source "$systemDir/config"
 
-SITEPATH=$1;
-cd $SITEPATH;
+THEMEPATH=$1;
+
+cd $THEMEPATH;
 compass compile
 ##
 # Refresh browser
 ##
+sleep 1
 currentwindow=`xdotool getwindowfocus`
-id=`xdotool search --name -- '- Google Chrome' windowactivate key --window 0 --clearmodifiers ctrl+r`
+id=`xdotool search --name -- "$BROWSERWINDOW" windowactivate key --window 0 --clearmodifiers ctrl+r`
 xdotool windowmap $id&>/dev/null;
 xdotool windowmap $currentwindow;
 xdotool windowactivate $currentwindow;

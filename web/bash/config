@@ -8,3 +8,4 @@ DRUSHPATH='/usr/bin';
 RSYNC='/usr/bin';
 DIRPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 WEBSITESPATH="/var/www/html/purencool_build_tools/test_sites";
+BROWSERWINDOW='- Google Chrome';

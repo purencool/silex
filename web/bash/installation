@@ -39,7 +39,6 @@ $DRUSHPATH/drush en -y coffee
 $DRUSHPATH/drush en -y ds_devel
 $DRUSHPATH/drush en -y module_filter
 
-
 ##
 # Disable modules
 ##
@@ -52,8 +51,15 @@ $DRUSHPATH/drush dis -y toolbar
 ##
 $DRUSHPATH/drush en -y ckeditor
 $DRUSHPATH/drush en -y pncmbtheme
+$DRUSHPATH/drush en -y jquery_update
 $DRUSHPATH/drush en -y mobile_navigation
 $DRUSHPATH/drush vset  theme_default pncmbtheme
+
+
+##
+# Content management
+##
+$DRUSHPATH/drush en -y insert
 
 
 ##

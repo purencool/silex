@@ -20,8 +20,8 @@ about:
 
 new-website:
   path: /new-website
-  defaults: { _controller: 'Controller\ApplicationController::authBuildNewWebsite' }
+  defaults: { _controller: 'Controller\BuildAWebsiteController::authBuildNewWebsite' }
 
 process-new-website:
   path: /new-website/{slug}
-  defaults: { _controller: 'Controller\ApplicationController::authProcessNewWebsite' }
+  defaults: { _controller: 'Controller\BuildAWebsiteController::authProcessNewWebsite' }

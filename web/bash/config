@@ -7,7 +7,7 @@
 DRUSHPATH='/usr/bin';
 RSYNC='/usr/bin';
 DIRPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-WEBSITESPATH="/var/www/html/purencool_build_tools/test_sites";
+WEBSITESPATH="";
 BROWSERWINDOW='- Google Chrome';
 MD5='md5sum'; #'md5sum' for linux  #'md5'; for mac
 WATCHSLEEP='2';

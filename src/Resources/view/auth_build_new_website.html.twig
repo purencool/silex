@@ -10,10 +10,15 @@
             <li>
               <span>build a website</span>
               <form action="/new-website" method="posts">
-                {{ form_widget(build_a_website) }}
+                {{ form_widget(new_website_form.build_a_website) }}
                 <input type="submit" value="login" />
              </form>
             </li>
+          </ul>
+          <ul>
+            {% for new_website_objs in new_website_obj %}
+              <li>{{ new_website_objs }}</li>
+            {% endfor %}
           </ul>
         </div>
     </div>

@@ -6,7 +6,7 @@ use Symfony\Component\Routing\RouteCollection;
 
 $app = new Silex\Application();
 
-//-- Register form creation service 
+//-- Register form creation service
 $app->register(new Silex\Provider\FormServiceProvider());
 
 //-- Translation Service Provider is needed by the Form service provider
@@ -18,7 +18,7 @@ $app['debug'] = $app['config']['debug'];
 
 //-- Load twig and giving silex path to the twig files
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
-        'twig.path' => __DIR__.'/../src/Resources/view/',
+      'twig.path' => __DIR__.'/../src/Resources/view/',
 ));
 
 //--
@@ -26,7 +26,7 @@ $app['twig'] = $app->share($app->extend('twig', function($twig) use ($app){
     return $twig;
 }));
 
-//-- Loading yaml url routes file is kept and then loading file 
+//-- Loading yaml url routes file is kept and then loading file
 $app['routes'] = $app->extend('routes', function (RouteCollection $routes) use ($app) {
     $loader     = new YamlRouting(new FileLocator(__DIR__ . '/../src/Resources/config'));
     $collection = $loader->load('routes.yml');
@@ -36,8 +36,15 @@ $app['routes'] = $app->extend('routes', function (RouteCollection $routes) use (
 });
 
 
+//-- Config Class
+$app['twig.config'] = $app->share(function() {
+  return new AppConfig();
+});
+
+
+
+
+
+
 $app->register(new Silex\Provider\SessionServiceProvider());
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
-
-
-

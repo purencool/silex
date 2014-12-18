@@ -1,5 +1,7 @@
 <?php
+
    //$websiteDetails = array('name'=>'a_theme_build');
+   /*
    $websiteDetails = array('name'=>'purencooltests');
    $buildToolsPath = "./bash/";
    $buildBashPath = $buildToolsPath.'build '.$websiteDetails['name'];
@@ -15,6 +17,7 @@
    /**
    * Making sure the installation is complete
    */
+  /*
   $filename = $buildOutput[2].'/sites/all/themes/mothership/README.txt';
    print "<br/>".$filename."<br/>";
    //while (!file_exists($filename)) sleep(1);
@@ -26,11 +29,11 @@
      $SITENAME =  end($siteNameAvailable);
      $USER='admin';
      $PASSWORD='q';
-     $DATABASEUSER='root';
-     $DATABASEPASSWORD='qzxcvbnm';
+     $DATABASEUSER='';
+     $DATABASEPASSWORD='';
      $SITEPATH=$buildOutput[2].'/';
      $SITEPATHBUILD=$buildOutput[1].'/';
-     $EMAIL='purencool@gmail.com';
+     $EMAIL='';
 
 
      $createFilesDir = $SITEPATH.'sites/default/files';
@@ -93,7 +96,7 @@
      </VirtualHost>
      ";
     file_put_contents($apacheHostFile, $apacheHostData, FILE_APPEND | LOCK_EX);
-
+*/
 
     print "<h1>Creating Git Repo</h1>";
     $git = 'rm -Rf '.$SITEPATH.'.git';
@@ -116,7 +119,7 @@
     //exec($gitCommit, $gitCommitOutput, $gitCommitReturn);
     //print_r($gitCommitOutput);
 
-
+/*
     print "<h1>Creating first backup</h1>";
     chmod($SITEPATHBUILD.'databases',0775);
     chmod($SITEPATHBUILD.'databases/production', 0777);
@@ -137,7 +140,7 @@
     print_r($backupBuildOutput);
     chmod($backupBuildOutput[1], 0775);
 
-
+*/
 
     print "<h1>Set final permissons</h1>";
     $permissions = "chown -Rf work:www-data  ".$SITEPATHBUILD;

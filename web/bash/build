@@ -8,7 +8,9 @@
 systemDir=$(dirname $(readlink -f $0))
 source "$systemDir/config"
 
-MKNEWDIR=$1;
+
+WEBSITESPATH=$1;
+MKNEWDIR=$2;
 DIRECTORY=$WEBSITESPATH/$MKNEWDIR;
 DRUSHMAKEFILE='.makefile';
 

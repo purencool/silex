@@ -154,7 +154,7 @@
     exec($uninstalledModules,$uninstalledModulesOutput, $uninstalledModulesReturn);
     print_r($uninstalledModulesOutput);
 
-   } else {
-     echo "won't be install it soon<br/>";
-   }
+   //} else {
+  //   echo "won't be install it soon<br/>";
+   //}
  ?>

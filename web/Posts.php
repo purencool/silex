@@ -37,7 +37,7 @@ $app['routes'] = $app->extend('routes', function (RouteCollection $routes) use (
 
 
 //-- Config Class
-$app['twig.config'] = $app->share(function() {
+$app['trace.config'] = $app->share(function() {
   return new AppConfig();
 });
 

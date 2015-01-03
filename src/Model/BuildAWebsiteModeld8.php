@@ -43,19 +43,19 @@ class BuildAWebsiteModeld8
 
   public function buildWebsiteStructure()
   {
-    //$bashBuildScript = $this->app['twig.config']->bashDirectory."/build";
+    //$bashBuildScript = $this->app['trace.config']->bashDirectory."/build";
     //$this->feedBack[] = $bashBuildScript;
-    //$siteDirectory =  $this->app['twig.config']->siteName;
+    //$siteDirectory =  $this->app['trace.config']->siteName;
     //$this->feedBack[] = $siteDirectory;
-    //$websitesPathDirectory =  $this->app['twig.config']->websitesDirectory;
+    //$websitesPathDirectory =  $this->app['trace.config']->websitesDirectory;
     //$this->feedBack[] = $websitesPathDirectory;
     //$buildBashPath = $bashBuildScript.' '.$websitesPathDirectory.' '.$siteDirectory;
     //$this->feedBack[] = $buildBashPath;
     $this->feedBack[] = "<span>Creating website stucture</span>";
 
-    $buildBashPath = $this->app['twig.config']->bashDirectory."/buildd8"
-    .' '.$this->app['twig.config']->websitesDirectory
-    .' '.$this->app['twig.config']->siteName;
+    $buildBashPath = $this->app['trace.config']->bashDirectory."/buildd8"
+    .' '.$this->app['trace.config']->websitesDirectory
+    .' '.$this->app['trace.config']->siteName;
 
     $buildEsc   =  escapeshellcmd($buildBashPath);
     exec($buildEsc,$buildOutput, $buildReturn);
@@ -133,19 +133,19 @@ class BuildAWebsiteModeld8
   public function websiteInstallation()
   {
 
-    $ENDURL = $this->app['twig.config']->endUrl;
-    $WEBSITETYPE = $this->app['twig.config']->websiteType;
+    $ENDURL = $this->app['trace.config']->endUrl;
+    $WEBSITETYPE = $this->app['trace.config']->websiteType;
     $SITENAME =  $this->newWebsiteName;
-    $USER = $this->app['twig.config']->siteUser;
-    $PASSWORD = $this->app['twig.config']->sitePassword;
-    $DATABASEUSER = $this->app['twig.config']->databaseUser;
-    $DATABASEPASSWORD = $this->app['twig.config']->databasePassword;
+    $USER = $this->app['trace.config']->siteUser;
+    $PASSWORD = $this->app['trace.config']->sitePassword;
+    $DATABASEUSER = $this->app['trace.config']->databaseUser;
+    $DATABASEPASSWORD = $this->app['trace.config']->databasePassword;
     $SITEPATHBUILD = $this->sitePathBuildDirectory.'/';
     $SITEPATH = $this->sitePathDirectory.'/';
-    $EMAIL= $this->app['twig.config']->siteEmail;
+    $EMAIL= $this->app['trace.config']->siteEmail;
 
 
-    $siteInstallation = $this->app['twig.config']->bashDirectory."/installation-drupal-eight $WEBSITETYPE $SITENAME $USER $PASSWORD $DATABASEUSER $DATABASEPASSWORD $SITEPATHBUILD $EMAIL";
+    $siteInstallation = $this->app['trace.config']->bashDirectory."/installation-drupal-eight $WEBSITETYPE $SITENAME $USER $PASSWORD $DATABASEUSER $DATABASEPASSWORD $SITEPATHBUILD $EMAIL";
     $installationEsc   =  escapeshellcmd($siteInstallation);
     exec($installationEsc,$installOutput, $installReturn);
 
@@ -158,7 +158,7 @@ class BuildAWebsiteModeld8
   public function websiteHostFile()
   {
 
-    $ENDURL = $this->app['twig.config']->endUrl;
+    $ENDURL = $this->app['trace.config']->endUrl;
     $SITENAME =  $this->newWebsiteName;
     $SITEPATH = $this->sitePathDirectory.'/';
     $newHostName =  $SITENAME.'.'.$ENDURL.PHP_EOL;
@@ -169,16 +169,16 @@ class BuildAWebsiteModeld8
 
   public function websiteSettingsFile()
   {
-    $ENDURL = $this->app['twig.config']->endUrl;
-    $WEBSITETYPE = $this->app['twig.config']->websiteType;
+    $ENDURL = $this->app['trace.config']->endUrl;
+    $WEBSITETYPE = $this->app['trace.config']->websiteType;
     $SITENAME =  $this->newWebsiteName;
-    $USER = $this->app['twig.config']->siteUser;
-    $PASSWORD = $this->app['twig.config']->sitePassword;
-    $DATABASEUSER = $this->app['twig.config']->databaseUser;
-    $DATABASEPASSWORD = $this->app['twig.config']->databasePassword;
+    $USER = $this->app['trace.config']->siteUser;
+    $PASSWORD = $this->app['trace.config']->sitePassword;
+    $DATABASEUSER = $this->app['trace.config']->databaseUser;
+    $DATABASEPASSWORD = $this->app['trace.config']->databasePassword;
     $SITEPATHBUILD = $this->sitePathBuildDirectory.'/';
     $SITEPATH = $this->sitePathDirectory.'/';
-    $EMAIL= $this->app['twig.config']->siteEmail;
+    $EMAIL= $this->app['trace.config']->siteEmail;
 
     $newConfigName =  $SITENAME.'.php';
     $newConfigData =  "<?php
@@ -198,16 +198,16 @@ class BuildAWebsiteModeld8
 
   public function websiteVHostFile()
   {
-    $ENDURL = $this->app['twig.config']->endUrl;
-    $WEBSITETYPE = $this->app['twig.config']->websiteType;
+    $ENDURL = $this->app['trace.config']->endUrl;
+    $WEBSITETYPE = $this->app['trace.config']->websiteType;
     $SITENAME =  $this->newWebsiteName;
-    $USER = $this->app['twig.config']->siteUser;
-    $PASSWORD = $this->app['twig.config']->sitePassword;
-    $DATABASEUSER = $this->app['twig.config']->databaseUser;
-    $DATABASEPASSWORD = $this->app['twig.config']->databasePassword;
+    $USER = $this->app['trace.config']->siteUser;
+    $PASSWORD = $this->app['trace.config']->sitePassword;
+    $DATABASEUSER = $this->app['trace.config']->databaseUser;
+    $DATABASEPASSWORD = $this->app['trace.config']->databasePassword;
     $SITEPATHBUILD = $this->sitePathBuildDirectory.'/';
     $SITEPATH = $this->sitePathDirectory.'/';
-    $EMAIL= $this->app['twig.config']->siteEmail;
+    $EMAIL= $this->app['trace.config']->siteEmail;
 
     $apacheHostFile = $SITEPATH.$SITENAME.'.'.$ENDURL.'.conf';
     $apacheHostData ="
@@ -232,16 +232,16 @@ class BuildAWebsiteModeld8
 
   public function websiteBackup()
   {
-    $ENDURL = $this->app['twig.config']->endUrl;
-    $WEBSITETYPE = $this->app['twig.config']->websiteType;
+    $ENDURL = $this->app['trace.config']->endUrl;
+    $WEBSITETYPE = $this->app['trace.config']->websiteType;
     $SITENAME =  $this->newWebsiteName;
-    $USER = $this->app['twig.config']->siteUser;
-    $PASSWORD = $this->app['twig.config']->sitePassword;
-    $DATABASEUSER = $this->app['twig.config']->databaseUser;
-    $DATABASEPASSWORD = $this->app['twig.config']->databasePassword;
+    $USER = $this->app['trace.config']->siteUser;
+    $PASSWORD = $this->app['trace.config']->sitePassword;
+    $DATABASEUSER = $this->app['trace.config']->databaseUser;
+    $DATABASEPASSWORD = $this->app['trace.config']->databasePassword;
     $SITEPATHBUILD = $this->sitePathBuildDirectory.'/';
     $SITEPATH = $this->sitePathDirectory.'/';
-    $EMAIL= $this->app['twig.config']->siteEmail;
+    $EMAIL= $this->app['trace.config']->siteEmail;
 
 
     chmod($SITEPATH.'databases',0775);
@@ -250,7 +250,7 @@ class BuildAWebsiteModeld8
     chmod($SITEPATH.'backup-build', 0777);
 
 
-    $firstBackup = $this->app['twig.config']->bashDirectory."/dev/backup $SITENAME $DATABASEUSER $DATABASEPASSWORD  ".$SITEPATH."databases/production/";
+    $firstBackup = $this->app['trace.config']->bashDirectory."/dev/backup $SITENAME $DATABASEUSER $DATABASEPASSWORD  ".$SITEPATH."databases/production/";
     exec($firstBackup, $backupOutput, $backupReturn);
     foreach($backupOutput as $backupOutputVal){
       $this->feedBack[] = $backupOutputVal;
@@ -260,7 +260,7 @@ class BuildAWebsiteModeld8
 
 
 
-    $firstBuildBackup = $this->app['twig.config']->bashDirectory."/backup-build $SITENAME $SITEPATHBUILD ".$SITEPATH."backup-build/";
+    $firstBuildBackup = $this->app['trace.config']->bashDirectory."/backup-build $SITENAME $SITEPATHBUILD ".$SITEPATH."backup-build/";
     exec($firstBuildBackup, $backupBuildOutput, $backupBuildReturn);
     foreach($backupBuildOutput as $backupBuildOutputVal){
       $this->feedBack[] = $backupBuildOutputVal;

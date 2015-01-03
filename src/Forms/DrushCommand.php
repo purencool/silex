@@ -20,10 +20,27 @@ use Symfony\Component\Form\FormBuilderInterface;
 class DrushCommand extends AbstractType
 {
 
+ private $choices = array(
+  'build.choices' => array('none' => 'Error builds have not been set'),
+  'build.prefer' => array('none')
+ );
+
+
+ public function __construct(array $choices = array()) {
+
+  if(!empty($choices)) {
+   $this->choices = $choices;
+  }
+ }
 
  public function buildForm(FormBuilderInterface $builder, array $options)
  {
-  $builder->add('drush', 'text', array( 'label'  => 'Drush command') );
+
+  $builder->add('managed_website', 'choice', array(
+   'choices' =>$this->choices['build.choices'],
+   'preferred_choices' => $this->choices['build.prefer'] ,
+  ));
+  $builder->add('drush', 'text', array( 'label'  => 'drush command') );
  }
 
 

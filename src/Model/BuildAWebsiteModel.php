@@ -103,6 +103,14 @@ class BuildAWebsiteModel
     mkdir($createFilesDir, 0777);
     chmod($createFilesDir, 0775);
 
+    $createFilesDir = $this->sitePathBuildDirectory.'/sites/default/files/tmp';
+    mkdir($createFilesDir, 0777);
+    chmod($createFilesDir, 0775);
+
+    $createFilesDir = $this->sitePathBuildDirectory.'/sites/default/files/private';
+    mkdir($createFilesDir, 0777);
+    chmod($createFilesDir, 0775);
+
 
     $settings = $this->sitePathBuildDirectory.'/sites/default/settings.php';
     $settingsDefault = $this->sitePathBuildDirectory.'/sites/default/default.settings.php';

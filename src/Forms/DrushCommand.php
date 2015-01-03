@@ -16,15 +16,17 @@ namespace Forms;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class LoginForm extends AbstractType
+
+class DrushCommand extends AbstractType
 {
+
+
  public function buildForm(FormBuilderInterface $builder, array $options)
  {
-  $builder->add('login', 'email');
-  $builder->add('password', 'password');
-
+  $builder->add('drush', 'text', array( 'label'  => 'Drush command') );
  }
- 
+
+
  /**
  * Returns the name of this type.
  *
@@ -32,7 +34,6 @@ class LoginForm extends AbstractType
  */
  public function getName()
  {
-  return 'login_form';
+  return 'drush_command';
  }
-
 }

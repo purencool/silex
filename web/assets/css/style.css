@@ -33,7 +33,7 @@ body {
 -moz-border-radius: 10px;
 -webkit-border-radius: 10px;
 
-} 
+}
 #navigation li a {
  text-decoration: none;
  text-transform:capitalize;
@@ -56,7 +56,7 @@ body {
 
 #navigation .about {
  background-color: #bd2842;
- 
+
 }
 
 #navigation .contact {
@@ -69,7 +69,7 @@ body {
 
 
 #crazy-people{
-  width: 940px;	
+  width: 940px;
   height: 540px;
   background-image: url("../images/desktop-crazy-people.jpg");
   background-repeat: no-repeat;
@@ -77,4 +77,9 @@ body {
 }
 .hideElement {
   display: none;
+}
+
+.iframe-holder{
+  width: 99.8%;
+  height: 700px;
 }

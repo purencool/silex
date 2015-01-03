@@ -18,6 +18,10 @@ about:
   path: /about-us
   defaults: { _controller: 'Controller\ApplicationController::aboutAction' }
 
+drush:
+  path: /drush
+  defaults: { _controller: 'Controller\DrushController::drushAction' }
+
 new-website:
   path: /new-website
   defaults: { _controller: 'Controller\BuildAWebsiteController::authBuildNewWebsite' }

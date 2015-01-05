@@ -1,15 +1,12 @@
 <?php
 /**
- * The trace login form allows a user to access the backend
- * of the project to administer the sites needs. This form
- * displays across the entire web site where the user has
- * the ability to login at anytime.
- *
+ *  Accessing the excute shell
  *
  * @package    Trace
  * @category
  * @author     Purencool Website Development
  * @license    GPL3
+ *
  */
 namespace Model;
 
@@ -25,22 +22,38 @@ class BashExecute
    $this->app = $app;
   }
 
-
-
-  public function drushExecute($PATH, $COMMAND)
+ /**
+  *  @param $path path to drupal build
+  *  @param $command drush command user requested
+  *  @return array of what was echo into the shell
+  */
+  public function drushExecute($path, $command)
   {
-
-    $drushCommand = $this->app['trace.config']->bashDirectory."/drush-command $PATH '$COMMAND'";
-
-
-    $installationEsc   =  escapeshellcmd($drushCommand);
-    print $installationEsc." <br/>";
-    exec($installationEsc,$installOutput, $installReturn);
-
-    foreach($installOutput as $installOutputVal){
-      $this->feedBack[] = $installOutputVal;
+    $underScoreCommand = preg_replace('/\s+/', '_', $command);
+    $drushCommand = $this->app['trace.config']->bashDirectory."/drush-command $path $underScoreCommand ";
+    $drushEsc = escapeshellcmd($drushCommand);
+    exec($drushEsc,$drushOutput, $drushReturn);
+    foreach($drushOutput as $drushOutputVal){
+      $this->feedBack[] = $drushOutputVal;
     }
     return $this->feedBack;
+  }
+
+
+  /**
+  *  @param $command drush command user requested
+  *  @return array of what was echo into the shell
+  */
+  public function executeShell($command)
+  {
+
+   $shellEsc = escapeshellcmd($command);
+   exec($shellEsc,$shellOutput, $shellReturn);
+
+   foreach($shellOutput as $shellOutputVal){
+    $this->feedBack[] = $shellOutputVal;
+   }
+   return $this->feedBack;
   }
 
 

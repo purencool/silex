@@ -9,11 +9,12 @@ DRUSHCOMMAND=$2;
 
 
 cd $SITEPATH;
-
+CLEANDRUSH=${DRUSHCOMMAND//_/ }
 ##
 # drush command
 ##
-$DRUSHPATH/drush $DRUSHCOMMAND;
+#echo $CLEANDRUSH;
+$DRUSHPATH/drush $CLEANDRUSH;
 
 
 cd $DIRPATH;

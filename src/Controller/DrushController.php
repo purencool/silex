@@ -93,7 +93,7 @@ class DrushController {
   $directoryPath = $app['trace.config']->websitesDirectory;
   $buildPath = $directoryPath.'/'.$websiteName;
   $exec = new BashExecute($app);
-  print_r($exec->drushExecute($buildPath, $request['drush']));
+  return $exec->drushExecute($buildPath, $request['drush']);
 
 }
 
@@ -108,8 +108,9 @@ class DrushController {
 
  public function drushAction(Application $app)
  {
-  $param = $this->drushForm($app);
-  $this->drushResponse($app);
-  return $app['twig']->render('auth_drush.html.twig',$param);
- }
+  return $app['twig']->render('auth_drush.html.twig',array (
+     'drush_form' => $this->drushForm($app),
+     'drush_feedback' => (array) $this->drushResponse($app)
+   ));
+  }
 }

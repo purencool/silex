@@ -78,8 +78,17 @@ body {
 .hideElement {
   display: none;
 }
+.drush-r {
+  float:right;
+  width: 350px;
+}
 
 .iframe-holder{
-  width: 99.8%;
-  height: 700px;
+  width: 345px !important;
+  height: 800px;
+}
+.drush-l {
+  float:left;
+  padding-left:40px;
+  width:70%;
 }

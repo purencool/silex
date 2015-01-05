@@ -14,6 +14,8 @@ CLEANDRUSH=${DRUSHCOMMAND//_/ }
 # drush command
 ##
 #echo $CLEANDRUSH;
+unset COLUMNS 
+tput cols
 $DRUSHPATH/drush $CLEANDRUSH;
 
 

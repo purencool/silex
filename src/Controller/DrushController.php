@@ -98,6 +98,31 @@ class DrushController {
 }
 
 
+/**
+*  Drush action controller
+*
+*  @param array $app application container
+*  @return array for twig templating file
+*
+*/
+
+public function drushFormatting(Application $app)
+{
+  $returnArr = array();
+  $dR = $this->drushResponse($app);
+  foreach( $dR  as $dRVal) {
+   //-- find disable modules
+   if (strpos($dRVal,'Disabled') !== false) {
+     $returnArr[] = '<span class="disable">'.$dRVal.'</span>';
+   } else {
+     $returnArr[] = $dRVal;
+   }
+  }
+ return $returnArr;
+}
+
+
+
  /**
  *  Drush action controller
  *
@@ -110,7 +135,7 @@ class DrushController {
  {
   return $app['twig']->render('auth_drush.html.twig',array (
      'drush_form' => $this->drushForm($app),
-     'drush_feedback' => (array) $this->drushResponse($app)
+     'drush_feedback' => (array) $this->drushFormatting($app)
    ));
   }
 }

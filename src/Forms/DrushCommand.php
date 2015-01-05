@@ -40,7 +40,7 @@ class DrushCommand extends AbstractType
    'choices' =>$this->choices['build.choices'],
    'preferred_choices' => $this->choices['build.prefer'] ,
   ));
-  $builder->add('drush', 'text', array( 'label'  => 'drush command') );
+  $builder->add('drush', 'text', array( 'label'  => 'drush') );
  }
 
 

@@ -121,8 +121,6 @@ class BuildAWebsiteModel
      $SITEPATHBUILD $EMAIL";
 
     //-- execute install file.
-    //$installOutput = $this->execShell->executeShell($siteInstallation);
-
     foreach($this->execShell->executeShell($siteInstall) as $installVal){
       $this->feedBack[] = $installVal;
     }

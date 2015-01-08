@@ -14,10 +14,10 @@ use Silex\Application;
 use Forms\BuildAWebsite;
 use ProcessForms\ProcessBuildAWebsite;
 use Symfony\Component\HttpFoundation\Request;
-use Model\BuildAWebsiteModel;
+use Model\BuildAWebsiteModeld8;
 
 
-class BuildAWebsiteController {
+class BuildAWebsiteControllerd8 {
 
  /**
  *  Build login form
@@ -48,21 +48,10 @@ class BuildAWebsiteController {
  public function authBuildNewWebsite(Application $app)
  {
 
-  //-- d7
-  //*
-  $newWebSiteParamObj = new BuildAWebsiteModel($app);
-  //$newWebSiteParamObj->testShell();
-  $newWebSiteParamObj->buildWebsiteStructure();
-  //*/
-
-  //-- d8
-  /*
   $newWebSiteParamObj = new BuildAWebsiteModeld8($app);
-  $newWebSiteParamObj->testShell();
   $newWebSiteParamObj->buildWebsiteStructure();
-  //*/
 
-  return $app['twig']->render('auth_build_new_website.html.twig',array (
+  return $app['twig']->render('auth_build_new_website8.html.twig',array (
   'new_website_form' => $this->buildAWebsite($app),
   'new_website_obj' => (array) $newWebSiteParamObj->feedBack(),
  ));

@@ -32,6 +32,7 @@ class BuildAWebsiteModeld8
     $this->execShell = new BashExecute($app);
   }
 
+
   private function chmod_r($Path) {
    $dp = opendir($Path);
    while($File = readdir($dp)) {
@@ -47,11 +48,12 @@ class BuildAWebsiteModeld8
    closedir($dp);
   }
 
+
   public function buildWebsiteStructure()
   {
     $this->feedBack[] = "<span>Creating website stucture</span>";
 
-    $buildBashPath = $this->app['trace.config']->bashDirectory."/buildd8"
+    $buildBashPath = $this->app['trace.config']->bashDirectory."/build8"
     .' '.$this->app['trace.config']->websitesDirectory
     .' '.$this->app['trace.config']->siteName;
 
@@ -61,7 +63,6 @@ class BuildAWebsiteModeld8
     //-- Get website paths and name
     $this->sitePathDirectory = $buildOutput[1];
     $this->sitePathBuildDirectory = $buildOutput[2].'/build';
-
 
     //-- Get site name
     $this->websiteName();
@@ -103,6 +104,9 @@ class BuildAWebsiteModeld8
   public function websiteSetup()
   {
 
+    $createFilesDir = $this->sitePathBuildDirectory.'/sites/default/files';
+    mkdir($createFilesDir, 0777);
+    chmod($createFilesDir, 0775);
 
     $buildPath = $this->sitePathBuildDirectory;
 

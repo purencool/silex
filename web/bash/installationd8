@@ -1,0 +1,102 @@
+#!/bin/bash
+
+systemDir=$(dirname $(readlink -f $0))
+source "$systemDir/config"
+
+#Get new sitename
+WEBSITETYPE=$1;
+SITENAME=$2;
+USER=$3;
+PASSWORD=$4;
+DATABASEUSER=$5;
+DATABASEPASSWORD=$6;
+SITEPATH=$7;
+EMAIL=$8;
+
+
+cd $SITEPATH;
+
+##
+# Installation
+##
+$DRUSHPATH/drush site-install -y $WEBSITETYPE --site-name=$SITENAME --account-name=$USER --account-pass=$PASSWORD --site-mail=$EMAIL  --db-url=mysql://$DATABASEUSER:$DATABASEPASSWORD@localhost/$SITENAME
+
+
+##
+# System
+##
+#$DRUSHPATH/drush vset -y file_public_path sites/default/files/public
+#$DRUSHPATH/drush vset -y file_private_path sites/default/files/private
+#$DRUSHPATH/drush vset -y file_temporary_path sites/default/files/tmp
+#$DRUSHPATH/drush en -y backup_migrate
+
+
+##
+# Development
+##
+#$DRUSHPATH/drush en -y admin_menu
+#$DRUSHPATH/drush en -y coffee
+#$DRUSHPATH/drush en -y ds_devel
+#$DRUSHPATH/drush en -y module_filter
+
+##
+# Disable modules
+##
+#$DRUSHPATH/drush dis -y overlay
+#$DRUSHPATH/drush dis -y toolbar
+
+
+##
+# Theme and design
+##
+#$DRUSHPATH/drush en -y ckeditor
+#$DRUSHPATH/drush en -y pncmbtheme
+#$DRUSHPATH/drush en -y jquery_update
+#$DRUSHPATH/drush en -y mobile_navigation
+#$DRUSHPATH/drush vset  theme_default pncmbtheme
+
+
+##
+# Content management
+##
+#$DRUSHPATH/drush en -y insert
+
+
+##
+# Social buttons
+##
+#$DRUSHPATH/drush en -y socialmedia
+#$DRUSHPATH/drush en -y widgets
+
+
+
+##
+# Structure
+##
+#$DRUSHPATH/drush en -y features
+#$DRUSHPATH/drush en -y views
+#$DRUSHPATH/drush en -y views_ui
+#$DRUSHPATH/drush en -y semanticviews
+#-- Disable demo view
+#$DRUSHPATH/drush vdis semantic_demo
+
+#$DRUSHPATH/drush en -y bean
+#$DRUSHPATH/drush en -y bean_admin_ui
+# @todo This takes over the whole block system
+#$DRUSHPATH/drush en -y bean_all
+#$DRUSHPATH/drush en -y bean_uuid
+#$DRUSHPATH/drush en -y ds
+#$DRUSHPATH/drush en -y ds_extras
+#$DRUSHPATH/drush en -y ds_extra_layouts
+#$DRUSHPATH/drush en -y ds_forms
+#$DRUSHPATH/drush en -y ds_search
+#$DRUSHPATH/drush en -y ds_ui
+
+
+
+##
+# Purencool Modules
+##
+#$DRUSHPATH/drush en -y pncextras
+
+cd $DIRPATH;

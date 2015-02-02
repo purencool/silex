@@ -1,0 +1,59 @@
+#!/bin/bash
+# Directory Path
+
+##
+# Build System
+##
+
+systemDir=$(dirname $(readlink -f $0))
+source "$systemDir/config"
+
+
+WEBSITESPATH=$1;
+MKNEWDIR=$2;
+DIRECTORY=$WEBSITESPATH/$MKNEWDIR;
+DRUSHMAKEFILE='.makefile';
+
+###
+#  TESTING AND ADDING BUILD PATH
+###
+while true
+do
+  if [ -d "$DIRECTORY" ]; then
+     dirAdd=$(($dirAdd+1));
+     DIRECTORY=$DIRECTORY$dirAdd;
+   fi
+   if [ ! -d "$DIRECTORY" ] ; then
+        echo "create";
+        echo $DIRECTORY;
+        mkdir $DIRECTORY;
+        mkdir $DIRECTORY/'build';
+        mkdir $DIRECTORY/'features';
+        mkdir $DIRECTORY/'images';
+        mkdir $DIRECTORY/'documents';
+        mkdir $DIRECTORY/'databases';
+        mkdir $DIRECTORY/'databases/testing';
+        mkdir $DIRECTORY/'databases/production';
+        mkdir $DIRECTORY/'backup-build';
+
+        BUILDPATH=$DIRECTORY/'build';
+        echo $BUILDPATH;
+     break;
+  fi
+done
+
+###
+#
+#  TESTING TO SEE IF BUILD PATH EXISTS
+#
+###
+if [ -d "$BUILDPATH" ]; then
+  ###
+  #  git clone and make file
+  ###
+  git clone https://github.com/purencool/make.git $BUILDPATH
+  cd $BUILDPATH;
+  $DRUSHPATH/drush make $DRUSHMAKEFILE -y
+  chown -Rf $CHOWNER $DIRECTORY
+  chmod -Rf $PERMISSIONS $DIRECTORY
+fi

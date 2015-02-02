@@ -1,0 +1,25 @@
+{# user_panel page template #}
+{% extends 'authenticated_user/layout.html.twig' %}
+{% import "modules/macro.html.twig" as macros %}
+
+{% block content %}
+    <div id="wrapper">
+        <h3>Build a new web site</h3>
+        <div id="page">
+            <ul id="login_form">
+                <li>
+                    <span>build a website</span>
+                    <form action="/new-website" method="">
+                        {{ form_widget(new_website_form.build_a_website) }}
+                        <input type="submit" value="login" />
+                    </form>
+                </li>
+            </ul>
+            <ul>
+                {% for new_website_objs in new_website_obj %}
+                    <li>{{ new_website_objs  |raw }}</li>
+                    {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

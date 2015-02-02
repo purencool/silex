@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The trace login form allows a user to access the backend
  * of the project to administer the sites needs. This form
@@ -7,19 +8,24 @@
  *
  *
  * @package    Trace
- * @category   Admin Access
+ * @category
  * @author     Purencool Website Development
  * @license    GPL3
  */
+
 namespace Forms;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class LoginForm extends AbstractType
-{
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+class LoginForm extends AbstractType {
+
+    /**
+     * 
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('login', 'email');
         $builder->add('password', 'password');
     }
@@ -29,8 +35,7 @@ class LoginForm extends AbstractType
      *
      * @return string The name of this type
      */
-    public function getName()
-    {
+    public function getName() {
         return 'login_form';
     }
 

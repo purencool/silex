@@ -1,6 +1,6 @@
 debug: true
 
-base_url: http://posts.dev/index.php
+base_url: http://trace.dev/index.php
 
 database:
     driver: pdo_mysql

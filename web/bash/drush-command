@@ -1,0 +1,22 @@
+#!/bin/bash
+
+systemDir=$(dirname $(readlink -f $0))
+source "$systemDir/config"
+
+# Drush command
+SITEPATH=$1;
+DRUSHCOMMAND=$2;
+
+
+cd $SITEPATH;
+CLEANDRUSH=${DRUSHCOMMAND//_/ }
+##
+# drush command
+##
+#echo $CLEANDRUSH;
+unset COLUMNS 
+tput cols
+$DRUSHPATH/drush $CLEANDRUSH;
+
+
+cd $DIRPATH;

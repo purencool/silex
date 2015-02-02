@@ -19,7 +19,7 @@ body {
 
 #trace span {
  display:block;
- text-indent: -999px;
+ text-indent: -9999px;
  }
 
 #navigation {
@@ -33,7 +33,7 @@ body {
 -moz-border-radius: 10px;
 -webkit-border-radius: 10px;
 
-} 
+}
 #navigation li a {
  text-decoration: none;
  text-transform:capitalize;
@@ -56,7 +56,7 @@ body {
 
 #navigation .about {
  background-color: #bd2842;
- 
+
 }
 
 #navigation .contact {
@@ -69,10 +69,43 @@ body {
 
 
 #crazy-people{
-  width: 940px;	
+  width: 940px;
   height: 540px;
   background-image: url("../images/desktop-crazy-people.jpg");
   background-repeat: no-repeat;
   margin: 0 auto;
 }
+.hideElement {
+  display: none;
+}
+.drush-r {
+  float:right;
+  width: 350px;
+}
 
+.iframe-holder{
+  width: 345px !important;
+  height: 800px;
+}
+.drush-l {
+  float:left;
+  padding-left:40px;
+  width:60%;
+}
+.drush-l #drush-form {
+  width:100%;
+  padding:20px 0 20px 0;
+  clear:both;
+}
+
+.drush-l #drush-form div {
+  float:left;
+  padding-right:20px;
+}
+.drush-l .disable {
+  background-color:lightblue;
+}
+label[for=drush_command_managed_website]
+{
+  display:none;
+}

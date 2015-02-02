@@ -1,0 +1,18 @@
+#!/bin/bash
+# Directory Path
+
+##
+# Build System
+##
+systemDir=$(dirname $(readlink -f $0))
+source "$systemDir/config"
+
+
+SITEPATH=$1;
+DRUPALVERSION=$2;
+
+cd $SITEPATH;
+
+$DRUSHPATH/drush pm-update projects $DRUPALVERSION
+
+cd $DIRPATH;

@@ -1,0 +1,19 @@
+#!/bin/bash
+# Directory Path
+
+##
+# Build System
+##
+systemDir=$(dirname $(readlink -f $0))
+source "$systemDir/config"
+
+
+
+SITEPATH=$1;
+
+cd $SITEPATH;
+##
+# @todo need to test this to see if it works
+##
+$DRUSHPATH/drush pml --no-core --type=module --status=enabled --pipe | xargs drush -y dis
+cd $DIRPATH;

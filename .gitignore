@@ -1,5 +1,6 @@
 # Bootstrap
-app/bootstrap*
+app/*
+web/AppConfig.php
 
 # Symfony directories
 vendor/*
@@ -17,3 +18,5 @@ composer.lock
 composer.phar
 .phpcomplete_extended/*
 /nbproject/private/
+nbproject/
+

@@ -1,0 +1,38 @@
+/**
+ *  12 columns
+ */
+//*
+$grids: 12;
+$gutters: 1/3;
+//*/
+
+/**
+ *  14 columns
+ */
+/*
+$grids: 16;
+$gutters: 1/4;
+//*/
+
+
+/**
+ *  Break Points Varibles
+ */
+
+/** Smart phone width **/
+$smartPhone :480px;
+
+/** Large smart phone width **/
+$largeSmartPhone:710px;
+
+/** Tablet width **/
+$tablet:1010px;
+
+/** Small Desktop width **/
+$smallDesktop:1190px;
+
+/** Desktop width **/
+$desktop:1360px;
+
+/** Desktop width **/
+$wideDesktop:1800px;

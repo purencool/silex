@@ -18,3 +18,5 @@ composer.lock
 composer.phar
 .phpcomplete_extended/*
 /nbproject/private/
+nbproject/
+

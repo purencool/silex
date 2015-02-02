@@ -2,25 +2,25 @@
 {% extends 'authenticated_user/layout.html.twig' %}
 {% import "modules/macro.html.twig" as macros %}
 {% block content %}
-<div id="wrapper">
-  <div id="page">
-     <div class="drush-l">
-       <h3>Apply Drush command to build of your choice</h3>
-       <form action="/drush" method="GET" id="drush-form">
-          {{ form_widget(drush_form.drush_command) }}
-          <input type="submit" value="drush command" />
-        </form>
+    <div id="wrapper">
+        <div id="page">
+            <div class="drush-l">
+                <h3>Apply Drush command to build of your choice</h3>
+                <form action="/drush" method="GET" id="drush-form">
+                    {{ form_widget(drush_form.drush_command) }}
+                    <input type="submit" value="drush command" />
+                </form>
 
-        <ul>
-          {% for drush_feedbacks in drush_feedback %}
-             <li>{{drush_feedbacks |raw }}</li>
-          {% endfor %}
-      </ul>
+                <ul>
+                    {% for drush_feedbacks in drush_feedback %}
+                        <li>{{drush_feedbacks |raw }}</li>
+                        {% endfor %}
+                </ul>
 
-     </div>
-     <div class="drush-r">
-     <iframe src="http://www.drushcommands.com/drush-7x/core/core-config"  class="iframe-holder"></iframe>
-     </div>
-   </div>
-</div>
+            </div>
+            <div class="drush-r">
+                <iframe src="http://www.drushcommands.com/drush-7x/core/core-config"  class="iframe-holder"></iframe>
+            </div>
+        </div>
+    </div>
 {% endblock %}

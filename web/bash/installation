@@ -97,6 +97,7 @@ $DRUSHPATH/drush en -y ds_ui
 ##
 # Purencool Modules
 ##
+$DRUSHPATH/drush en -y pnchelp
 $DRUSHPATH/drush en -y pncextras
 
 cd $DIRPATH;

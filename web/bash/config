@@ -12,3 +12,5 @@ WEBSITESPATH="";
 BROWSERWINDOW='- Google Chrome';
 MD5='md5sum'; #'md5sum' for linux  #'md5'; for mac
 WATCHSLEEP='2';
+CHOWNER='work:www-data';
+PERMISSIONS='775';

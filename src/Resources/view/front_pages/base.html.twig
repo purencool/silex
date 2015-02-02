@@ -1,24 +1,24 @@
 {# front base template #}
 <!DOCTYPE html>
 <html>
- <head>
-   <meta charset="UTF-8" />
-   <title>{% block title %}Trace{% endblock %}</title>
-   <link href="{{ app.request.basepath }}/style.css" rel="stylesheet" media="all" />
-   <script type="text/javascript" src="{{ app.request.basepath }}/trace.js"></script>
-   <base href="{{ app.config.base_url }}">
-   <!-- Styles --/>
-     <style type="text/css">
-     </style>
-   <!--[if lt IE 9]>
-     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-   <![endif]-->
-  </head>
-  <body class="{{ app.locale }}">
-   {% block body %}
-   {% endblock %}
-   {% block javascripts %}
-   {% endblock %}
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Trace{% endblock %}</title>
+        <link href="{{ app.request.basepath }}/style.css" rel="stylesheet" media="all" />
+        <script type="text/javascript" src="{{ app.request.basepath }}/trace.js"></script>
+        <base href="{{ app.config.base_url }}">
+        <!-- Styles --/>
+          <style type="text/css">
+          </style>
+        <!--[if lt IE 9]>
+          <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    </head>
+    <body class="{{ app.locale }}">
+        {% block body %}
+        {% endblock %}
+        {% block javascripts %}
+        {% endblock %}
+    </body>
 </html>
 

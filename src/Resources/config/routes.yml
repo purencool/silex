@@ -22,9 +22,13 @@ drush:
   path: /drush
   defaults: { _controller: 'Controller\DrushController::drushAction' }
 
-new-website:
-  path: /new-website
+d7:
+  path: /d7
   defaults: { _controller: 'Controller\BuildAWebsiteController::authBuildNewWebsite' }
+
+d8:
+  path: /d8
+  defaults: { _controller: 'Controller\BuildAWebsiteControllerd8::authBuildNewWebsite' }
 
 process-new-website:
   path: /new-website/{slug}

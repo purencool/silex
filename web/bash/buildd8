@@ -12,8 +12,8 @@ source "$systemDir/config"
 WEBSITESPATH=$1;
 MKNEWDIR=$2;
 DIRECTORY=$WEBSITESPATH/$MKNEWDIR;
-#DIRECTORY="/var/www/html/purencool_build_tools/test_sites/d8";
-DRUSHMAKEFILE='.makefiled8';
+#DIRECTORY="/var/www/html/purencool_build_tools/test_sites/test/d8";
+#DRUSHMAKEFILE='.makefiled8';
 
 ###
 #  TESTING AND ADDING BUILD PATH
@@ -28,7 +28,6 @@ do
         echo "create";
         echo $DIRECTORY;
         mkdir $DIRECTORY;
-        mkdir $DIRECTORY/'build';
         mkdir $DIRECTORY/'features';
         mkdir $DIRECTORY/'images';
         mkdir $DIRECTORY/'documents';
@@ -37,8 +36,7 @@ do
         mkdir $DIRECTORY/'databases/production';
         mkdir $DIRECTORY/'backup-build';
 
-        BUILDPATH=$DIRECTORY/'build';
-        echo $BUILDPATH;
+        echo $DIRECTORY;
      break;
   fi
 done
@@ -48,13 +46,18 @@ done
 #  TESTING TO SEE IF BUILD PATH EXISTS
 #
 ###
-if [ -d "$BUILDPATH" ]; then
+if [ -d "$DIRECTORY" ]; then
   ###
-  #  git clone and make file
+  #  drush and make file
   ###
-  #git clone https://github.com/purencool/make.git $BUILDPATH
-  #
-  git clone --branch 8.0.x http://git.drupal.org/project/drupal.git $BUILDPATH;
-  cd $BUILDPATH;
-  #$DRUSHPATH/drush make $DRUSHMAKEFILE -y
+  cd $DIRECTORY;
+  $DRUSHPATH/drush dl drupal-8 --destination="$DIRECTORY" --drupal-project-rename=build
+  cd $DIRECTORY/'build/modules'
+  $DRUSHPATH/drush dl ds
+  $DRUSHPATH/drush dl devel
+  git clone --branch 8.x-3.x http://git.drupal.org/sandbox/grayside/2120935.git features
+  git clone --branch d8panels http://git.drupal.org/sandbox/dsnopek/2290237.git d8panels
+
+  chown -Rf $CHOWNER $DIRECTORY
+  chmod -Rf $PERMISSIONS $DIRECTORY
 fi

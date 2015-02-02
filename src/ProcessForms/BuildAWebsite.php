@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  *
@@ -7,12 +8,13 @@
  * @author     Purencool Website Development
  * @license    GPL3
  */
+
 namespace ProcessForms;
 
-class ProcessBuildAWebsite
-{
+class ProcessBuildAWebsite {
 
-  public function __toString(){
-    return "ProcessForms\ProcessBuildAWebsite";
-  }
+    public function __toString() {
+        return "ProcessForms\ProcessBuildAWebsite";
+    }
+
 }

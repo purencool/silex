@@ -1,4 +1,5 @@
 <?php
+
 /**
  *  Accessing the excute shell
  *
@@ -8,60 +9,54 @@
  * @license    GPL3
  *
  */
+
 namespace Model;
 
+class BashExecute {
 
-class BashExecute
-{
-  private $app;
-  private $feedBack = array();
+    private $app;
+    private $feedBack = array();
 
-
-  public  function __construct($app)
-  {
-   $this->app = $app;
-  }
-
- /**
-  *  @param $path path to drupal build
-  *  @param $command drush command user requested
-  *  @return array of what was echo into the shell
-  */
-  public function drushExecute($path, $command)
-  {
-    $underScoreCommand = preg_replace('/\s+/', '_', $command);
-    $drushCommand = $this->app['trace.config']->bashDirectory."/drush-command $path $underScoreCommand ";
-    $drushEsc = escapeshellcmd($drushCommand);
-    exec($drushEsc,$drushOutput, $drushReturn);
-    foreach($drushOutput as $drushOutputVal){
-      $this->feedBack[] = $drushOutputVal;
+    public function __construct($app) {
+        $this->app = $app;
     }
-    return $this->feedBack;
-  }
 
+    /**
+     *  @param $path path to drupal build
+     *  @param $command drush command user requested
+     *  @return array of what was echo into the shell
+     */
+    public function drushExecute($path, $command) {
+        $drushOutput = NULL;
+        $underScoreCommand = preg_replace('/\s+/', '_', $command);
+        $drushCommand = $this->app['trace.config']->bashDirectory . "/drush-command $path $underScoreCommand ";
+        $drushEsc = escapeshellcmd($drushCommand);
+        exec($drushEsc, $drushOutput);
+        foreach ($drushOutput as $drushOutputVal) {
+            $this->feedBack[] = $drushOutputVal;
+        }
+        return $this->feedBack;
+    }
 
-  /**
-  *  @param $command drush command user requested
-  *  @return array of what was echo into the shell
-  */
-  public function executeShell($command)
-  {
+    /**
+     *  @param $command drush command user requested
+     *  @return array of what was echo into the shell
+     */
+    public function executeShell($command) {
+        $shellOutput = NULL;
+        $shellEsc = escapeshellcmd($command);
+        exec($shellEsc, $shellOutput);
+        foreach ($shellOutput as $shellOutputVal) {
+            $this->feedBack[] = $shellOutputVal;
+        }
+        return $this->feedBack;
+    }
 
-   $shellEsc = escapeshellcmd($command);
-   exec($shellEsc,$shellOutput, $shellReturn);
+    /**
+     *  @return string
+     */
+    public function __toString() {
+        return "Model\BashExecute";
+    }
 
-   foreach($shellOutput as $shellOutputVal){
-    $this->feedBack[] = $shellOutputVal;
-   }
-   return $this->feedBack;
-  }
-
-
-  /**
-   *  @return string
-   */
-  public function __toString()
-  {
-    return "Model\BashExecute";
-  }
 }

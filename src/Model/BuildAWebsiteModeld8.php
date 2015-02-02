@@ -13,9 +13,7 @@
  */
 namespace Model;
 
-use AdamBrett\ShellWrapper\Command;
-use AdamBrett\ShellWrapper\Command\Param;
-use AdamBrett\ShellWrapper\Runners\Exec;
+use Model\BashExecute;
 
 class BuildAWebsiteModeld8
 {
@@ -24,67 +22,72 @@ class BuildAWebsiteModeld8
   private $feedBack = array();
   private $sitePathDirectory ='';
   private $sitePathBuildDirectory ='';
+  private $execShell;
   /**
   *
   */
   public  function __construct($app)
   {
-   $this->app = $app;
+    $this->app = $app;
+    $this->execShell = new BashExecute($app);
   }
 
-  public function testShell()
-  {
-    $shell = new Exec();
-    $command = new Command('echo');
-    $command->addParam(new Param('Hello World'));
-    $this->feedBack[] = $shell->run($command);
+  private function chmod_r($Path) {
+   $dp = opendir($Path);
+   while($File = readdir($dp)) {
+    if($File != "." AND $File != "..") {
+     if(is_dir($File)){
+      chmod($File, 0755);
+      chmod_r($Path."/".$File);
+     }else{
+      chmod($Path."/".$File, 0655);
+     }
+    }
+   }
+   closedir($dp);
   }
-
 
   public function buildWebsiteStructure()
   {
-    //$bashBuildScript = $this->app['trace.config']->bashDirectory."/build";
-    //$this->feedBack[] = $bashBuildScript;
-    //$siteDirectory =  $this->app['trace.config']->siteName;
-    //$this->feedBack[] = $siteDirectory;
-    //$websitesPathDirectory =  $this->app['trace.config']->websitesDirectory;
-    //$this->feedBack[] = $websitesPathDirectory;
-    //$buildBashPath = $bashBuildScript.' '.$websitesPathDirectory.' '.$siteDirectory;
-    //$this->feedBack[] = $buildBashPath;
     $this->feedBack[] = "<span>Creating website stucture</span>";
 
     $buildBashPath = $this->app['trace.config']->bashDirectory."/buildd8"
     .' '.$this->app['trace.config']->websitesDirectory
     .' '.$this->app['trace.config']->siteName;
 
-    $buildEsc   =  escapeshellcmd($buildBashPath);
-    exec($buildEsc,$buildOutput, $buildReturn);
+    //-- execute install file.
+    $buildOutput = $this->execShell->executeShell($buildBashPath);
 
     //-- Get website paths and name
     $this->sitePathDirectory = $buildOutput[1];
-    $this->sitePathBuildDirectory = $buildOutput[2];
+    $this->sitePathBuildDirectory = $buildOutput[2].'/build';
 
 
     //-- Get site name
     $this->websiteName();
-    $this->websiteSetup();
-    $this->websiteInstallation();
 
     //-- Install website
-    /*
-    if(file_exists($this->sitePathBuildDirectory.'/sites/all/themes/mothership/README.txt')){
-      $this->feedBack[] = "Read me file exits";
-      $this->websiteInstallation();
-      $this->websiteHostFile();
-      $this->websiteSettingsFile();
-      $this->websiteVHostFile();
-      $this->websiteBackup();
+    do {
+      if (file_exists($this->sitePathBuildDirectory.'/sites/default/default.settings.php')) {
+       //print "testing to see";
+       $this->feedBack[] = "Read me file exits";
 
-    } else {
-      $this->feedBack[] = "Read me file does not exit";
-    }
-*/
+       $this->websiteSetup();
+       $this->websiteInstallation();
 
+
+       break;
+      }
+    } while (0);
+
+      //;
+      //$this->websiteHostFile();
+      //$this->websiteSettingsFile();
+      //$this->websiteVHostFile();
+      //$this->websiteBackup();
+
+
+    //-- Output of exec
     foreach($buildOutput as $buildOutputVal){
       $this->feedBack[] = $buildOutputVal;
     }
@@ -99,33 +102,23 @@ class BuildAWebsiteModeld8
 
   public function websiteSetup()
   {
-   //-- Files directory
-   $createFilesDir = $this->sitePathBuildDirectory.'/sites/default/files';
-   mkdir($createFilesDir, 0777);
-   chmod($createFilesDir, 0775);
-
-   $this->feedBack[] = "<span>$createFilesDir have been created</span>";
 
 
-    //-- Services yml file
-    $settingsYaml = $this->sitePathBuildDirectory.'/sites/default/services.yml';
-    $settingsDefaultYaml = $this->sitePathBuildDirectory.'/sites/default/default.services.yml';
-    copy($settingsDefaultYaml,$settingsYaml);
-    chmod($settingsYaml ,0775);
+    $buildPath = $this->sitePathBuildDirectory;
 
-    $this->feedBack[] = "<span>$settingsYaml have been created</span>";
+    $chown = $buildPath;
+    $chownExec = 'chmod -Rf 777 '.$chown;
+    $this->execShell->executeShell($chownExec);
 
 
-    //-- Settings file
-    $settings = $this->sitePathBuildDirectory.'/sites/default/settings.php';
-    $settingsDefault = $this->sitePathBuildDirectory.'/sites/default/default.settings.php';
+    $settings = $buildPath.'/sites/default/settings.php';
+    $settingsDefault = $buildPath.'/sites/default/default.settings.php';
     copy($settingsDefault,$settings);
-    chmod($settings ,0775);
 
-    //$rmGit = $this->sitePathBuildDirectory."/.git";
-    //rmdir($rmGit)
 
-     chmod($this->sitePathBuildDirectory.'/modules', 0775);
+    $settings = $buildPath.'/sites/default/services.yml';
+    $settingsDefault = $buildPath.'/sites/default/default.services.yml';
+    copy($settingsDefault,$settings);
 
     $this->feedBack[] = "<span>$settings have been created</span>";
   }
@@ -145,12 +138,13 @@ class BuildAWebsiteModeld8
     $EMAIL= $this->app['trace.config']->siteEmail;
 
 
-    $siteInstallation = $this->app['trace.config']->bashDirectory."/installation-drupal-eight $WEBSITETYPE $SITENAME $USER $PASSWORD $DATABASEUSER $DATABASEPASSWORD $SITEPATHBUILD $EMAIL";
-    $installationEsc   =  escapeshellcmd($siteInstallation);
-    exec($installationEsc,$installOutput, $installReturn);
+    $siteInstall = $this->app['trace.config']->bashDirectory."/installationd8
+     $WEBSITETYPE $SITENAME $USER $PASSWORD $DATABASEUSER $DATABASEPASSWORD
+     $SITEPATHBUILD $EMAIL";
 
-    foreach($installOutput as $installOutputVal){
-      $this->feedBack[] = $installOutputVal;
+    //-- execute install file.
+    foreach($this->execShell->executeShell($siteInstall) as $installVal){
+      $this->feedBack[] = $installVal;
     }
   }
 
@@ -251,7 +245,10 @@ class BuildAWebsiteModeld8
 
 
     $firstBackup = $this->app['trace.config']->bashDirectory."/dev/backup $SITENAME $DATABASEUSER $DATABASEPASSWORD  ".$SITEPATH."databases/production/";
-    exec($firstBackup, $backupOutput, $backupReturn);
+
+    //-- execute install file.
+    $backupOutput = $this->execShell->executeShell($firstBackup);
+
     foreach($backupOutput as $backupOutputVal){
       $this->feedBack[] = $backupOutputVal;
     }
@@ -261,7 +258,10 @@ class BuildAWebsiteModeld8
 
 
     $firstBuildBackup = $this->app['trace.config']->bashDirectory."/backup-build $SITENAME $SITEPATHBUILD ".$SITEPATH."backup-build/";
-    exec($firstBuildBackup, $backupBuildOutput, $backupBuildReturn);
+
+    //-- execute install file.
+    $backupBuildOutput = $this->execShell->executeShell($firstBuildBackup);
+
     foreach($backupBuildOutput as $backupBuildOutputVal){
       $this->feedBack[] = $backupBuildOutputVal;
     }

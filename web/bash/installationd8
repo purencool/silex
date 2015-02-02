@@ -19,7 +19,7 @@ cd $SITEPATH;
 ##
 # Installation
 ##
-$DRUSHPATH/drush si -y $WEBSITETYPE --site-name=$SITENAME --account-name=$USER --account-pass=$PASSWORD --site-mail=$EMAIL  --db-url=mysql://$DATABASEUSER:$DATABASEPASSWORD@localhost/$SITENAME
+$DRUSHPATH/drush site-install -y $WEBSITETYPE --site-name=$SITENAME --account-name=$USER --account-pass=$PASSWORD --site-mail=$EMAIL  --db-url=mysql://$DATABASEUSER:$DATABASEPASSWORD@localhost/$SITENAME
 
 
 ##
@@ -76,6 +76,10 @@ $DRUSHPATH/drush si -y $WEBSITETYPE --site-name=$SITENAME --account-name=$USER -
 #$DRUSHPATH/drush en -y features
 #$DRUSHPATH/drush en -y views
 #$DRUSHPATH/drush en -y views_ui
+#$DRUSHPATH/drush en -y semanticviews
+#-- Disable demo view
+#$DRUSHPATH/drush vdis semantic_demo
+
 #$DRUSHPATH/drush en -y bean
 #$DRUSHPATH/drush en -y bean_admin_ui
 # @todo This takes over the whole block system

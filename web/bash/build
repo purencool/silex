@@ -54,4 +54,6 @@ if [ -d "$BUILDPATH" ]; then
   git clone https://github.com/purencool/make.git $BUILDPATH
   cd $BUILDPATH;
   $DRUSHPATH/drush make $DRUSHMAKEFILE -y
+  chown -Rf $CHOWNER $DIRECTORY
+  chmod -Rf $PERMISSIONS $DIRECTORY
 fi

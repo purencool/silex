@@ -53,7 +53,7 @@ class BuildAWebsiteModeld8
   {
     $this->feedBack[] = "<span>Creating website stucture</span>";
 
-    $buildBashPath = $this->app['trace.config']->bashDirectory."/build8"
+    $buildBashPath = $this->app['trace.config']->bashDirectory."/buildd8"
     .' '.$this->app['trace.config']->websitesDirectory
     .' '.$this->app['trace.config']->siteName;
 
@@ -63,7 +63,7 @@ class BuildAWebsiteModeld8
     //-- Get website paths and name
     $this->sitePathDirectory = $buildOutput[1];
     $this->sitePathBuildDirectory = $buildOutput[2].'/build';
-
+    
     //-- Get site name
     $this->websiteName();
 
@@ -75,7 +75,6 @@ class BuildAWebsiteModeld8
 
        $this->websiteSetup();
        $this->websiteInstallation();
-
 
        break;
       }
@@ -93,14 +92,22 @@ class BuildAWebsiteModeld8
       $this->feedBack[] = $buildOutputVal;
     }
   }
-
+  
+  /**
+   * 
+   */
   public function websiteName()
   {
-    $sitArr = explode('/',$this->sitePathDirectory);
-    $this->newWebsiteName = end($sitArr);
+    $siteArr = explode('/',$this->sitePathDirectory);
+    $this->newWebsiteName = end($siteArr);
     $this->feedBack[] = "<span>The site name is $this->newWebsiteName</span>";
   }
-
+  
+  /**
+   *  Website setup finds the directory that has been allocated 
+   *  to the build and then creates the files and directories so that
+   *  drupal can be built using drush.
+   */
   public function websiteSetup()
   {
 
@@ -126,7 +133,11 @@ class BuildAWebsiteModeld8
 
     $this->feedBack[] = "<span>$settings have been created</span>";
   }
-
+  
+  
+ /**
+  * 
+  */
   public function websiteInstallation()
   {
 
@@ -152,7 +163,9 @@ class BuildAWebsiteModeld8
     }
   }
 
-
+/**
+ * 
+ */
   public function websiteHostFile()
   {
 
@@ -164,7 +177,9 @@ class BuildAWebsiteModeld8
 
   }
 
-
+/**
+ * 
+ */
   public function websiteSettingsFile()
   {
     $ENDURL = $this->app['trace.config']->endUrl;
@@ -192,8 +207,9 @@ class BuildAWebsiteModeld8
     file_put_contents($SITEPATH.$newConfigName, $newConfigData, FILE_APPEND | LOCK_EX);
   }
 
-
-
+ /**
+  * 
+  */
   public function websiteVHostFile()
   {
     $ENDURL = $this->app['trace.config']->endUrl;
@@ -228,6 +244,9 @@ class BuildAWebsiteModeld8
     file_put_contents($apacheHostFile, $apacheHostData, FILE_APPEND | LOCK_EX);
   }
 
+  /**
+   * 
+   */
   public function websiteBackup()
   {
     $ENDURL = $this->app['trace.config']->endUrl;
@@ -272,6 +291,10 @@ class BuildAWebsiteModeld8
     chmod($backupBuildOutput[1], 0775);
   }
 
+  /**
+   * 
+   * @return string
+   */
   public function feedBack()
   {
     return $this->feedBack;
@@ -279,7 +302,6 @@ class BuildAWebsiteModeld8
 
 
   /**
-   * [getWebsite description]
    * @return object
    */
   public function  getWebsite()

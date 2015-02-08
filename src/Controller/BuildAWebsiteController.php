@@ -17,10 +17,7 @@ use Forms\BuildAWebsite;
 use ProcessForms\ProcessBuildAWebsite;
 use Symfony\Component\HttpFoundation\Request;
 use Model\BuildAWebsiteModel;
-<<<<<<< HEAD
-=======
 
->>>>>>> 1ca88d88dcfed2a06d1af9c28c3a3ea8fcf0ac06
 
 class BuildAWebsiteController {
 

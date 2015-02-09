@@ -47,11 +47,8 @@ class BuildAWebsiteController {
      */
     public function authBuildNewWebsite(Application $app) {
 
-        //-- d7
-        //*
         $newWebSiteParamObj = new BuildAWebsiteModel($app);
         $newWebSiteParamObj->buildWebsiteStructure();
-        //*/
 
         return $app['twig']->render('auth_build_new_website.html.twig', array(
                     'new_website_form' => $this->buildAWebsite($app),
@@ -67,8 +64,6 @@ class BuildAWebsiteController {
      *
      */
     public function authProcessNewWebsite(Request $request, Application $app) {
-        $data = $request->request->all();
-        var_dump($data);
 
         $param = "New website created";
         return $app['twig']->render('auth_build_new_website.html.twig', $param);

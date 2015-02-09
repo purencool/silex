@@ -19,249 +19,243 @@ use Trace\Model\BashExecute;
 
 class BuildAWebsiteModel {
 
-    private $newWebsiteName;
-    private $app;
-    private $feedBack = array();
-    private $sitePathDirectory = '';
-    private $sitePathBuildDirectory = '';
-    private $execShell;
+	private $newWebsiteName;
+	private $app;
+	private $feedBack = array();
+	private $sitePathDirectory = '';
+	private $sitePathBuildDirectory = '';
+	private $execShell;
 
-    /**
-     * 
-     * @param type $app
-     */
-    public function __construct($app) {
-        $this->app = $app;
-        $this->execShell = new BashExecute($app);
-    }
-    
- 
-    /**
-     * 
-     */
-    public function buildWebsiteStructure() {
-        $this->feedBack[] = "<span>Creating website stucture</span>";
-        $buildBashPath = $this->app['trace.config']->bashDirectory . "/build"
-                . ' ' . $this->app['trace.config']->websitesDirectory
-                . ' ' . $this->app['trace.config']->siteName;
+	/**
+	 * 
+	 * @param type $app
+	 */
+	public function __construct($app) {
+		$this->app = $app;
+		$this->execShell = new BashExecute($app);
+	}
+	
+	/**
+	 * 
+	 */
+	private function buildMethods() {
+		$this->websiteSetup();
+		$this->websiteInstallation();
+		$this->websiteHostFile();
+		$this->websiteSettingsFile();
+		$this->websiteVHostFile();
+		$this->websiteBackup();
+	}
 
-        $buildOutput = $this->execShell->executeShell($buildBashPath);
+	/**
+	 * 
+	 */
+	public function buildWebsiteStructure() {
+		$this->feedBack[] = "<span>Creating website stucture</span>";
+		$buildBashPath = $this->app['trace.config']->bashDirectory . "/build"
+			. ' ' . $this->app['trace.config']->websitesDirectory
+			. ' ' . $this->app['trace.config']->siteName;
 
-        //-- Get website paths and name
-        $this->sitePathDirectory = $buildOutput[1];
-        $this->sitePathBuildDirectory = $buildOutput[2];
-        $this->websiteName();
+		$buildOutput = $this->execShell->executeShell($buildBashPath);
 
-        //-- Install website
-        if (file_exists($this->sitePathBuildDirectory . '/sites/all/themes/mothership/README.txt')) {
-            $this->feedBack[] = "Read me file exits";
-            $this->websiteSetup();
-            $this->websiteInstallation();
-            $this->websiteHostFile();
-            $this->websiteSettingsFile();
-            $this->websiteVHostFile();
-            $this->websiteBackup();
-        } else {
-            $this->feedBack[] = "Read me file does not exit";
-        }
+		//-- Get website paths and name
+		$this->sitePathDirectory = $buildOutput[1];
+		$this->sitePathBuildDirectory = $buildOutput[2];
+		$this->websiteName();
 
-        foreach ($buildOutput as $buildOutputVal) {
-            $this->feedBack[] = $buildOutputVal;
-        }
-    }
-    /**
-     * 
-     */
-    public function websiteName() {
-        $sitArr = explode('/', $this->sitePathDirectory);
-        $this->newWebsiteName = end($sitArr);
-        $this->feedBack[] = "<span>The site name is $this->newWebsiteName</span>";
-    }
-    /**
-     * 
-     */
-    public function websiteSetup() {
+		//-- Install website
+		if (file_exists($this->sitePathBuildDirectory . '/sites/all/themes/mothership/README.txt')) {
+			$this->feedBack[] = "Read me file exits";
+			$this->buildMethods();
+		} else {
+			$this->feedBack[] = "Read me file does not exit";
+		}
 
-        $createFilesDir = $this->sitePathBuildDirectory . '/sites/default/files';
-        mkdir($createFilesDir, 0777);
-        chmod($createFilesDir, 0775);
+		foreach ($buildOutput as $buildOutputVal) {
+			$this->feedBack[] = $buildOutputVal;
+		}
+	}
 
-        $createFilesDir = $this->sitePathBuildDirectory . '/sites/default/files/tmp';
-        mkdir($createFilesDir, 0777);
-        chmod($createFilesDir, 0775);
+	/**
+	 * 
+	 */
+	public function websiteName() {
+		$sitArr = explode('/', $this->sitePathDirectory);
+		$this->newWebsiteName = end($sitArr);
+		$this->feedBack[] = "<span>The site name is $this->newWebsiteName</span>";
+	}
 
-        $createFilesDir = $this->sitePathBuildDirectory . '/sites/default/files/private';
-        mkdir($createFilesDir, 0777);
-        chmod($createFilesDir, 0775);
+	/**
+	 * 
+	 */
+	public function websiteSetup() {
 
+		$createFilesDir = $this->sitePathBuildDirectory . '/sites/default/files';
+		mkdir($createFilesDir, 0777);
+		chmod($createFilesDir, 0775);
 
-        $settings = $this->sitePathBuildDirectory . '/sites/default/settings.php';
-        $settingsDefault = $this->sitePathBuildDirectory . '/sites/default/default.settings.php';
-        copy($settingsDefault, $settings);
-        chmod($settings, 0775);
+		$createFilesDir = $this->sitePathBuildDirectory . '/sites/default/files/tmp';
+		mkdir($createFilesDir, 0777);
+		chmod($createFilesDir, 0775);
 
-        $this->feedBack[] = "<span>$settings have been created</span>";
-    }
-    /**
-     * 
-     */
-    public function websiteInstallation() {
-
-        //$ENDURL = $this->app['trace.config']->endUrl;
-        $WEBSITETYPE = $this->app['trace.config']->websiteType;
-        $SITENAME = $this->newWebsiteName;
-        $USER = $this->app['trace.config']->siteUser;
-        $PASSWORD = $this->app['trace.config']->sitePassword;
-        $DATABASEUSER = $this->app['trace.config']->databaseUser;
-        $DATABASEPASSWORD = $this->app['trace.config']->databasePassword;
-        $SITEPATHBUILD = $this->sitePathBuildDirectory . '/';
-        //$SITEPATH = $this->sitePathDirectory . '/';
-        $EMAIL = $this->app['trace.config']->siteEmail;
+		$createFilesDir = $this->sitePathBuildDirectory . '/sites/default/files/private';
+		mkdir($createFilesDir, 0777);
+		chmod($createFilesDir, 0775);
 
 
-        $siteInstall = $this->app['trace.config']->bashDirectory . "/installation
+		$settings = $this->sitePathBuildDirectory . '/sites/default/settings.php';
+		$settingsDefault = $this->sitePathBuildDirectory . '/sites/default/default.settings.php';
+		copy($settingsDefault, $settings);
+		chmod($settings, 0775);
+
+		$this->feedBack[] = "<span>$settings have been created</span>";
+	}
+
+	/**
+	 * 
+	 */
+	public function websiteInstallation() {
+
+		//$ENDURL = $this->app['trace.config']->endUrl;
+		$WEBSITETYPE = $this->app['trace.config']->websiteType;
+		$SITENAME = $this->newWebsiteName;
+		$USER = $this->app['trace.config']->siteUser;
+		$PASSWORD = $this->app['trace.config']->sitePassword;
+		$DATABASEUSER = $this->app['trace.config']->databaseUser;
+		$DATABASEPASSWORD = $this->app['trace.config']->databasePassword;
+		$SITEPATHBUILD = $this->sitePathBuildDirectory . '/';
+		//$SITEPATH = $this->sitePathDirectory . '/';
+		$EMAIL = $this->app['trace.config']->siteEmail;
+
+
+		$siteInstall = $this->app['trace.config']->bashDirectory . "/installation
      $WEBSITETYPE $SITENAME $USER $PASSWORD $DATABASEUSER $DATABASEPASSWORD
      $SITEPATHBUILD $EMAIL";
 
-        //-- execute install file.
-        foreach ($this->execShell->executeShell($siteInstall) as $installVal) {
-            $this->feedBack[] = $installVal;
-        }
-    }
-    /**
-     * 
-     */
-    public function websiteHostFile() {
+		//-- execute install file.
+		foreach ($this->execShell->executeShell($siteInstall) as $installVal) {
+			$this->feedBack[] = $installVal;
+		}
+	}
 
-        $ENDURL = $this->app['trace.config']->endUrl;
-        $SITENAME = $this->newWebsiteName;
-        $SITEPATH = $this->sitePathDirectory . '/';
-        $newHostName = $SITENAME . '.' . $ENDURL . PHP_EOL;
-        file_put_contents($SITEPATH . $newHostName, $newHostName, FILE_APPEND | LOCK_EX);
-    }
-   /**
-    * 
-    */
-    public function websiteSettingsFile() {
-       // $ENDURL = $this->app['trace.config']->endUrl;
-       // $WEBSITETYPE = $this->app['trace.config']->websiteType;
-        $SITENAME = $this->newWebsiteName;
-        $USER = $this->app['trace.config']->siteUser;
-        $PASSWORD = $this->app['trace.config']->sitePassword;
-        $DATABASEUSER = $this->app['trace.config']->databaseUser;
-        $DATABASEPASSWORD = $this->app['trace.config']->databasePassword;
-        $SITEPATHBUILD = $this->sitePathBuildDirectory . '/';
-        $SITEPATH = $this->sitePathDirectory . '/';
-        //$EMAIL = $this->app['trace.config']->siteEmail;
+	/**
+	 * 
+	 */
+	public function websiteHostFile() {
 
-        $newConfigName = $SITENAME . '.php';
-        $newConfigData = "<?php
-    \$appCurrentDevelopment = array(
-      'current-build-path' =>'$SITEPATHBUILD',
-      'username'=>'$USER',
-      'password'=>'$PASSWORD',
-      'database-user'=>'$DATABASEUSER',
-      'database-password'=>'$DATABASEPASSWORD',
-      'database-name'=>'$SITENAME',
-    );
-    ";
-        file_put_contents($SITEPATH . $newConfigName, $newConfigData, FILE_APPEND | LOCK_EX);
-    }
-    /**
-     * 
-     */
-    public function websiteVHostFile() {
-        $ENDURL = $this->app['trace.config']->endUrl;
-        //$WEBSITETYPE = $this->app['trace.config']->websiteType;
-        $SITENAME = $this->newWebsiteName;
-        //$USER = $this->app['trace.config']->siteUser;
-        //$PASSWORD = $this->app['trace.config']->sitePassword;
-        //$DATABASEUSER = $this->app['trace.config']->databaseUser;
-        //$DATABASEPASSWORD = $this->app['trace.config']->databasePassword;
-        //$SITEPATHBUILD = $this->sitePathBuildDirectory . '/';
-        $SITEPATH = $this->sitePathDirectory . '/';
-        //$EMAIL = $this->app['trace.config']->siteEmail;
+		$ENDURL = $this->app['trace.config']->endUrl;
+		$SITENAME = $this->newWebsiteName;
+		$SITEPATH = $this->sitePathDirectory . '/';
+		$newHostName = $SITENAME . '.' . $ENDURL . PHP_EOL;
+		file_put_contents($SITEPATH . $newHostName, $newHostName, FILE_APPEND | LOCK_EX);
+	}
 
-        $apacheHostFile = $SITEPATH . $SITENAME . '.' . $ENDURL . '.conf';
-        $apacheHostData = "
-    <VirtualHost *:80>
-    ServerAdmin webmaster@$SITENAME.$ENDURL
-    ServerName $SITENAME.$ENDURL
-    ServerAlias $SITENAME.$ENDURL
-    DocumentRoot $SITEPATH
+	/**
+	 * 
+	 */
+	public function websiteSettingsFile() {
+		$SITENAME = $this->newWebsiteName;
+		$USER = $this->app['trace.config']->siteUser;
+		$PASSWORD = $this->app['trace.config']->sitePassword;
+		$DATABASEUSER = $this->app['trace.config']->databaseUser;
+		$DATABASEPASSWORD = $this->app['trace.config']->databasePassword;
+		$SITEPATHBUILD = $this->sitePathBuildDirectory . '/';
+		$SITEPATH = $this->sitePathDirectory . '/';
 
-    <Directory $SITEPATH>
-    Options Indexes FollowSymLinks
-    AllowOverride All
-    Require all granted
-    </Directory>
+		$newConfigName = $SITENAME . '.php';
+		$newConfigData = "<?php
+                   \$appCurrentDevelopment = array(
+                     'current-build-path' =>'$SITEPATHBUILD',
+                     'username'=>'$USER',
+                     'password'=>'$PASSWORD',
+                     'database-user'=>'$DATABASEUSER',
+                     'database-password'=>'$DATABASEPASSWORD',
+                     'database-name'=>'$SITENAME');";
+		file_put_contents($SITEPATH . $newConfigName, $newConfigData, FILE_APPEND | LOCK_EX);
+	}
 
-    ErrorLog \${APACHE_LOG_DIR}/error.log
-    CustomLog \${APACHE_LOG_DIR}/access.log combined
-    </VirtualHost>
-    ";
-        file_put_contents($apacheHostFile, $apacheHostData, FILE_APPEND | LOCK_EX);
-    }
-    /**
-     * 
-     */
-    public function websiteBackup() {
-        //$ENDURL = $this->app['trace.config']->endUrl;
-        //$WEBSITETYPE = $this->app['trace.config']->websiteType;
-        $SITENAME = $this->newWebsiteName;
-        //$USER = $this->app['trace.config']->siteUser;
-        //$PASSWORD = $this->app['trace.config']->sitePassword;
-        $DATABASEUSER = $this->app['trace.config']->databaseUser;
-        $DATABASEPASSWORD = $this->app['trace.config']->databasePassword;
-        $SITEPATHBUILD = $this->sitePathBuildDirectory . '/';
-        $SITEPATH = $this->sitePathDirectory . '/';
-        //$EMAIL = $this->app['trace.config']->siteEmail;
+	/**
+	 * 
+	 */
+	public function websiteVHostFile() {
+		$ENDURL = $this->app['trace.config']->endUrl;
+		$SITENAME = $this->newWebsiteName;
+		$SITEPATH = $this->sitePathDirectory . '/';
+
+		$file = $SITEPATH . $SITENAME . '.' . $ENDURL . '.conf';
+		$data = " <VirtualHost *:80>
+			ServerAdmin webmaster@$SITENAME.$ENDURL
+			ServerName $SITENAME.$ENDURL
+			ServerAlias $SITENAME.$ENDURL
+			DocumentRoot $SITEPATH
+
+			<Directory $SITEPATH>
+				Options Indexes FollowSymLinks
+				AllowOverride All
+				Require all granted
+			</Directory>
+
+			ErrorLog \${APACHE_LOG_DIR}/error.log
+			CustomLog \${APACHE_LOG_DIR}/access.log combined
+		 </VirtualHost>";
+		file_put_contents($file, $data, FILE_APPEND | LOCK_EX);
+	}
+
+	/**
+	 * 
+	 */
+	public function websiteBackup() {
+		$SITENAME = $this->newWebsiteName;
+		$DATABASEUSER = $this->app['trace.config']->databaseUser;
+		$DATABASEPASSWORD = $this->app['trace.config']->databasePassword;
+		$SITEPATHBUILD = $this->sitePathBuildDirectory . '/';
+		$SITEPATH = $this->sitePathDirectory . '/';
 
 
-        chmod($SITEPATH . 'databases', 0775);
-        chmod($SITEPATH . 'databases/production', 0777);
-        chmod($SITEPATH . 'databases/testing', 0777);
-        chmod($SITEPATH . 'backup-build', 0777);
+		chmod($SITEPATH . 'databases', 0775);
+		chmod($SITEPATH . 'databases/production', 0775);
+		chmod($SITEPATH . 'databases/testing', 0775);
+		chmod($SITEPATH . 'backup-build', 0775);
 
 
-        $firstBackup = $this->app['trace.config']->bashDirectory . "/dev/backup $SITENAME $DATABASEUSER $DATABASEPASSWORD  " . $SITEPATH . "databases/production/";
+		$firstBackup = $this->app['trace.config']->bashDirectory . "/dev/backup $SITENAME $DATABASEUSER $DATABASEPASSWORD  " . $SITEPATH . "databases/production/";
 
-        //-- execute install file.
-        $backupOutput = $this->execShell->executeShell($firstBackup);
+		//-- execute install file.
+		$backupOutput = $this->execShell->executeShell($firstBackup);
 
-        foreach ($backupOutput as $backupOutputVal) {
-            $this->feedBack[] = $backupOutputVal;
-        }
+		foreach ($backupOutput as $backupOutputVal) {
+			$this->feedBack[] = $backupOutputVal;
+		}
 
 
-        $firstBuildBackup = $this->app['trace.config']->bashDirectory . "/backup-build $SITENAME $SITEPATHBUILD " . $SITEPATH . "backup-build/";
+		$firstBuildBackup = $this->app['trace.config']->bashDirectory . "/backup-build $SITENAME $SITEPATHBUILD " . $SITEPATH . "backup-build/";
 
-        //-- execute install file.
-        $backupBuildOutput = $this->execShell->executeShell($firstBuildBackup);
+		//-- execute install file.
+		$backupBuildOutput = $this->execShell->executeShell($firstBuildBackup);
 
-        foreach ($backupBuildOutput as $backupBuildOutputVal) {
-            $this->feedBack[] = $backupBuildOutputVal;
-        }
-        chmod($backupBuildOutput[1], 0775);
-    }
+		foreach ($backupBuildOutput as $backupBuildOutputVal) {
+			$this->feedBack[] = $backupBuildOutputVal;
+		}
+		chmod($backupBuildOutput[1], 0775);
+	}
 
-    public function feedBack() {
-        return $this->feedBack;
-    }
+	public function feedBack() {
+		return $this->feedBack;
+	}
 
-    /**
-     * [getWebsite description]
-     * @return object
-     */
-    public function getWebsite() {
-        return $this->newWebsite;
-    }
+	/**
+	 * [getWebsite description]
+	 * @return object
+	 */
+	public function getWebsite() {
+		return $this->newWebsite;
+	}
 
-    /**
-     *  @return string
-     */
-    public function __toString() {
-        return "Model\BuildAWebsite";
-    }
+	/**
+	 *  @return string
+	 */
+	public function __toString() {
+		return "Model\BuildAWebsite";
+	}
 
 }

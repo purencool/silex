@@ -1,11 +1,7 @@
 <?php
 
 /**
- * The trace login form allows a user to access the backend
- * of the project to administer the sites needs. This form
- * displays across the entire web site where the user has
- * the ability to login at anytime.
- *
+ * When a user wants to create a new website this will create the form
  *
  * @package    Trace
  * @category
@@ -19,7 +15,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class BuildAWebsite extends AbstractType {
-
+    /**
+     * 
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('email', 'email');
         $builder->add('password', 'text', array('label' => 'Password'));

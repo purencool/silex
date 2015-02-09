@@ -1,10 +1,7 @@
 <?php
 
 /**
- * The trace login form allows a user to access the backend
- * of the project to administer the sites needs. This form
- * displays across the entire web site where the user has
- * the ability to login at anytime.
+ *  When a user wants to access drush this will create the form
  *
  *
  * @package    Trace

@@ -1,0 +1,35 @@
+index:
+  path: /
+  defaults: { _controller: 'Trace\Controller\ApplicationController::indexAction' }
+
+contact:
+  path: /contact-us
+  defaults: { _controller: 'Trace\Controller\ApplicationController::contactAction' }
+
+user-panel:
+  path: /user
+  defaults: { _controller: 'Trace\Controller\ApplicationController::userPanelAction' }
+
+get-todo-json:
+  path: /todo-json
+  defaults: { _controller: 'Trace\Controller\JsonController::getTodoJsonAction' }
+
+about:
+  path: /about-us
+  defaults: { _controller: 'Trace\Controller\ApplicationController::aboutAction' }
+
+drush:
+  path: /drush
+  defaults: { _controller: 'Trace\Controller\DrushController::drushAction' }
+
+d7:
+  path: /d7
+  defaults: { _controller: 'Trace\Controller\BuildAWebsiteController::authBuildNewWebsite' }
+
+d8:
+  path: /d8
+  defaults: { _controller: 'Trace\Controller\BuildAWebsiteControllerd8::authBuildNewWebsite' }
+
+process-new-website:
+  path: /new-website/{slug}
+  defaults: { _controller: 'Trace\Controller\BuildAWebsiteController::authProcessNewWebsite' }

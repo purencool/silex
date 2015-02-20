@@ -14,9 +14,15 @@
                         {{form_feed_back.email }}
                     </div>
                 </div>
+                <script>
+                    function reloadme() {
+                        // yes I know it is a hack
+                        document.location.href = './';
+                    }
+                </script>
                 {% if (new_website.url != '') %}
                         <div>
-                            <a href="{{new_website.url}}" target="_blank" class='new-site-a'/>Go to your new {{new_website.name}}</a>
+                            <a href="{{new_website.url}}" target="_blank" onclick="reloadme();" class='new-site-a'/>Go to your new {{new_website.name}}</a>
                         </div>
                 {% else %}
                         <div>

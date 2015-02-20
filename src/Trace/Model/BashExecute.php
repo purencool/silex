@@ -24,11 +24,6 @@ class BashExecute {
     */
     private $app;
     
-    /**
-     *
-     * @var array giving user feedback on what happened.
-     */
-    private $feedBack = array();
 
     /**
      * 
@@ -61,12 +56,8 @@ class BashExecute {
         $drushEsc = escapeshellcmd($drushCommand);
         exec($drushEsc, $execOutput);
 	
-	//-- Prepare feedback from execshell
-        foreach ($execOutput as $drushFeedback) {
-            $this->feedBack[] = $drushFeedback;
-        }
 	
-        return $this->feedBack;
+        return $this->app[feedback]->feedback('drushExecute', 'drushExecute', $execOutput);
     }
 
     /**
@@ -83,12 +74,8 @@ class BashExecute {
 	$shellOutput = NULL;
         exec($shellEsc, $shellOutput);
 	
-	//-- Prepare feedback from execshell
-        foreach ($shellOutput as $shellOutputVal) {
-            $this->feedBack[] = $shellOutputVal;
-        }
+	return $this->app[feedback]->feedback('drushExecute', 'executeShell', $shellOutput);
 	
-        return $this->feedBack;
     }
 
     /**

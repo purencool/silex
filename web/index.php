@@ -13,3 +13,8 @@ require_once __DIR__.'/../vendor/autoload.php';
 require_once __DIR__.'/../web/AppConfig.php';
 require_once __DIR__.'/../web/Trace.php';
 $app->run();
+
+print "<pre>";
+print_r($app[feedback]->getFeedback()) ;
+print  "</pre>";
+

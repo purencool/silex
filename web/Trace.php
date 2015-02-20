@@ -45,3 +45,10 @@ $app['trace.config'] = $app->share(function() {
 $app->register(new Silex\Provider\SessionServiceProvider());
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 $app->register(new Silex\Provider\ValidatorServiceProvider());
+
+
+
+//-- Adding Feeedback
+$app['feedback'] = $app->share(function($app) {
+    return new Trace\Model\Feedback($app);
+});

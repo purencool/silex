@@ -1,12 +1,11 @@
 <?php
 /**
- * Allowing the access of the systems shell directly or using  drush
- * so that the application can complete jobs that have been requested
+ * Allowing the access of Bash commands to the Systems shell so 
+ * that the application can complete jobs that have been requested
  * by the user.
  * 
  * An example of this would be a new website needs to be build
- * using drush install through the exec()  could complete this
- * job 
+ * using **drush install** , exec() could complete this request.
  *
  * @package    **Trace**
  * @category   Trace Model
@@ -33,7 +32,7 @@ class BashExecute {
 
     /**
      * 
-     * @param array $app injection of all the applications 
+     * @param Object Injection of all the applications 
      * objects
      */
     public function __construct($app) {
@@ -41,18 +40,18 @@ class BashExecute {
     }
 
     /**
-     *  This allows user chose a Drupal build and 
-     *  then execute a drush command against it
+     *  This allows user choose a Drupal build and 
+     *  then execute a Drush command against it
      * 
      *  @example $path /real/path/to/Drupal/build
      *  @example $command **cc all** drush is added in script
      * 
-     *  @param $path path to drupal build
-     *  @param $command drush command user requested
-     *  @return array of what was echo into the shell
+     *  @param  string Path to Drupal build
+     *  @param  string Drush command user requested to be executed
+     *  @return array Displays what was echo into the shell
      */
     public function drushExecute($path, $command) {
-        
+       
 	//-- Preparing bash command
         $underScoreCommand = preg_replace('/\s+/', '_', $command);
         $drushCommand = $this->app['trace.config']->bashDirectory . "/drushCommand $path $underScoreCommand ";
@@ -72,9 +71,9 @@ class BashExecute {
 
     /**
      *  Allows users to request the systems shell to 
-     *  achieve a cetain job request
+     *  achieve a cetain bash executable to be completed
      * 
-     *  @param $command drush command user requested
+     *  @param  string  Bash command requested to be executed
      *  @return array of what was echo into the shell
      */
     public function executeShell($command) {

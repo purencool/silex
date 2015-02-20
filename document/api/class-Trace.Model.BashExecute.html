@@ -114,7 +114,7 @@
 		<b>Namespace:</b> <a href="namespace-Trace.html">Trace</a>\<a href="namespace-Trace.Model.html">Model</a><br>
 		
 
-		<b>Located at</b> <a href="source-class-Trace.Model.BashExecute.html#15-62" title="Go to source code">Trace/Model/BashExecute.php</a><br>
+		<b>Located at</b> <a href="source-class-Trace.Model.BashExecute.html#19-101" title="Go to source code">Trace/Model/BashExecute.php</a><br>
 	</div>
 
 
@@ -132,7 +132,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Trace.Model.BashExecute.html#20-22" title="Go to source code">__construct</a>( <span>mixed <var>$app</var></span> )</code>
+		<code><a href="source-class-Trace.Model.BashExecute.html#33-40" title="Go to source code">__construct</a>( <span>Object <var>$app</var></span> )</code>
 
 		<div class="description short">
 			
@@ -142,6 +142,11 @@
 			
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$app</var></dt>
+					<dd><code>Object</code><br>Injection of all the applications objects</dd>
+				</dl></div>
 
 
 
@@ -161,30 +166,41 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_drushExecute">#</a>
-		<code><a href="source-class-Trace.Model.BashExecute.html#24-39" title="Go to source code">drushExecute</a>( <span>mixed <var>$path</var></span>, <span>mixed <var>$command</var></span> )</code>
+		<code><a href="source-class-Trace.Model.BashExecute.html#42-70" title="Go to source code">drushExecute</a>( <span>string <var>$path</var></span>, <span>string <var>$command</var></span> )</code>
 
 		<div class="description short">
 			
+<p>This allows user choose a Drupal build and<br />
+then execute a Drush command against it</p>
+
 		</div>
 
 		<div class="description detailed hidden">
 			
+<p>This allows user choose a Drupal build and then execute a Drush command
+against it</p>
+
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$path</var></dt>
-					<dd><code>mixed</code><br>$path path to drupal build</dd>
+					<dd><code>string</code><br>Path to Drupal build</dd>
 					<dt><var>$command</var></dt>
-					<dd><code>mixed</code><br>$command drush command user requested</dd>
+					<dd><code>string</code><br>Drush command user requested to be executed</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>array</code><br>of what was echo into the shell<br>
+					<code>array</code><br>Displays what was echo into the shell<br>
 				</div>
 
 
+				<h4>Example</h4>
+				<div class="list">
+						$path /real/path/to/Drupal/build<br>
+						$command <strong>cc all</strong> drush is added in script<br>
+				</div>
 
 
 		</div>
@@ -201,20 +217,26 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_executeShell">#</a>
-		<code><a href="source-class-Trace.Model.BashExecute.html#41-53" title="Go to source code">executeShell</a>( <span>mixed <var>$command</var></span> )</code>
+		<code><a href="source-class-Trace.Model.BashExecute.html#72-92" title="Go to source code">executeShell</a>( <span>string <var>$command</var></span> )</code>
 
 		<div class="description short">
 			
+<p>Allows users to request the systems shell to<br />
+achieve a cetain bash executable to be completed</p>
+
 		</div>
 
 		<div class="description detailed hidden">
 			
+<p>Allows users to request the systems shell to achieve a cetain bash executable
+to be completed</p>
+
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$command</var></dt>
-					<dd><code>mixed</code><br>$command drush command user requested</dd>
+					<dd><code>string</code><br>Bash command requested to be executed</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -239,7 +261,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___toString">#</a>
-		<code><a href="source-class-Trace.Model.BashExecute.html#55-60" title="Go to source code">__toString</a>( )</code>
+		<code><a href="source-class-Trace.Model.BashExecute.html#94-99" title="Go to source code">__toString</a>( )</code>
 
 		<div class="description short">
 			

@@ -1,16 +1,44 @@
 #!/bin/bash
 # Configuration file
 
-
-###
+##
 #  Global System paths
-###
-DRUSHPATH='/usr/bin';
-RSYNC='/usr/bin';
+##
 DIRPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-WEBSITESPATH="";
+
+##
+# Exact path to Drush
+##
+DRUSHPATH='/usr/bin';
+
+##
+# Not use yet
+##
+RSYNC='/usr/bin';
+
+##
+# Which browser do you want to automatic refresh when writing sass
+##
 BROWSERWINDOW='- Google Chrome';
+
+##
+# Sets the compile time so when the browser refreshes it display change 
+##
+WATCHSLEEP='1';
+
+##
+# Check sum see if directory has changed this is used for compiling sass.
+# It can be used of any directory you are coding in eg Javascript.  
+##
 MD5='md5sum'; #'md5sum' for linux  #'md5'; for mac
-WATCHSLEEP='2';
+
+
+##
+# If set to null it will default to web server
+##
 CHOWNER='work:www-data';
+
+##
+# If set to null it will default to web server
+##
 PERMISSIONS='775';

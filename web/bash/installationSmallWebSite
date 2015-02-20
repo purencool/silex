@@ -1,0 +1,33 @@
+#!/bin/bash
+
+systemDir=$(dirname $(readlink -f $0))
+source "$systemDir/config"
+
+SITEPATH=$1;
+cd $SITEPATH;
+
+
+##
+# Small Web Site
+##
+$DRUSHPATH/drush en -y pncsitedetails
+$DRUSHPATH/drush en -y newsletter
+$DRUSHPATH/drush en -y tagclouds
+$DRUSHPATH/drush en -y xmlsitemap
+$DRUSHPATH/drush en -y metatag
+$DRUSHPATH/drush en -y page_title
+$DRUSHPATH/drush en -y easy_social
+
+##
+# Features
+##
+$DRUSHPATH/drush en -y pnc_user_permissions
+
+##
+# Small site with adds
+##
+$DRUSHPATH/drush en -y pncgoogleadd
+
+
+
+cd $DIRPATH;

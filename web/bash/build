@@ -14,9 +14,9 @@ MKNEWDIR=$2;
 DIRECTORY=$WEBSITESPATH/$MKNEWDIR;
 DRUSHMAKEFILE='.makefile';
 
-###
-#  TESTING AND ADDING BUILD PATH
-###
+##
+#  Making directory structure for build
+##
 while true
 do
   if [ -d "$DIRECTORY" ]; then
@@ -43,17 +43,26 @@ do
 done
 
 ###
-#
-#  TESTING TO SEE IF BUILD PATH EXISTS
-#
+#  Test to see if path exists
 ###
 if [ -d "$BUILDPATH" ]; then
+
   ###
   #  git clone and make file
   ###
   git clone https://github.com/purencool/make.git $BUILDPATH
   cd $BUILDPATH;
   $DRUSHPATH/drush make $DRUSHMAKEFILE -y
-  chown -Rf $CHOWNER $DIRECTORY
-  chmod -Rf $PERMISSIONS $DIRECTORY
+
+
+  ##
+  # If you need certain permissions or own settings on the 
+  # directory. By default it will work use the web server
+  ##
+  if [ -n "$CHOWNER" ]; then
+     chown -Rf $CHOWNER $DIRECTORY
+  fi
+  if [ -n "$PERMISSIONS" ]; then
+    chmod -Rf $PERMISSIONS $DIRECTORY
+  fi
 fi

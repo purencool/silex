@@ -1,9 +1,15 @@
 #!/bin/bash
+#
+# This script does the following,
+# 1. Installs a web site using Drush.
+# 2. Installs base modules for a basic build that is functional
+#
+
 
 systemDir=$(dirname $(readlink -f $0))
 source "$systemDir/config"
 
-#Get new sitename
+
 WEBSITETYPE=$1;
 SITENAME=$2;
 USER=$3;
@@ -14,12 +20,15 @@ SITEPATH=$7;
 EMAIL=$8;
 
 
+
 cd $SITEPATH;
 
 ##
 # Installation
 ##
-$DRUSHPATH/drush site-install -y $WEBSITETYPE --site-name=$SITENAME --account-name=$USER --account-pass=$PASSWORD --site-mail=$EMAIL  --db-url=mysql://$DATABASEUSER:$DATABASEPASSWORD@localhost/$SITENAME
+#${SITENAME//[-._]/} removes -._
+$DRUSHPATH/drush site-install -y $WEBSITETYPE --site-name=${SITENAME//[-._]/} --account-name=$USER --account-pass=$PASSWORD --site-mail=$EMAIL  --db-url=mysql://$DATABASEUSER:$DATABASEPASSWORD@localhost/$SITENAME
+
 
 
 ##
@@ -36,8 +45,8 @@ $DRUSHPATH/drush en -y backup_migrate
 ##
 $DRUSHPATH/drush en -y admin_menu
 $DRUSHPATH/drush en -y coffee
-$DRUSHPATH/drush en -y ds_devel
 $DRUSHPATH/drush en -y module_filter
+
 
 ##
 # Disable modules
@@ -62,13 +71,6 @@ $DRUSHPATH/drush vset  theme_default pncmbtheme
 $DRUSHPATH/drush en -y insert
 
 
-##
-# Social buttons
-##
-#$DRUSHPATH/drush en -y socialmedia
-#$DRUSHPATH/drush en -y widgets
-
-
 
 ##
 # Structure
@@ -77,21 +79,11 @@ $DRUSHPATH/drush en -y features
 $DRUSHPATH/drush en -y views
 $DRUSHPATH/drush en -y views_ui
 $DRUSHPATH/drush en -y semanticviews
-#-- Disable demo view
 $DRUSHPATH/drush vdis semantic_demo
-
 $DRUSHPATH/drush en -y bean
 $DRUSHPATH/drush en -y bean_admin_ui
-# @todo This takes over the whole block system
-#$DRUSHPATH/drush en -y bean_all
 $DRUSHPATH/drush en -y bean_uuid
-$DRUSHPATH/drush en -y ds
-$DRUSHPATH/drush en -y ds_extras
-$DRUSHPATH/drush en -y ds_extra_layouts
-$DRUSHPATH/drush en -y ds_forms
-$DRUSHPATH/drush en -y ds_search
-$DRUSHPATH/drush en -y ds_ui
-
+$DRUSHPATH/drush en -y block_access
 
 
 ##
@@ -99,5 +91,7 @@ $DRUSHPATH/drush en -y ds_ui
 ##
 $DRUSHPATH/drush en -y pnchelp
 $DRUSHPATH/drush en -y pncextras
+$DRUSHPATH/drush en -y pnccopyright
+
 
 cd $DIRPATH;

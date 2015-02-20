@@ -22,7 +22,6 @@ class BuildAWebsite extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('email', 'email');
-        $builder->add('password', 'text', array('label' => 'Password'));
         $builder->add('url', 'text', array('label' => 'Website name'));
     }
 

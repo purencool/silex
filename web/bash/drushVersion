@@ -1,0 +1,11 @@
+#!/bin/bash
+# Directory Path
+
+##
+# Build System
+##
+
+systemDir=$(dirname $(readlink -f $0))
+source "$systemDir/config"
+
+$DRUSHPATH/drush version

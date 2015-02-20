@@ -42,9 +42,6 @@ $app['trace.config'] = $app->share(function() {
 });
 
 
-
-
-
-
 $app->register(new Silex\Provider\SessionServiceProvider());
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
+$app->register(new Silex\Provider\ValidatorServiceProvider());

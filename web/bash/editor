@@ -1,0 +1,23 @@
+#!/bin/bash
+
+systemDir=$(dirname $(readlink -f $0))
+source "$systemDir/config"
+
+USEREDITOR=$1;
+PASSWORDEDITOR=$2;
+EMAILEDITOR=$3;
+SITEPATH=$4;
+
+
+
+cd $SITEPATH;
+
+##
+# Add new user under editor
+##
+$DRUSHPATH/drush user-create $USEREDITOR --mail=$EMAILEDITOR --password=$PASSWORDEDITOR
+$DRUSHPATH/drush user-add-role editor $USEREDITOR
+$DRUSHPATH/drush uli $USEREDITOR
+
+
+cd $DIRPATH;

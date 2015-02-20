@@ -1,5 +1,16 @@
 #!/bin/bash
-#This script is designed install websites from git purencool.com
+
+
+
+
+#####
+#
+#  This file is still in the test stage @todo
+#
+#
+#####
+
+
 
 #Get new sitename
 SITENAME=$1;

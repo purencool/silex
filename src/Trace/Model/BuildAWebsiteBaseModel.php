@@ -1,11 +1,6 @@
 <?php
 
 /**
- * The trace login form allows a user to access the backend
- * of the project to administer the sites needs. This form
- * displays across the entire web site where the user has
- * the ability to login at anytime.
- *
  *
  * @package    Trace
  * @category
@@ -15,16 +10,18 @@
 
 namespace Trace\Model;
 
-use Trace\Model\BashExecute;
+class BuildAWebsiteBaseModel {
 
-class BuildAWebsiteModel {
-
+	protected $app;
+	protected $execShell;
 	private $newWebsiteName;
-	private $app;
 	private $feedBack = array();
 	private $sitePathDirectory = '';
 	private $sitePathBuildDirectory = '';
-	private $execShell;
+	private $buildType = '/build ';
+	private $installationType = '/installation ';
+	private $loginUrl = '';
+	private $editorEmail = '';
 
 	/**
 	 * 
@@ -32,9 +29,9 @@ class BuildAWebsiteModel {
 	 */
 	public function __construct($app) {
 		$this->app = $app;
-		$this->execShell = new BashExecute($app);
+		$this->execShell = new \Trace\Model\BashExecute($app);
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -49,12 +46,25 @@ class BuildAWebsiteModel {
 
 	/**
 	 * 
+	 * @param type $websiteName
+	 * @param type $editorEmail
 	 */
-	public function buildWebsiteStructure() {
+	public function buildWebsiteStructure($websiteName = NULL, $editorEmail = NULL) {
+		$this->editorEmail = $editorEmail;
 		$this->feedBack[] = "<span>Creating website stucture</span>";
-		$buildBashPath = $this->app['trace.config']->bashDirectory . "/build"
-			. ' ' . $this->app['trace.config']->websitesDirectory
-			. ' ' . $this->app['trace.config']->siteName;
+		$buildBashPath = $this->app['trace.config']->bashDirectory
+			. $this->buildType
+			. ' ' . $this->app['trace.config']->websitesDirectory;
+		if ($websiteName == NULL) {
+			$buildBashPath .= ' ' . $this->app['trace.config']->siteName;
+		} else {
+			$newstr = preg_replace('/[^a-zA-Z0-9\']/', '_', $websiteName);
+			$newsite = strtolower (str_replace("'", '', $newstr));
+			$buildBashPath .= ' ' . $newsite;
+		}
+
+		$siteUrl = $this->app['trace.config']->tempWebsiteUrl;
+		$this->feedBack[] = "<a href='" . $siteUrl . "' target='_blank'>See your new website</a>";
 
 		$buildOutput = $this->execShell->executeShell($buildBashPath);
 
@@ -115,8 +125,6 @@ class BuildAWebsiteModel {
 	 * 
 	 */
 	public function websiteInstallation() {
-
-		//$ENDURL = $this->app['trace.config']->endUrl;
 		$WEBSITETYPE = $this->app['trace.config']->websiteType;
 		$SITENAME = $this->newWebsiteName;
 		$USER = $this->app['trace.config']->siteUser;
@@ -124,18 +132,45 @@ class BuildAWebsiteModel {
 		$DATABASEUSER = $this->app['trace.config']->databaseUser;
 		$DATABASEPASSWORD = $this->app['trace.config']->databasePassword;
 		$SITEPATHBUILD = $this->sitePathBuildDirectory . '/';
-		//$SITEPATH = $this->sitePathDirectory . '/';
 		$EMAIL = $this->app['trace.config']->siteEmail;
 
 
-		$siteInstall = $this->app['trace.config']->bashDirectory . "/installation
-     $WEBSITETYPE $SITENAME $USER $PASSWORD $DATABASEUSER $DATABASEPASSWORD
-     $SITEPATHBUILD $EMAIL";
+		$siteInstall = $this->app['trace.config']->bashDirectory
+			. $this->installationType . " $WEBSITETYPE $SITENAME $USER $PASSWORD $DATABASEUSER $DATABASEPASSWORD $SITEPATHBUILD $EMAIL";
 
 		//-- execute install file.
 		foreach ($this->execShell->executeShell($siteInstall) as $installVal) {
 			$this->feedBack[] = $installVal;
 		}
+	}
+
+	/**
+	 * 
+	 */
+	public function websiteEditor() {
+		if ($this->editorEmail == '') {
+			$USEREDITOR = $this->app['trace.config']->userEditor;
+			$EMAILEDITOR = $this->app['trace.config']->emailEditor;
+		} else {
+			$userName = explode('@', $this->editorEmail);
+			$USEREDITOR =  $userName[0];
+			$EMAILEDITOR = $this->editorEmail;
+		}
+
+		$PASSWORDEDITOR = $this->app['trace.config']->passwordEditor;
+		$SITEPATH = $this->sitePathBuildDirectory . '/';
+
+
+		$editor = $this->app['trace.config']->bashDirectory
+			. '/editor ' . " $USEREDITOR $PASSWORDEDITOR $EMAILEDITOR $SITEPATH";
+
+		//-- execute install file.
+		foreach ($this->execShell->executeShell($editor) as $installVal) {
+			$this->feedBack[] = $installVal;
+		}
+		$url = array_pop($this->feedBack);
+		$urlEx = explode('/', $url);
+		$this->loginUrl = $urlEx[3] . "/" . $urlEx[4] . "/" . $urlEx[5] . "/" . $urlEx[6] . "/" . $urlEx[7] . "/" . $urlEx[8];
 	}
 
 	/**
@@ -211,14 +246,13 @@ class BuildAWebsiteModel {
 		$SITEPATHBUILD = $this->sitePathBuildDirectory . '/';
 		$SITEPATH = $this->sitePathDirectory . '/';
 
-
 		chmod($SITEPATH . 'databases', 0775);
-		chmod($SITEPATH . 'databases/production', 0775);
-		chmod($SITEPATH . 'databases/testing', 0775);
 		chmod($SITEPATH . 'backup-build', 0775);
 
 
-		$firstBackup = $this->app['trace.config']->bashDirectory . "/dev/backup $SITENAME $DATABASEUSER $DATABASEPASSWORD  " . $SITEPATH . "databases/production/";
+		$firstBackup = $this->app['trace.config']->bashDirectory
+			. "/dev/backup $SITENAME $DATABASEUSER $DATABASEPASSWORD  "
+			. $SITEPATH . "databases";
 
 		//-- execute install file.
 		$backupOutput = $this->execShell->executeShell($firstBackup);
@@ -228,7 +262,9 @@ class BuildAWebsiteModel {
 		}
 
 
-		$firstBuildBackup = $this->app['trace.config']->bashDirectory . "/backup-build $SITENAME $SITEPATHBUILD " . $SITEPATH . "backup-build/";
+		$firstBuildBackup = $this->app['trace.config']->bashDirectory
+			. "/backupBuild $SITENAME $SITEPATHBUILD "
+			. $SITEPATH . "backup-build/";
 
 		//-- execute install file.
 		$backupBuildOutput = $this->execShell->executeShell($firstBuildBackup);
@@ -237,6 +273,27 @@ class BuildAWebsiteModel {
 			$this->feedBack[] = $backupBuildOutputVal;
 		}
 		chmod($backupBuildOutput[1], 0775);
+	}
+
+	/**
+	 * 
+	 * @return array 
+	 */
+	public function findUninstalledModules() {
+		$sitePath = $this->sitePathBuildDirectory . '/';
+
+		$bash = $this->app['trace.config']->bashDirectory . "/uninstalledNonCoreModules" . " $sitePath ";
+
+		//-- execute install file.
+
+		$feedback = $this->execShell->executeShell($bash);
+
+		foreach ($feedback as $feedbackVal) {
+			$this->feedBack[] = $feedbackVal;
+			$return[] = $feedbackVal;
+		}
+
+		return $return;
 	}
 
 	public function feedBack() {
@@ -252,10 +309,58 @@ class BuildAWebsiteModel {
 	}
 
 	/**
+	 * [getWebsite description]
+	 * @return object
+	 */
+	public function getNewWebsiteName() {
+		return $this->newWebsiteName;
+	}
+
+	/**
+	 * [getWebsite description]
+	 * @return object
+	 */
+	public function getSitePathDirectory() {
+		return $this->sitePathDirectory;
+	}
+
+	/**
+	 * [getWebsite description]
+	 * @return object
+	 */
+	public function getSitePathBuildDirectory() {
+		return $this->sitePathBuildDirectory;
+	}
+
+	/**
+	 * [getWebsite description]
+	 * @return object
+	 */
+	public function getBuildType() {
+		return $this->buildType;
+	}
+
+	/**
+	 * [getWebsite description]
+	 * @return object
+	 */
+	public function getInstallationType() {
+		return $this->installationType;
+	}
+
+	/**
+	 * [getWebsite description]
+	 * @return object
+	 */
+	public function getLoginUrl() {
+		return $this->loginUrl;
+	}
+
+	/**
 	 *  @return string
 	 */
 	public function __toString() {
-		return "Model\BuildAWebsite";
+		return "Trace\Model\BuildAWebsite";
 	}
 
 }

@@ -1,10 +1,5 @@
 <?php
-
 /**
- * The trace login form allows a user to access the backend
- * of the project to administer the sites needs. This form
- * displays across the entire web site where the user has
- * the ability to login at anytime.
  *
  *
  * @package    Trace
@@ -40,6 +35,9 @@ class BuildAWebsiteModeld8 {
 		$buildBashPath = $this->app['trace.config']->bashDirectory . "/buildd8"
 			. ' ' . $this->app['trace.config']->websitesDirectory
 			. ' ' . $this->app['trace.config']->siteName;
+		
+		$siteUrl = $this->app['trace.config']->tempWebsiteUrl;
+		$this->feedBack[] = "<a href='". $siteUrl ."' target='_blank'>See your new website</a>";
 
 		//-- execute install file.
 		$buildOutput = $this->execShell->executeShell($buildBashPath);
@@ -234,10 +232,6 @@ class BuildAWebsiteModeld8 {
 		foreach ($backupOutput as $backupOutputVal) {
 			$this->feedBack[] = $backupOutputVal;
 		}
-		//chmod($backupOutput[0], 0775);
-		//chmod($backupOutput[1], 0775);
-
-
 
 		$firstBuildBackup = $this->app['trace.config']->bashDirectory . "/backup-build $SITENAME $SITEPATHBUILD " . $SITEPATH . "backup-build/";
 
@@ -269,7 +263,7 @@ class BuildAWebsiteModeld8 {
 	 *  @return string
 	 */
 	public function __toString() {
-		return "Model\BuildAWebsite";
+		return "Trace\Model\BuildAWebsite";
 	}
 
 }

@@ -59,6 +59,8 @@ if [ -d "$DIRECTORY" ]; then
   $DRUSHPATH/drush dl devel
   $DRUSHPATH/drush dl honeypot
 
+  #$DRUSHPATH/drush dl omega
+
   cd ./modules
   ###
   # Git clone until I can get the Drush make to work
@@ -67,7 +69,19 @@ if [ -d "$DIRECTORY" ]; then
   git clone --branch d8panels http://git.drupal.org/sandbox/dsnopek/2290237.git d8panels
   git clone  https://github.com/geberele/D8-Example-Module.git
   git clone --branch 8.x-1.x http://git.drupal.org/project/adminimal_theme.git
+  git clone --branch 8.x-1.x http://git.drupal.org/project/coffee.git
+
+  cd ../themes
+  git clone --branch 8.x-5.x http://git.drupal.org/project/omega.git
   
-  chown -Rf $CHOWNER $DIRECTORY
-  chmod -Rf $PERMISSIONS $DIRECTORY
+  ##
+  # If you need certain permissions or own settings on the 
+  # directory. By default it will work use the web server
+  ##
+  if [ -n "$CHOWNER" ]; then
+     chown -Rf $CHOWNER $DIRECTORY
+  fi
+  if [ -n "$PERMISSIONS" ]; then
+    chmod -Rf $PERMISSIONS $DIRECTORY
+  fi
 fi

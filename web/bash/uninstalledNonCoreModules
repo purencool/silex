@@ -1,0 +1,30 @@
+#!/bin/bash
+# Directory Path
+
+
+#####
+#
+#  This file is still in the test stage @todo
+#
+#
+#####
+
+
+
+##
+# Build System
+##
+systemDir=$(dirname $(readlink -f $0))
+source "$systemDir/config"
+
+
+SITEPATH=$1;
+
+cd $SITEPATH;
+#$DRUSHPATH/drush pm-list --no-core --pipe --type=module --status='not installed' | awk '{print "\x27" $1 "\x27" }'
+#$DRUSHPATH/drush pml --no-core --type=module --status=disabled 
+#$DRUSHPATH/drush pm-list --pipe --type=module --status=disabled --no-core
+#$DRUSHPATH/drush pml --pipe --no-core --status=enabled
+
+
+cd $DIRPATH;

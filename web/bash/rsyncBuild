@@ -8,6 +8,15 @@ systemDir=$(dirname $(readlink -f $0))
 source "$systemDir/config"
 
 
+#####
+#
+#  This file is still in the test stage @todo
+#
+#
+#####
+
+
+
 SYNCFROMPATH=$1;
 SYNCTOPATH=$2;
 EXCLUDEFILE=$3;
@@ -21,8 +30,8 @@ if [ ! -d "$SYNCTOPATH" ]; then
 fi
 
 if [ -a "$EXCLUDEFILE" ]; then
-  $RSYNC/rsync -$FLAGS  --exclude-from=$EXCLUDEFILE $SYNCFROMPATH/ $SYNCTOPATH/
+  #$RSYNC/rsync -$FLAGS  --exclude-from=$EXCLUDEFILE $SYNCFROMPATH/ $SYNCTOPATH/
 else
-  $RSYNC/rsync -$FLAGS  $SYNCFROMPATH/ $SYNCTOPATH/
+  #$RSYNC/rsync -$FLAGS  $SYNCFROMPATH/ $SYNCTOPATH/
 fi
 cd $DIRPATH;

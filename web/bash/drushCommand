@@ -1,0 +1,17 @@
+#!/bin/bash
+
+systemDir=$(dirname $(readlink -f $0))
+source "$systemDir/config"
+
+SITEPATH=$1;
+DRUSHCOMMAND=$2
+
+cd $SITEPATH;
+
+##
+# Allows for command with multiple flags added
+##
+$DRUSHPATH/drush ${$DRUSHCOMMAND//[-._]/}
+
+
+cd $DIRPATH;

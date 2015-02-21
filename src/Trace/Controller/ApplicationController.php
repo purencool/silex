@@ -4,10 +4,12 @@
  * Routes the html requests to the correct twig
  * template files
  *
- * @package    Trace
- * @category
+ *
+ * @package    **Trace**
+ * @category   Trace Controller
  * @author     Purencool Website Development
  * @license    GPL3
+ *
  */
 
 namespace Trace\Controller;
@@ -21,9 +23,8 @@ class ApplicationController {
 	/**
 	 *  Build Website Form
 	 *
-	 *  @param array $app application container
-	 *  @return array building login form
-	 *
+	 *  @param array $app Application container
+	 *  @return array building drush form
 	 */
 	private function buildAWebsiteForm(Application $app) {
 		$data = array();
@@ -37,17 +38,16 @@ class ApplicationController {
 	}
 	
 	/**
-	 *  Index action controller
-	 *
-	 *  @param array $app application container
-	 *  @return array for twig templating file
-	 *
+	 * 
+	 *  Testing to see if email is correct
+	 * 
+	 * @todo will need to test mx in the future
+	 * @param type $app  Application container
+	 * @param type $email Email user wants to use
+	 * @return array Array of email error
 	 */
-	public function indexAction(Application $app) {
+	private function testEmail(Application $app, $email) {
 		
-		$urlName = array();
-		$request = $app['request']->get('new_site');
-		$email = $app->escape($request['email']);
 		$errors = $app['validator']->validateValue($email, new Assert\Email());
 
 		if (count($errors) > 0) {
@@ -55,9 +55,25 @@ class ApplicationController {
 		} else {
 			$formFeedBack['email'] = 'The email is valid';
 		}
+		
+		return $formFeedBack;
+	}
+	
+	
+	/**
+	 *  Index action controller
+	 *
+	 *  @param array $app Application container
+	 *  @return array For twig templating file
+	 */
+	public function indexAction(Application $app) {
+		
+		$urlName = array();
+		$request = $app['request']->get('new_site');
+		$email = $app->escape($request['email']);
 
 		$url = $app->escape($request['url']);
-		if ($url != '' && $email != '' && $errors >= 0) {
+		if ($url != '' && $email != '') {
 			
 			$newWebSiteParamObj = new \Trace\Model\SmallWebsiteModel($app);
 			$newLogin = $newWebSiteParamObj->buildSmallWebsite($url,$email);
@@ -71,33 +87,9 @@ class ApplicationController {
 
 		return $app['twig']->render('index.html.twig', array(
 			    'new_website_form' => $this->buildAWebsiteForm($app),
-			    'form_feed_back' => $formFeedBack,
+			    'form_feed_back' => $this->testEmail($app, $email),
 			    'new_website' => $urlName,
 		));
-	}
-
-	/**
-	 *  Contact action controller
-	 *
-	 *  @param array $app application container
-	 *  @return array for twig templating file
-	 *
-	 */
-	public function contactAction(Application $app) {
-		$param = $this->loginForm($app);
-		return $app['twig']->render('contact.html.twig', $param);
-	}
-
-	/**
-	 *  About action controller
-	 *
-	 *  @param array $app application container
-	 *  @return array for twig templating file
-	 *
-	 */
-	public function aboutAction(Application $app) {
-		$param = $this->loginForm($app);
-		return $app['twig']->render('about.html.twig', $param);
 	}
 
 }

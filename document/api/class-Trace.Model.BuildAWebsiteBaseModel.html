@@ -7,7 +7,7 @@
 	<title>Class Trace\Model\BuildAWebsiteBaseModel | Api Trace build tool for Drupal</title>
 
 	<script type="text/javascript" src="resources/combined.js?3770084987"></script>
-	<script type="text/javascript" src="elementlist.js?3707625021"></script>
+	<script type="text/javascript" src="elementlist.js?2135157484"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360">
 
 </head>
@@ -50,6 +50,7 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-Trace.Model.BashExecute.html">BashExecute</a></li>
+				<li><a href="class-Trace.Model.BuildAWebsiteBaseFilesModel.html">BuildAWebsiteBaseFilesModel</a></li>
 				<li class="active"><a href="class-Trace.Model.BuildAWebsiteBaseModel.html">BuildAWebsiteBaseModel</a></li>
 				<li><a href="class-Trace.Model.BuildAWebsiteModel.html">BuildAWebsiteModel</a></li>
 				<li><a href="class-Trace.Model.BuildAWebsiteModeld8.html">BuildAWebsiteModeld8</a></li>
@@ -120,7 +121,7 @@
 		<b>Namespace:</b> <a href="namespace-Trace.html">Trace</a>\<a href="namespace-Trace.Model.html">Model</a><br>
 		
 
-		<b>Located at</b> <a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#13-366" title="Go to source code">Trace/Model/BuildAWebsiteBaseModel.php</a><br>
+		<b>Located at</b> <a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#16-315" title="Go to source code">Trace/Model/BuildAWebsiteBaseModel.php</a><br>
 	</div>
 
 
@@ -138,7 +139,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#26-33" title="Go to source code">__construct</a>( <span>type <var>$app</var></span> )</code>
+		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#72-79" title="Go to source code">__construct</a>( <span>Object <var>$app</var></span> )</code>
 
 		<div class="description short">
 			
@@ -151,7 +152,7 @@
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$app</var></dt>
-					<dd><code>type</code><br>$app</dd>
+					<dd><code>Object</code><br>$app Injection of all the applications shared objects</dd>
 				</dl></div>
 
 
@@ -172,7 +173,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_buildWebsiteStructure">#</a>
-		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#47-87" title="Go to source code">buildWebsiteStructure</a>( <span>type <var>$websiteName</var> = <span class="php-keyword1">NULL</span></span>, <span>type <var>$editorEmail</var> = <span class="php-keyword1">NULL</span></span> )</code>
+		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#106-149" title="Go to source code">buildWebsiteStructure</a>( <span>string <var>$websiteName</var> = <span class="php-keyword1">NULL</span></span>, <span>string <var>$editorEmail</var> = <span class="php-keyword1">NULL</span></span> )</code>
 
 		<div class="description short">
 			
@@ -180,44 +181,23 @@
 
 		<div class="description detailed hidden">
 			
+<p>The collection of information and the building of the website structure is
+needed before we can go to installation. This method does the following, 1.
+Receives new user email 2. If no website name or email is found it will default
+3. Creates and formats strings that will be used throughtout the website 4. Goes
+to the bash shell and creates the directory structure 5. Sets up website name 6.
+Tests to see if all files have been downloaded 7. Starts the installatiom
+process</p>
+
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$websiteName</var></dt>
-					<dd><code>type</code><br>$websiteName</dd>
+					<dd><code>string</code><br>$websiteName Gets users sitename</dd>
 					<dt><var>$editorEmail</var></dt>
-					<dd><code>type</code><br>$editorEmail</dd>
+					<dd><code>string</code><br>$editorEmail Gets new users email</dd>
 				</dl></div>
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="websiteName" id="_websiteName">
-
-		<td class="attributes"><code>
-			 public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_websiteName">#</a>
-		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#89-96" title="Go to source code">websiteName</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
 
 
 
@@ -237,14 +217,18 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_websiteSetup">#</a>
-		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#98-122" title="Go to source code">websiteSetup</a>( )</code>
+		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#151-170" title="Go to source code">websiteSetup</a>( )</code>
 
 		<div class="description short">
 			
+<p>Installatiom of new website</p>
+
 		</div>
 
 		<div class="description detailed hidden">
 			
+<p>Installatiom of new website</p>
+
 
 
 
@@ -266,7 +250,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_websiteInstallation">#</a>
-		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#124-145" title="Go to source code">websiteInstallation</a>( )</code>
+		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#172-192" title="Go to source code">websiteInstallation</a>( )</code>
 
 		<div class="description short">
 			
@@ -274,6 +258,8 @@
 
 		<div class="description detailed hidden">
 			
+<p>This installs the new website using the bash shell</p>
+
 
 
 
@@ -295,7 +281,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_websiteEditor">#</a>
-		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#147-174" title="Go to source code">websiteEditor</a>( )</code>
+		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#194-222" title="Go to source code">websiteEditor</a>( )</code>
 
 		<div class="description short">
 			
@@ -303,93 +289,10 @@
 
 		<div class="description detailed hidden">
 			
+<p>Gets all the new users information and creates a new user in the build. Then
+adds them to the role of editor and then creates a url so the user can access
+their new website and add their own password</p>
 
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="websiteHostFile" id="_websiteHostFile">
-
-		<td class="attributes"><code>
-			 public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_websiteHostFile">#</a>
-		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#176-186" title="Go to source code">websiteHostFile</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="websiteSettingsFile" id="_websiteSettingsFile">
-
-		<td class="attributes"><code>
-			 public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_websiteSettingsFile">#</a>
-		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#188-210" title="Go to source code">websiteSettingsFile</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="websiteVHostFile" id="_websiteVHostFile">
-
-		<td class="attributes"><code>
-			 public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_websiteVHostFile">#</a>
-		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#212-237" title="Go to source code">websiteVHostFile</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
 
 
 
@@ -411,7 +314,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_websiteBackup">#</a>
-		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#239-276" title="Go to source code">websiteBackup</a>( )</code>
+		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#224-250" title="Go to source code">websiteBackup</a>( )</code>
 
 		<div class="description short">
 			
@@ -419,68 +322,8 @@
 
 		<div class="description detailed hidden">
 			
+<p>For larger new installations this backups up all the code and database</p>
 
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="findUninstalledModules" id="_findUninstalledModules">
-
-		<td class="attributes"><code>
-			 public 
-			array
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_findUninstalledModules">#</a>
-		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#278-297" title="Go to source code">findUninstalledModules</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>array</code><br>
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="feedBack" id="_feedBack">
-
-		<td class="attributes"><code>
-			 public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_feedBack">#</a>
-		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#299-301" title="Go to source code">feedBack</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
 
 
 
@@ -495,31 +338,27 @@
 
 		<td class="attributes"><code>
 			 public 
-			object
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getWebsite">#</a>
-		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#303-309" title="Go to source code">getWebsite</a>( )</code>
+		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#252-258" title="Go to source code">getWebsite</a>( )</code>
 
 		<div class="description short">
 			
-<p>[getWebsite description]</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>[getWebsite description]</p>
-
 
 
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>object</code><br>
+					<code>string</code><br>Returns $this-&gt;newWebsite when class is extended<br>
 				</div>
 
 
@@ -532,31 +371,27 @@
 
 		<td class="attributes"><code>
 			 public 
-			object
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getNewWebsiteName">#</a>
-		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#311-317" title="Go to source code">getNewWebsiteName</a>( )</code>
+		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#260-266" title="Go to source code">getNewWebsiteName</a>( )</code>
 
 		<div class="description short">
 			
-<p>[getWebsite description]</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>[getWebsite description]</p>
-
 
 
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>object</code><br>
+					<code>string</code><br>Returns $this-&gt;newWebsiteName when class is extended<br>
 				</div>
 
 
@@ -569,31 +404,27 @@
 
 		<td class="attributes"><code>
 			 public 
-			object
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getSitePathDirectory">#</a>
-		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#319-325" title="Go to source code">getSitePathDirectory</a>( )</code>
+		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#268-274" title="Go to source code">getSitePathDirectory</a>( )</code>
 
 		<div class="description short">
 			
-<p>[getWebsite description]</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>[getWebsite description]</p>
-
 
 
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>object</code><br>
+					<code>string</code><br>Returns $this-&gt;sitePathDirectory when class is extended<br>
 				</div>
 
 
@@ -606,31 +437,27 @@
 
 		<td class="attributes"><code>
 			 public 
-			object
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getSitePathBuildDirectory">#</a>
-		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#327-333" title="Go to source code">getSitePathBuildDirectory</a>( )</code>
+		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#276-282" title="Go to source code">getSitePathBuildDirectory</a>( )</code>
 
 		<div class="description short">
 			
-<p>[getWebsite description]</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>[getWebsite description]</p>
-
 
 
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>object</code><br>
+					<code>string</code><br>Returns $this-&gt;sitePathBuildDirectory when class is extended<br>
 				</div>
 
 
@@ -643,31 +470,27 @@
 
 		<td class="attributes"><code>
 			 public 
-			object
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getBuildType">#</a>
-		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#335-341" title="Go to source code">getBuildType</a>( )</code>
+		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#284-290" title="Go to source code">getBuildType</a>( )</code>
 
 		<div class="description short">
 			
-<p>[getWebsite description]</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>[getWebsite description]</p>
-
 
 
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>object</code><br>
+					<code>string</code><br>Returns $this-&gt;buildType when class is extended<br>
 				</div>
 
 
@@ -680,31 +503,27 @@
 
 		<td class="attributes"><code>
 			 public 
-			object
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getInstallationType">#</a>
-		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#343-349" title="Go to source code">getInstallationType</a>( )</code>
+		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#292-298" title="Go to source code">getInstallationType</a>( )</code>
 
 		<div class="description short">
 			
-<p>[getWebsite description]</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>[getWebsite description]</p>
-
 
 
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>object</code><br>
+					<code>string</code><br>Returns $this-&gt;installationType when class is extended<br>
 				</div>
 
 
@@ -717,31 +536,27 @@
 
 		<td class="attributes"><code>
 			 public 
-			object
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getLoginUrl">#</a>
-		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#351-357" title="Go to source code">getLoginUrl</a>( )</code>
+		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#300-306" title="Go to source code">getLoginUrl</a>( )</code>
 
 		<div class="description short">
 			
-<p>[getWebsite description]</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>[getWebsite description]</p>
-
 
 
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>object</code><br>
+					<code>string</code><br>Returns<br>
 				</div>
 
 
@@ -761,7 +576,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___toString">#</a>
-		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#359-364" title="Go to source code">__toString</a>( )</code>
+		<code><a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#308-313" title="Go to source code">__toString</a>( )</code>
 
 		<div class="description short">
 			
@@ -774,7 +589,7 @@
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>
+					<code>string</code><br>BuildAWebsiteBaseModel<br>
 				</div>
 
 
@@ -801,11 +616,11 @@
 	<tr data-order="app" id="$app">
 		<td class="attributes"><code>
 			protected  
-			mixed
+			array
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#15" title="Go to source code"><var>$app</var></a>
+				<a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#18-22" title="Go to source code"><var>$app</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -813,10 +628,14 @@
 
 			<div class="description short">
 				
+<p>Array of objects</p>
+
 			</div>
 
 			<div class="description detailed hidden">
 				
+<p>Array of objects</p>
+
 
 			</div>
 		</div></td>
@@ -824,11 +643,11 @@
 	<tr data-order="execShell" id="$execShell">
 		<td class="attributes"><code>
 			protected  
-			mixed
+			object
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#16" title="Go to source code"><var>$execShell</var></a>
+				<a href="source-class-Trace.Model.BuildAWebsiteBaseModel.html#24-28" title="Go to source code"><var>$execShell</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -836,10 +655,14 @@
 
 			<div class="description short">
 				
+<p>@see Trace\Model\bashExecute()</p>
+
 			</div>
 
 			<div class="description detailed hidden">
 				
+<p>@see Trace\Model\bashExecute()</p>
+
 
 			</div>
 		</div></td>

@@ -16,7 +16,7 @@ class Feedback {
 
 	/**
 	 *
-	 * @var array of objects
+	 * @var array Array of objects
 	 */
 	private $app;
 
@@ -28,7 +28,7 @@ class Feedback {
 
 	/**
 	 *  
-	 * @param Object Injection of all the applications shared objects
+	 * @param Object $app Injection of all the applications shared objects
 	 */
 	public function __construct($app) {
 		$this->app = $app;

@@ -1,37 +1,63 @@
 <?php
-
 /**
+ * Automatically creates files that are needed on a virtual host
+ * 
  *
- * @package    Trace
- * @category
+ * @package    **Trace**
+ * @category   Trace Model
  * @author     Purencool Website Development
  * @license    GPL3
+ *
  */
 
 namespace Trace\Model;
 
 class BuildAWebsiteBaseFilesModel {
 
+	/**
+	 *
+	 * @var array Array of objects
+	 */
 	private $app;
+
+	/**
+	 *
+	 * @var string The new websites name used in the creation of the files
+	 */
 	private $newWebsiteName;
+
+	/**
+	 *
+	 * @var string Path to the website directory
+	 */
 	private $sitePathDirectory = '';
+
+	/**
+	 *
+	 * @var string Path to the website build directory
+	 */
 	private $sitePathBuildDirectory = '';
+
 	/**
 	 * 
-	 * @param type $app
+	 * @param Object $app Injection of all the applications shared objects
+	 * @param string $newWebsiteName New websites name
+	 * @param string $sitePathDirectory Path to the website directory
+	 * @param string $sitePathBuildDirectory  Path to the website build directory
 	 */
-	public function __construct($app , $newWebsiteName, $sitePathDirectory , $sitePathBuildDirectory) {
+	public function __construct($app, $newWebsiteName, $sitePathDirectory, $sitePathBuildDirectory) {
 		$this->app = $app;
 		$this->newWebsiteName = $newWebsiteName;
-	        $this->sitePathDirectory = $sitePathDirectory;
-	        $this->sitePathBuildDirectory =  $sitePathBuildDirectory;
+		$this->sitePathDirectory = $sitePathDirectory;
+		$this->sitePathBuildDirectory = $sitePathBuildDirectory;
 		$this->websiteHostFile();
 		$this->websiteSettingsFile();
 		$this->websiteVHostFile();
 	}
 
 	/**
-	 * 
+	 *  
+	 *  Creation of host file with host name inside
 	 */
 	public function websiteHostFile() {
 
@@ -44,9 +70,10 @@ class BuildAWebsiteBaseFilesModel {
 
 	/**
 	 * 
+	 *  Creation of all relevant information needed for moving website build
 	 */
 	public function websiteSettingsFile() {
-		
+
 		$SITENAME = $this->newWebsiteName;
 		$USER = $this->app['trace.config']->siteUser;
 		$PASSWORD = $this->app['trace.config']->sitePassword;
@@ -69,6 +96,7 @@ class BuildAWebsiteBaseFilesModel {
 
 	/**
 	 * 
+	 *  Creation of Apache 2.4 host file
 	 */
 	public function websiteVHostFile() {
 		$ENDURL = $this->app['trace.config']->endUrl;
@@ -93,5 +121,11 @@ class BuildAWebsiteBaseFilesModel {
 		 </VirtualHost>";
 		file_put_contents($file, $data, FILE_APPEND | LOCK_EX);
 	}
-
+	
+	/**
+	 *  @return string feedback
+	 */
+	public function __toString() {
+		return "Model\BuildAWebsiteBaseFilesModel";
+	}
 }

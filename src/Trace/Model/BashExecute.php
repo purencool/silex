@@ -20,20 +20,21 @@ class BashExecute {
 	
    /**
     *
-    * @var array of objects
+    * @var array Array of objects
     */
     private $app;
     
 
     /**
      * 
-     * @param Object Injection of all the applications shared objects
+     * @param Object $app Injection of all the applications shared objects
      */
     public function __construct($app) {
         $this->app = $app;
     }
 
     /**
+     * 
      *  This allows user choose a Drupal build and 
      *  then execute a Drush command against it
      * 
@@ -60,6 +61,7 @@ class BashExecute {
     }
 
     /**
+     * 
      *  Allows users to request the systems shell to 
      *  achieve a cetain bash executable or command to be completed
      * 

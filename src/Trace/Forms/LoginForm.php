@@ -8,7 +8,7 @@
  *
  *
  * @package    Trace
- * @category
+ * @category   Trace Forms
  * @author     Purencool Website Development
  * @license    GPL3
  */
@@ -20,23 +20,23 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class LoginForm extends AbstractType {
 
-    /**
-     * 
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options) {
-        $builder->add('login', 'email');
-        $builder->add('password', 'password');
-    }
+	/**
+	 * 
+	 * @param FormBuilderInterface $builder
+	 * @param array $options
+	 */
+	public function buildForm(FormBuilderInterface $builder, array $options) {
+		$builder->add('login', 'email');
+		$builder->add('password', 'password');
+	}
 
-    /**
-     * Returns the name of this type.
-     *
-     * @return string The name of this type
-     */
-    public function getName() {
-        return 'login_form';
-    }
+	/**
+	 * Returns the name of this type.
+	 *
+	 * @return string The name of this type
+	 */
+	public function getName() {
+		return 'login_form';
+	}
 
 }

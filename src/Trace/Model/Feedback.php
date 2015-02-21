@@ -22,13 +22,13 @@ class Feedback {
 
 	/**
 	 *
-	 * @var array giving user feedback on what happened.
+	 * @var array giving user feedback on what happened during the request.
 	 */
 	private $feedBack = array();
 
 	/**
 	 *  
-	 * @param Object Injection of all the applications objects
+	 * @param Object Injection of all the applications shared objects
 	 */
 	public function __construct($app) {
 		$this->app = $app;
@@ -37,10 +37,10 @@ class Feedback {
 
 	/**
 	 * 
-	 * @param string $class Gets class name 
-	 * @param string $method Gets method name
-	 * @param array  $feedback This recieves the output being executed in the method
-	 * @return array of output
+	 * @param  string $class Class gets the class name the feeback request
+	 * @param  string $method Method gets the method name the feeback request
+	 * @param  array  $feedback Feedback receives the output being executed in the method
+	 * @return array  Array of what was echo into the shell that is formated
 	 */
 	public function feedback($class, $method, $feedback) {
 		$localFeedback = array();
@@ -55,7 +55,8 @@ class Feedback {
 
 	/**
 	 * 
-	 * @return array returns application feedback
+	 * @return array  Returns the complete array of the applications 
+	 * multidimensional feedback
 	 */
 	public function getFeedback() {
 
@@ -63,7 +64,7 @@ class Feedback {
 	}
 
 	/**
-	 *  @return string
+	 *  @return string feedback
 	 */
 	public function __toString() {
 		return "Model\Feedback";

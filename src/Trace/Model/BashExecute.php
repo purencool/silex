@@ -27,8 +27,7 @@ class BashExecute {
 
     /**
      * 
-     * @param Object Injection of all the applications 
-     * objects
+     * @param Object Injection of all the applications shared objects
      */
     public function __construct($app) {
         $this->app = $app;
@@ -41,9 +40,9 @@ class BashExecute {
      *  @example $path /real/path/to/Drupal/build
      *  @example $command **cc all** drush is added in script
      * 
-     *  @param  string Path to Drupal build
-     *  @param  string Drush command user requested to be executed
-     *  @return array Displays what was echo into the shell
+     *  @param  string $path Path to Drupal build
+     *  @param  string $command Drush command the user requested to be executed
+     *  @return array Array of what was echo into the shell
      */
     public function drushExecute($path, $command) {
        
@@ -62,10 +61,10 @@ class BashExecute {
 
     /**
      *  Allows users to request the systems shell to 
-     *  achieve a cetain bash executable to be completed
+     *  achieve a cetain bash executable or command to be completed
      * 
-     *  @param  string  Bash command requested to be executed
-     *  @return array of what was echo into the shell
+     *  @param  string $command Bash command requested to be executed
+     *  @return array Array of what was echo into the shell
      */
     public function executeShell($command) {
 	    

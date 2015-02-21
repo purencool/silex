@@ -9,7 +9,6 @@
  * @category   Trace Controller
  * @author     Purencool Website Development
  * @license    GPL3
- *
  */
 
 namespace Trace\Controller;
@@ -21,9 +20,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 class ApplicationController {
 
 	/**
+	 * 
 	 *  Build Website Form
 	 *
-	 *  @param array $app Application container
+	 *  @param  array $app Application container
 	 *  @return array building drush form
 	 */
 	private function buildAWebsiteForm(Application $app) {
@@ -36,18 +36,18 @@ class ApplicationController {
 		    'build_a_website' => $form_view,
 		);
 	}
-	
+
 	/**
 	 * 
 	 *  Testing to see if email is correct
 	 * 
-	 * @todo will need to test mx in the future
-	 * @param type $app  Application container
-	 * @param type $email Email user wants to use
+	 * @todo   will need to test mx in the future
+	 * @param  type $app  Application container
+	 * @param  type $email Email user wants to use
 	 * @return array Array of email error
 	 */
 	private function testEmail(Application $app, $email) {
-		
+
 		$errors = $app['validator']->validateValue($email, new Assert\Email());
 
 		if (count($errors) > 0) {
@@ -55,31 +55,30 @@ class ApplicationController {
 		} else {
 			$formFeedBack['email'] = 'The email is valid';
 		}
-		
+
 		return $formFeedBack;
 	}
-	
-	
+
 	/**
+	 * 
 	 *  Index action controller
 	 *
-	 *  @param array $app Application container
+	 *  @param  array $app Application container
 	 *  @return array For twig templating file
 	 */
 	public function indexAction(Application $app) {
-		
+
 		$urlName = array();
 		$request = $app['request']->get('new_site');
 		$email = $app->escape($request['email']);
 
 		$url = $app->escape($request['url']);
 		if ($url != '' && $email != '') {
-			
+
 			$newWebSiteParamObj = new \Trace\Model\SmallWebsiteModel($app);
-			$newLogin = $newWebSiteParamObj->buildSmallWebsite($url,$email);
+			$newLogin = $newWebSiteParamObj->buildSmallWebsite($url, $email);
 			$urlName['name'] = $newLogin['name'];
-			$urlName['url'] =  $newLogin['url'];
-			
+			$urlName['url'] = $newLogin['url'];
 		} else {
 			$urlName['name'] = '';
 			$urlName['url'] = '';

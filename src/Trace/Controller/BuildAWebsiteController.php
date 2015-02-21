@@ -4,8 +4,8 @@
  * Routes the html requests to the correct twig
  * template files
  *
- * @package    Trace
- * @category
+ * @package    **Trace**
+ * @category   Trace Controller
  * @author     Purencool Website Development
  * @license    GPL3
  */
@@ -13,7 +13,6 @@
 namespace Trace\Controller;
 
 use Silex\Application;
-use Symfony\Component\HttpFoundation\Request;
 use Trace\Model\BuildAWebsiteModel;
 use Trace\Forms\BuildAWebsite;
 
@@ -21,11 +20,11 @@ use Trace\Forms\BuildAWebsite;
 class BuildAWebsiteController {
 
     /**
-     *  Build login form
+     *  
+     * Build login form
      *
-     *  @param array $app application container
-     *  @return array building login form
-     *
+     *  @param  array $app Application container
+     *  @return array Building website creation form
      */
     private function buildAWebsite(Application $app) {
         $data = array();
@@ -39,11 +38,11 @@ class BuildAWebsiteController {
     }
 
     /**
-     *  Create an new website action controller
+     *  
+     * Create an new website action controller
      *
-     *  @param array $app application container
-     *  @return array for twig templating file
-     *
+     *  @param  array $app application container
+     *  @return array For twig templating file
      */
     public function authBuildNewWebsite(Application $app) {
 
@@ -57,13 +56,13 @@ class BuildAWebsiteController {
     }
 
     /**
-     *  Create an new website action controller
+     *  
+     * Create an new website action controller
      *
-     *  @param array $app application container
-     *  @return array for twig templating file
-     *
+     *  @param  array $app Application container
+     *  @return array For twig templating file
      */
-    public function authProcessNewWebsite(Request $request, Application $app) {
+    public function authProcessNewWebsite(Application $app) {
 
         $param = "New website created";
         return $app['twig']->render('auth_build_new_website.html.twig', $param);

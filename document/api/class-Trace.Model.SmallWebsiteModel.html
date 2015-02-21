@@ -130,7 +130,7 @@
 		<b>Namespace:</b> <a href="namespace-Trace.html">Trace</a>\<a href="namespace-Trace.Model.html">Model</a><br>
 		
 
-		<b>Located at</b> <a href="source-class-Trace.Model.SmallWebsiteModel.html#14-99" title="Go to source code">Trace/Model/SmallWebsiteModel.php</a><br>
+		<b>Located at</b> <a href="source-class-Trace.Model.SmallWebsiteModel.html#21-111" title="Go to source code">Trace/Model/SmallWebsiteModel.php</a><br>
 	</div>
 
 
@@ -148,7 +148,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Trace.Model.SmallWebsiteModel.html#16-23" title="Go to source code">__construct</a>( <span>type <var>$app</var></span> )</code>
+		<code><a href="source-class-Trace.Model.SmallWebsiteModel.html#23-30" title="Go to source code">__construct</a>( <span>Object <var>$app</var></span> )</code>
 
 		<div class="description short">
 			
@@ -161,11 +161,15 @@
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$app</var></dt>
-					<dd><code>type</code><br>$app</dd>
+					<dd><code>Object</code><br>$app Injection of all the applications shared objects</dd>
 				</dl></div>
 
 
 
+				<h4>Var</h4>
+				<div class="list">
+						array Array of objects for the parent constructor<br>
+				</div>
 
 				<h4>Overrides</h4>
 				<div class="list"><code><a href="class-Trace.Model.BuildAWebsiteBaseModel.html#___construct">Trace\Model\BuildAWebsiteBaseModel::__construct()</a></code></div>
@@ -184,7 +188,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_websiteBackup">#</a>
-		<code><a href="source-class-Trace.Model.SmallWebsiteModel.html#25-30" title="Go to source code">websiteBackup</a>( )</code>
+		<code><a href="source-class-Trace.Model.SmallWebsiteModel.html#32-37" title="Go to source code">websiteBackup</a>( )</code>
 
 		<div class="description short">
 			
@@ -199,6 +203,7 @@
 
 				<h4>Overriden</h4>
 				<div class="list">
+						not needed in this build<br>
 				</div>
 
 				<h4>Overrides</h4>
@@ -218,7 +223,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_installationOfSmallWebsite">#</a>
-		<code><a href="source-class-Trace.Model.SmallWebsiteModel.html#32-45" title="Go to source code">installationOfSmallWebsite</a>( )</code>
+		<code><a href="source-class-Trace.Model.SmallWebsiteModel.html#39-52" title="Go to source code">installationOfSmallWebsite</a>( )</code>
 
 		<div class="description short">
 			
@@ -226,6 +231,8 @@
 
 		<div class="description detailed hidden">
 			
+<p>Install the small website Drupal modules using drush</p>
+
 
 
 
@@ -247,7 +254,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_removeExcess">#</a>
-		<code><a href="source-class-Trace.Model.SmallWebsiteModel.html#47-68" title="Go to source code">removeExcess</a>( )</code>
+		<code><a href="source-class-Trace.Model.SmallWebsiteModel.html#54-76" title="Go to source code">removeExcess</a>( )</code>
 
 		<div class="description short">
 			
@@ -255,6 +262,8 @@
 
 		<div class="description detailed hidden">
 			
+<p>Remove all excess directories and Drupal modules</p>
+
 
 
 
@@ -276,7 +285,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_buildSmallWebsite">#</a>
-		<code><a href="source-class-Trace.Model.SmallWebsiteModel.html#71-90" title="Go to source code">buildSmallWebsite</a>( <span>string <var>$url</var></span>, <span>string <var>$email</var></span> )</code>
+		<code><a href="source-class-Trace.Model.SmallWebsiteModel.html#78-102" title="Go to source code">buildSmallWebsite</a>( <span>string <var>$url</var></span>, <span>string <var>$email</var></span> )</code>
 
 		<div class="description short">
 			
@@ -284,22 +293,31 @@
 
 		<div class="description detailed hidden">
 			
+<p>Configures Drupal small website installation</p>
+
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$url</var></dt>
-					<dd><code>string</code><br>$url</dd>
+					<dd><code>string</code><br>$url Gets url the user wants to get</dd>
 					<dt><var>$email</var></dt>
-					<dd><code>string</code><br>$email</dd>
+					<dd><code>string</code><br>$email Gets the new users email</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>array</code><br>
+					<code>array</code><br>Array of feedback<br>
 				</div>
 
 
+				<h4>See</h4>
+				<div class="list">
+						<code><code><a href="class-Trace.Model.BuildAWebsiteBaseModel.html#_buildWebsiteStructure">Trace\Model\BuildAWebsiteBaseModel::buildWebsiteStructure()</a></code></code><br>
+						<code><code><a href="class-Trace.Model.SmallWebsiteModel.html#_installationOfSmallWebsite">Trace\Model\SmallWebsiteModel::installationOfSmallWebsite()</a></code></code><br>
+						<code><code><a href="class-Trace.Model.BuildAWebsiteBaseModel.html#_websiteEditor">Trace\Model\BuildAWebsiteBaseModel::websiteEditor()</a></code></code><br>
+						<code><code><a href="class-Trace.Model.SmallWebsiteModel.html#_removeExcess">Trace\Model\SmallWebsiteModel::removeExcess()</a></code></code><br>
+				</div>
 
 
 		</div>
@@ -316,7 +334,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___toString">#</a>
-		<code><a href="source-class-Trace.Model.SmallWebsiteModel.html#92-97" title="Go to source code">__toString</a>( )</code>
+		<code><a href="source-class-Trace.Model.SmallWebsiteModel.html#104-109" title="Go to source code">__toString</a>( )</code>
 
 		<div class="description short">
 			

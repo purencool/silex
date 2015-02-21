@@ -1,10 +1,17 @@
 <?php
 
 /**
- * @package    Trace
- * @category
+ * After the base Drupal installation has been created then we can add and remove 
+ * things from the build by extending the base install. The small website does
+ * just that. This adds and removes diffent modules by the use of drush and
+ * the bash shell
+ * 
+ *
+ * @package    **Trace**
+ * @category   Trace Model
  * @author     Purencool Website Development
  * @license    GPL3
+ *
  */
 
 namespace Trace\Model;
@@ -14,8 +21,8 @@ use Symfony\Component\Filesystem\Filesystem;
 class SmallWebsiteModel extends BuildAWebsiteBaseModel {
 
 	/**
-	 * 
-	 * @param type $app
+	 *
+	 * @var array Array of objects for the parent constructor
 	 */
 	public function __construct($app) {
 		//-- Added $app to parent constructor
@@ -23,7 +30,7 @@ class SmallWebsiteModel extends BuildAWebsiteBaseModel {
 	}
 
 	/**
-	 * @overriden
+	 * @overriden not needed in this build
 	 */
 	public function websiteBackup() {
 		$this->feedBack[] = 'backup was over written';
@@ -31,6 +38,7 @@ class SmallWebsiteModel extends BuildAWebsiteBaseModel {
 
 	/**
 	 * 
+	 * Install the small website Drupal modules using drush
 	 */
 	public function installationOfSmallWebsite() {
 		$path = $this->getSitePathDirectory();
@@ -39,13 +47,13 @@ class SmallWebsiteModel extends BuildAWebsiteBaseModel {
 		$siteInstall = $this->app['trace.config']->bashDirectory
 			. "/installationSmallWebSite  $path";
 
-		foreach ($this->execShell->executeShell($siteInstall) as $installVal) {
-			$this->feedBack[] = $installVal;
-		}
+		$buildOutput = $this->execShell->executeShell($siteInstall);
+		$this->app[feedback]->feedback('BuildAWebsiteBaseModel', 'buildWebsiteStructure', $buildOutput);
 	}
 
 	/**
 	 * 
+	 *  Remove all excess directories and Drupal modules
 	 */
 	public function removeExcess() {
 		$filesystem = new Filesystem();
@@ -67,12 +75,16 @@ class SmallWebsiteModel extends BuildAWebsiteBaseModel {
 		rmdir($path . '/images');
 	}
 
-	
 	/**
 	 * 
-	 * @param string $url
-	 * @param string $email
-	 * @return array
+	 * Configures Drupal small website installation 
+	 * @see BuildAWebsiteBaseModel->buildWebsiteStructure()
+	 * @see SmallWebsiteModel->installationOfSmallWebsite()
+	 * @see BuildAWebsiteBaseModel->websiteEditor()
+	 * @see SmallWebsiteModel->removeExcess()
+	 * @param string $url Gets url the user wants to get
+	 * @param string $email Gets the new users email
+	 * @return array Array of feedback
 	 */
 	public function buildSmallWebsite($url, $email) {
 		$return = array();

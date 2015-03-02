@@ -11,7 +11,7 @@
 namespace Trace\Model;
 
 
-class BuildAWebsiteModel extends BuildAWebsiteBaseModel{
+class BuildAWebsiteModel7 extends BuildAWebsiteBaseModel{
 
 	/**
 	 * 

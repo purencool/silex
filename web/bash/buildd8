@@ -70,6 +70,7 @@ if [ -d "$DIRECTORY" ]; then
   git clone  https://github.com/geberele/D8-Example-Module.git
   git clone --branch 8.x-1.x http://git.drupal.org/project/adminimal_theme.git
   git clone --branch 8.x-1.x http://git.drupal.org/project/coffee.git
+  git clone --branch 8.x-1.x http://git.drupal.org/project/examples.git
 
   cd ../themes
   git clone --branch 8.x-5.x http://git.drupal.org/project/omega.git

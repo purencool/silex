@@ -44,12 +44,12 @@ class BuildAWebsiteController7 {
 	 */
 	public function authBuildNewWebsite(Application $app) {
 
-		$newWebSiteParamObj = new BuildAWebsiteModel7($app);
+		$newWebSiteParamObj = new \Trace\Model\BuildAWebsiteModel7($app);
 		$newWebSiteParamObj->buildWebsiteStructure();
 
 		return $app['twig']->render('auth_build_new_website.html.twig', array(
 			    'new_website_form' => $this->buildAWebsite($app),
-			    'new_website_obj' => (array) $newWebSiteParamObj->feedBack(),
+			    'new_website_obj' => (array) $app['feedback']->getFeedback(),
 		));
 	}
 

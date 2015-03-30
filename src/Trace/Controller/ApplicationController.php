@@ -83,11 +83,12 @@ class ApplicationController {
 			$urlName['name'] = '';
 			$urlName['url'] = '';
 		}
-
+                $appFeedback = $app[feedback]->getFeedback();
 		return $app['twig']->render('index.html.twig', array(
 			    'new_website_form' => $this->buildAWebsiteForm($app),
 			    'form_feed_back' => $this->testEmail($app, $email),
 			    'new_website' => $urlName,
+		            'app_feedback' =>  $appFeedback,
 		));
 	}
 

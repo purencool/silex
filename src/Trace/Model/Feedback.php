@@ -59,6 +59,9 @@ class Feedback {
 	 * multidimensional feedback
 	 */
 	public function getFeedback() {
+		if(empty($this->feedBack)) {
+			return $this->feedBack['none']['none'][] = "none";
+		}
 
 		return $this->feedBack;
 	}

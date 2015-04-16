@@ -86,7 +86,7 @@ class BuildAWebsiteBaseModel {
 	 * @see BuildAWebsiteBaseFilesModel
 	 * @see BuildAWebsiteBaseModel::websiteBackup()
 	 */
-	private function buildMethods() {
+	protected function buildMethods() {
 		$this->websiteSetup();
 		$this->websiteInstallation();
 		$sF = new BuildAWebsiteBaseFilesModel($this->app, $this->newWebsiteName, $this->sitePathDirectory, $this->sitePathBuildDirectory);

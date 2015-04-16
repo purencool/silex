@@ -12,7 +12,7 @@ base:
   
 noinstall:
   path: /noinstall
-  defaults: { _controller: 'Trace\Controller\BuildAWebsiteNoInstallController::authBuildNewWebsite' }
+  defaults: { _controller: 'Trace\Controller\BuildAWebsiteNoInstallController::indexAction' }
 
 d7:
   path: /d7

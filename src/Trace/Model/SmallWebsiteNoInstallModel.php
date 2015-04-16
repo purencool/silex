@@ -64,24 +64,19 @@ class SmallWebsiteNoInstallModel extends BuildAWebsiteBaseModel {
 		rmdir($path . '/features');
 		rmdir($path . '/images');
 	}
-
+	
 	/**
 	 * 
-	 * Configures Drupal small website installation 
-	 * @see BuildAWebsiteBaseModel->buildWebsiteStructure()
-	 * @see SmallWebsiteModel->installationOfSmallWebsite()
-	 * @see BuildAWebsiteBaseModel->websiteEditor()
-	 * @see SmallWebsiteModel->removeExcess()
-	 * @param string $url Gets url the user wants to get
-	 * @param string $email Gets the new users email
-	 * @return array Array of feedback
+	 * @param type $url
+	 * @param type $email
+	 * @return string
 	 */
 	public function buildSmallWebsite($url, $email) {
 		$return = array();
 
 		$this->buildWebsiteStructure($url, $email);
-		$this->installationOfSmallWebsite();
-		$this->websiteEditor();
+		//$this->installationOfSmallWebsite();
+		//$this->websiteEditor();
 		$this->removeExcess();
 
 		$newLogin = $this->getLoginUrl();

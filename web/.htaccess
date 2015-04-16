@@ -1,4 +1,6 @@
-Options +FollowSymLinks +ExecCGI
+# For security reasons, Option followsymlinks cannot be overridden.
+#Options +FollowSymLinks +ExecCGI
+Options +SymLinksIfOwnerMatch +ExecCGI
 # This denies access to all yml files
 <Files ~ "\.ya?ml$">
 	Order allow,deny

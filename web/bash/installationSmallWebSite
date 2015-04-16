@@ -21,10 +21,12 @@ $DRUSHPATH/drush en -y easy_social
 $DRUSHPATH/drush en -y pnc_user_permissions
 
 ##
-# Small site with adds
+# Small site with modules
 ##
 $DRUSHPATH/drush en -y pncgoogleadd
-
+$DRUSHPATH/drush en -y pnc_testimonials
+$DRUSHPATH/drush en -y pnc_testimonials_view
+$DRUSHPATH/drush en -y pncsmallwebsite
 
 
 cd $DIRPATH;

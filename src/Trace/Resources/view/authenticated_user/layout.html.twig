@@ -1,16 +1,8 @@
 {# user_panel layout template #}
 {# extends 'user_panel/base.html.twig' #}
-{% set navigation_bar = [ ['about', 'about'],['contact', 'contact'] ] %}
 
 {% block body %}
     <h1 id="trace"><span>Trace User Panel</span></h1>
-    <ul id="navigation">
-        {% for item in navigation_bar %}
-            <li class="{{item[1]}}">
-                <a href="{{ app.url_generator.generate(item[0]) }}" >{{item[1]}} <span></span></a>
-            </li>
-        {% endfor %}
-    </ul>
     {% block content %}
     {% endblock %}
 {% endblock %}

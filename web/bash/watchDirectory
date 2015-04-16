@@ -1,0 +1,45 @@
+#!/bin/bash
+# Directory Path
+
+##
+# Build System
+##
+systemDir=$(dirname $(readlink -f $0))
+source "$systemDir/config"
+
+
+SITEPATH=$1;
+
+
+##
+# Monitors the directory if there is a change
+# it will refresh the browser
+##
+chsum1=""
+while [[ true ]]
+do
+  chsum2=`find $SITEPATH -type f -exec $MD5 {} \;`
+  if [[ $chsum1 != $chsum2 ]] ; then
+    echo "Something in the directory has changed";
+
+    ##
+    # Directory that is being watched
+    ##
+    cd $SITEPATH;
+
+
+    ##
+    # Refresh browser
+    ##
+
+    currentwindow=`xdotool getwindowfocus`
+    id=`xdotool search --name -- "$BROWSERWINDOW" windowactivate key --window 0 --clearmodifiers ctrl+r`
+    xdotool windowmap $id&>/dev/null;
+    xdotool windowmap $currentwindow;
+    xdotool windowactivate $currentwindow;
+
+    cd $DIRPATH;
+    chsum1=$chsum2
+  fi
+  sleep $WATCHSLEEP;
+done

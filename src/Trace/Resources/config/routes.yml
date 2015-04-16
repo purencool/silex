@@ -9,6 +9,10 @@ drush:
 base:
   path: /mywebsite
   defaults: { _controller: 'Trace\Controller\BuildAWebsiteController::authBuildNewWebsite' }
+  
+noinstall:
+  path: /noinstall
+  defaults: { _controller: 'Trace\Controller\BuildAWebsiteNoInstallController::authBuildNewWebsite' }
 
 d7:
   path: /d7

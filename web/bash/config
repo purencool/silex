@@ -22,13 +22,13 @@ RSYNC='/usr/bin';
 BROWSERWINDOW='- Google Chrome';
 
 ##
-# Sets the compile time so when the browser refreshes it display change 
+# Sets the compile time so when the browser refreshes it display change
 ##
-WATCHSLEEP='1';
+WATCHSLEEP=3;
 
 ##
 # Check sum see if directory has changed this is used for compiling sass.
-# It can be used of any directory you are coding in eg Javascript.  
+# It can be used of any directory you are coding in eg Javascript.
 ##
 MD5='md5sum'; #'md5sum' for linux  #'md5'; for mac
 

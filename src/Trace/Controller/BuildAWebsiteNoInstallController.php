@@ -4,7 +4,6 @@
  * Routes the html requests to the correct twig
  * template files
  *
- *
  * @package    **Trace**
  * @category   Trace Controller
  * @author     Purencool Website Development
@@ -15,9 +14,10 @@ namespace Trace\Controller;
 
 use Silex\Application;
 use Trace\Forms\BuildAWebsite;
-use Symfony\Component\Validator\Constraints as Assert;
 
-class ApplicationController {
+
+class BuildAWebsiteNoInstallController {
+
 
 	/**
 	 * 
@@ -75,7 +75,7 @@ class ApplicationController {
 		$url = $app->escape($request['url']);
 		if ($url != '' && $email != '') {
 
-			$newWebSiteParamObj = new \Trace\Model\SmallWebsiteModel($app);
+			$newWebSiteParamObj = new \Trace\Model\SmallWebsiteNoInstallModel($app);
 			$newLogin = $newWebSiteParamObj->buildSmallWebsite($url, $email);
 			$urlName['name'] = $newLogin['name'];
 			$urlName['url'] = $newLogin['url'];

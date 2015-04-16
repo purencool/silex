@@ -31,7 +31,7 @@ do
     ##
     # Refresh browser
     ##
-    sleep 1;
+    #sleep 1;
     currentwindow=`xdotool getwindowfocus`
     id=`xdotool search --name -- "$BROWSERWINDOW" windowactivate key --window 0 --clearmodifiers ctrl+r`
     xdotool windowmap $id&>/dev/null;

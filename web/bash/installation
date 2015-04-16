@@ -71,6 +71,24 @@ $DRUSHPATH/drush vset  theme_default pncmbtheme
 $DRUSHPATH/drush en -y insert
 
 
+##
+# SEO
+##
+$DRUSHPATH/drush en -y globalredirect
+$DRUSHPATH/drush en -y metatag
+$DRUSHPATH/drush en -y metatags_quick
+$DRUSHPATH/drush en -y pathauto
+$DRUSHPATH/drush en -y page_title
+$DRUSHPATH/drush en -y redirect
+$DRUSHPATH/drush en -y robotstxt
+$DRUSHPATH/drush en -y scheduler
+$DRUSHPATH/drush en -y seo
+$DRUSHPATH/drush en -y seo_checklist
+$DRUSHPATH/drush en -y site_map
+$DRUSHPATH/drush en -y site_verify
+$DRUSHPATH/drush en -y xmlsitemap
+
+
 
 ##
 # Structure

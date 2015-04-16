@@ -20,3 +20,15 @@ composer.phar
 /nbproject/private/
 nbproject/
 
+
+# Hosting Files
+./400.shtml
+./401.shtml
+./403.shtml
+./404.shtml
+./500.shtml
+./default.html
+./favicon.ico
+./cgi-bin
+./cgi-bin/*
+error_log

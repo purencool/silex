@@ -9,36 +9,91 @@ DIRPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ##
 # Exact path to Drush
 ##
-DRUSHPATH='/usr/bin';
+#DRUSHPATH='/usr/bin';
 
 ##
 # Not use yet
 ##
-RSYNC='/usr/bin';
+#RSYNC='/usr/bin';
 
 ##
 # Which browser do you want to automatic refresh when writing sass
 ##
-BROWSERWINDOW='- Google Chrome';
+#BROWSERWINDOW='- Google Chrome';
 
 ##
 # Sets the compile time so when the browser refreshes it display change
 ##
-WATCHSLEEP=3;
+#WATCHSLEEP=3;
 
 ##
 # Check sum see if directory has changed this is used for compiling sass.
 # It can be used of any directory you are coding in eg Javascript.
 ##
-MD5='md5sum'; #'md5sum' for linux  #'md5'; for mac
+#MD5='md5sum'; #'md5sum' for linux  #'md5'; for mac
 
 
 ##
 # If set to null it will default to web server
 ##
-CHOWNER='work:www-data';
+#CHOWNER='work:www-data';
 
 ##
 # If set to null it will default to web server
 ##
-PERMISSIONS='775';
+#PERMISSIONS='775';
+
+##
+# Server using php or php-cli
+##
+
+PHPCLIVAR=$(php-cli -v 2> /dev/null) ;
+if [ ! -z "$PHPCLIVAR" ]; then
+    PHPCOMMAND='/usr/bin/php-cli ';
+fi
+
+PHPVAR=$(php -v 2> /dev/null) ;
+if [ ! -z "$PHPVAR" ]; then
+    PHPCOMMAND='/usr/bin/php ';
+fi
+
+
+##
+# Exact path to Drush
+##
+CONFIGPATH=$DIRPATH'/config.php';
+#echo $CONFIGPATH;
+DRUSHPATH="$($PHPCOMMAND $CONFIGPATH drushPath)";
+#$DRUSHPATH " This is the drush path";
+##
+# Not use yet
+##
+RSYNC="$($PHPCOMMAND $CONFIGPATH rsyncPath)";
+
+##
+# Which browser do you want to automatic refresh when writing sass
+##
+BROWSERWINDOW="$($PHPCOMMAND $CONFIGPATH browser)";
+
+
+##
+# Sets the compile time so when the browser refreshes it display change
+##
+WATCHSLEEP="$($PHPCOMMAND $CONFIGPATH watchSleep)";
+
+##
+# Check sum see if directory has changed this is used for compiling sass.
+# It can be used of any directory you are coding in eg Javascript.
+##
+MD5="$($PHPCOMMAND $CONFIGPATH md5)";
+
+
+##
+# If set to null it will default to web server
+##
+CHOWNER="$($PHPCOMMAND $CONFIGPATH chown)";
+
+##
+# If set to null it will default to web server
+##
+PERMISSIONS="$($PHPCOMMAND $CONFIGPATH permmissions)";

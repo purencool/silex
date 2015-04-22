@@ -71,14 +71,17 @@ class ApplicationController {
 		$urlName = array();
 		$request = $app['request']->get('new_site');
 		$email = $app->escape($request['email']);
+		$production = $app->escape($request['production']);
+		
+		
 
 		$url = $app->escape($request['url']);
 		if ($url != '' && $email != '') {
-
 			$newWebSiteParamObj = new \Trace\Model\SmallWebsiteModel($app);
-			$newLogin = $newWebSiteParamObj->buildSmallWebsite($url, $email);
+			$newLogin = $newWebSiteParamObj->buildSmallWebsite($url, $email, $production);
 			$urlName['name'] = $newLogin['name'];
 			$urlName['url'] = $newLogin['url'];
+
 		} else {
 			$urlName['name'] = '';
 			$urlName['url'] = '';

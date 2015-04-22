@@ -68,6 +68,19 @@ class BuildAWebsiteBaseModel {
 	 * @var string New users email
 	 */
 	private $editorEmail = '';
+	
+	/**
+	 *
+	 * @var string New users email
+	 */
+	private $production = 0;
+	
+	
+	/**
+	 *
+	 * @var string New users email
+	 */
+	private $productionPrefix = 'prod';
 
 	/**
 	 * 
@@ -121,10 +134,14 @@ class BuildAWebsiteBaseModel {
 	public function buildWebsiteStructure($websiteName = NULL, $editorEmail = NULL) {
 
 		$this->editorEmail = $editorEmail;
+		$websitePath = $this->app['trace.config']->websitesDirectory;
+		if($this->production == 1) {
+			$websitePath = $this->app['trace.config']->websitesDirectoryProduction;
+		}
 
 		$buildBashPath = $this->app['trace.config']->bashDirectory
 			. $this->buildType
-			. ' ' . $this->app['trace.config']->websitesDirectory;
+			. ' ' . $websitePath;
 
 		if ($websiteName == NULL) {
 			$buildBashPath .= ' ' . $this->app['trace.config']->siteName;
@@ -303,6 +320,22 @@ class BuildAWebsiteBaseModel {
 	 */
 	public function getLoginUrl() {
 		return $this->loginUrl;
+	}
+	
+	/**
+	 * 
+	 * @param type $setProduction
+	 */
+	public function setProduction($setProduction) {
+		$this->production = $setProduction;
+	}
+	
+	/**
+	 * 
+	 * @param type $setProductionPrefix
+	 */
+	public function setProductionPrefix($setProductionPrefix) {
+		$this->productionPrefix = $setProductionPrefix;
 	}
 
 	/**

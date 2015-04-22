@@ -33,7 +33,7 @@ class SmallWebsiteModel extends BuildAWebsiteBaseModel {
 	 * @overriden not needed in this build
 	 */
 	public function websiteBackup() {
-		$this->feedBack[] = 'backup was over written';
+		$this->app[feedback]->feedback('SmallWebsiteModel', 'buildWebsiteStructure',  array('Website backup was overwritten'));
 	}
 
 	/**
@@ -48,7 +48,7 @@ class SmallWebsiteModel extends BuildAWebsiteBaseModel {
 			. "/installationSmallWebSite  $path";
 
 		$buildOutput = $this->execShell->executeShell($siteInstall);
-		$this->app[feedback]->feedback('BuildAWebsiteBaseModel', 'buildWebsiteStructure', $buildOutput);
+		$this->app[feedback]->feedback('SmallWebsiteModel', 'buildWebsiteStructure', $buildOutput);
 	}
 
 	/**
@@ -86,9 +86,14 @@ class SmallWebsiteModel extends BuildAWebsiteBaseModel {
 	 * @param string $email Gets the new users email
 	 * @return array Array of feedback
 	 */
-	public function buildSmallWebsite($url, $email) {
+	public function buildSmallWebsite($url, $email, $production = 0) {
 		$return = array();
-
+		if($production == 1) {
+			$this->setProduction($production);
+			$this->app[feedback]->feedback('SmallWebsiteModel', 'buildSmallWebsite', array('This is a production website'));
+		} else {
+			$this->app[feedback]->feedback('SmallWebsiteModel', 'buildSmallWebsite', array('This is not a production website'));
+		}
 		$this->buildWebsiteStructure($url, $email);
 		$this->installationOfSmallWebsite();
 		$this->websiteEditor();
@@ -96,8 +101,12 @@ class SmallWebsiteModel extends BuildAWebsiteBaseModel {
 
 		$newLogin = $this->getLoginUrl();
 		$return['name'] = $this->getNewWebsiteName();
-		$return['url'] = $this->app['trace.config']->tempWebsiteUrl . $return['name'] . "/build/" . $newLogin;
-
+		if((int)$production === 1) {
+			$return['url'] = $this->app['trace.config']->tempWebsiteUrlProduction . $return['name'] . "/build/" . $newLogin;
+		} else {
+			$return['url'] = $this->app['trace.config']->tempWebsiteUrl . $return['name'] . "/build/" . $newLogin;
+		}
+		
 		return $return;
 	}
 

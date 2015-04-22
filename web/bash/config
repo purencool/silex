@@ -1,54 +1,30 @@
 #!/bin/bash
 # Configuration file
 
+CONFIGTESTING=$1;
+
+
+
 ##
 #  Global System paths
 ##
 DIRPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-##
-# Exact path to Drush
-##
-#DRUSHPATH='/usr/bin';
 
-##
-# Not use yet
-##
-#RSYNC='/usr/bin';
-
-##
-# Which browser do you want to automatic refresh when writing sass
-##
-#BROWSERWINDOW='- Google Chrome';
-
-##
-# Sets the compile time so when the browser refreshes it display change
-##
-#WATCHSLEEP=3;
-
-##
-# Check sum see if directory has changed this is used for compiling sass.
-# It can be used of any directory you are coding in eg Javascript.
-##
-#MD5='md5sum'; #'md5sum' for linux  #'md5'; for mac
 
 
 ##
-# If set to null it will default to web server
+# Exact path to config.php
 ##
-#CHOWNER='work:www-data';
+CONFIGPATH=$DIRPATH'/config.php';
+if [ ""$CONFIGTESTING""  ==  "t" ]; then echo $CONFIGPATH" this is the config.php path"; fi
 
-##
-# If set to null it will default to web server
-##
-#PERMISSIONS='775';
 
 ##
 # Server using php or php-cli
 ##
-
 PHPCLIVAR=$(php-cli -v 2> /dev/null) ;
-if [ ! -z "$PHPCLIVAR" ]; then
+if [ ! -z "$" ]; then
     PHPCOMMAND='/usr/bin/php-cli ';
 fi
 
@@ -56,44 +32,64 @@ PHPVAR=$(php -v 2> /dev/null) ;
 if [ ! -z "$PHPVAR" ]; then
     PHPCOMMAND='/usr/bin/php ';
 fi
+if [ "$CONFIGTESTING"  ==  "t" ]; then echo $PHPCOMMAND" this is the php path"; fi
 
 
 ##
-# Exact path to Drush
+# AppConfig Path
 ##
-CONFIGPATH=$DIRPATH'/config.php';
-#echo $CONFIGPATH;
+APPGLOBALS="$($PHPCOMMAND $CONFIGPATH appGlobals)";
+
+
+
+##
+# AppConfig Path
+##
+APPCONFIGPATH="$($PHPCOMMAND $CONFIGPATH appConfigPath)";
+if [ "$CONFIGTESTING"  ==  "t" ]; then echo $APPCONFIGPATH" this is the application config path"; fi
+
+
+##
+# Drush path
+##
 DRUSHPATH="$($PHPCOMMAND $CONFIGPATH drushPath)";
-#$DRUSHPATH " This is the drush path";
+if [ "$CONFIGTESTING"  ==  "t" ]; then echo $DRUSHPATH" this is the drush path"; fi
+
+
 ##
 # Not use yet
 ##
 RSYNC="$($PHPCOMMAND $CONFIGPATH rsyncPath)";
+if [ "$CONFIGTESTING"  ==  "t" ]; then echo $RSYNC" this is the rsync path"; fi
 
 ##
 # Which browser do you want to automatic refresh when writing sass
 ##
 BROWSERWINDOW="$($PHPCOMMAND $CONFIGPATH browser)";
-
+if [ "$CONFIGTESTING"  ==  "t" ]; then echo $BROWSERWINDOW" this is the browser window"; fi
 
 ##
 # Sets the compile time so when the browser refreshes it display change
 ##
 WATCHSLEEP="$($PHPCOMMAND $CONFIGPATH watchSleep)";
+if [ "$CONFIGTESTING"  ==  "t" ]; then echo $WATCHSLEEP" this is the watch sleep"; fi
 
 ##
 # Check sum see if directory has changed this is used for compiling sass.
 # It can be used of any directory you are coding in eg Javascript.
 ##
 MD5="$($PHPCOMMAND $CONFIGPATH md5)";
+if [ "$CONFIGTESTING"  ==  "t" ]; then echo $MD5" this is the md5"; fi
 
 
 ##
 # If set to null it will default to web server
 ##
 CHOWNER="$($PHPCOMMAND $CONFIGPATH chown)";
+if [ "$CONFIGTESTING"  ==  "t" ]; then echo $CHOWNER" this is the chowner"; fi
 
 ##
 # If set to null it will default to web server
 ##
 PERMISSIONS="$($PHPCOMMAND $CONFIGPATH permmissions)";
+if [ "$CONFIGTESTING"  ==  "t" ]; then echo $PERMISSIONS" this is the permissions"; fi

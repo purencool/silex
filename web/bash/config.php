@@ -11,12 +11,15 @@
  *  @var Global variable that is set by bash
  */
 $globalRequest = $GLOBALS['argv'][1];
-
+if($globalRequest === 'appGlobals') {
+	print_r( $GLOBALS['argv']);
+}
 /**
  *  Accessing the application config object
  */
 
-$path = getcwd ()."/AppConfig.php";
+//$path = getcwd ()."/AppConfig.php";
+$path = __DIR__.'/../AppConfig.php';
 include $path;
 $new = new AppConfig();
 
@@ -26,6 +29,8 @@ $new = new AppConfig();
  */
 if($globalRequest === 'browser') {
 	print $new->browserWindow;
+} elseif ($globalRequest === 'appConfigPath') {
+	print $path;
 } elseif ($globalRequest === 'drushPath') {
 	echo $new->drushPath;
 } elseif ($globalRequest === 'rsyncPath') {

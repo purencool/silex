@@ -88,7 +88,7 @@ class SmallWebsiteModel extends BuildAWebsiteBaseModel {
 	 */
 	public function buildSmallWebsite($url, $email, $production = 0) {
 		$return = array();
-		if($production == 1) {
+		if((int)$production === 1) {
 			$this->setProduction($production);
 			$this->app[feedback]->feedback('SmallWebsiteModel', 'buildSmallWebsite', array('This is a production website'));
 		} else {

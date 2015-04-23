@@ -10,6 +10,15 @@ source "$systemDir/config"
 SITEPATH=$1;
 
 ##
+#  If path is not provided it will try to compile from current directory
+##
+if [[ -z "$SITEPATH" ]] ; then  
+    SITEPATH="$(pwd)";
+    echo "This is the current site path to be compiled for production "$SITEPATH;
+fi
+
+
+##
 # Compile for production
 ##
  if [ ! -z $SITEPATH ] ; then

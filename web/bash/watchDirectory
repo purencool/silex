@@ -10,6 +10,14 @@ source "$systemDir/config"
 
 SITEPATH=$1;
 
+##
+#  If path is not provided it will try to compile from current directory
+##
+if [[ -z "$SITEPATH" ]] ; then  
+    SITEPATH="$(pwd)";
+    echo "This is the current directory is being watched for a change "$SITEPATH;
+fi
+
 
 ##
 # Monitors the directory if there is a change
@@ -41,5 +49,4 @@ do
     cd $DIRPATH;
     chsum1=$chsum2
   fi
-  sleep $WATCHSLEEP;
 done

@@ -50,14 +50,14 @@ class SmallWebsiteNoInstallModel extends BuildAWebsiteBaseModel {
 		$path = $this->getSitePathDirectory();
 
 		if ($filesystem->exists("$path/databases")) {
-			$filesystem->remove("$path/databases");
+			//$filesystem->remove("$path/databases");
 		}
 		if ($filesystem->exists("$path/build/sites/all/modules/contribxtra")) {
 			$filesystem->remove("$path/build/sites/all/modules/contribxtra");
 		}
 
 		if ($filesystem->exists("$path/build/sites/all/modules/development")) {
-			$filesystem->remove("$path/build/sites/all/modules/development");
+			//$filesystem->remove("$path/build/sites/all/modules/development");
 		}
 		rmdir($path . '/backup-build');
 		rmdir($path . '/documents');

@@ -78,9 +78,9 @@ class BuildAWebsiteBaseModel {
 	
 	/**
 	 *
-	 * @var string New users email
+	 * @var string when installing adds it to the websites database name
 	 */
-	private $productionPrefix = 'prod';
+	private $testPrefix = 'test_';
 
 	/**
 	 * 
@@ -135,7 +135,7 @@ class BuildAWebsiteBaseModel {
 
 		$this->editorEmail = $editorEmail;
 		$websitePath = $this->app['trace.config']->websitesDirectory;
-		if($this->production == 1) {
+		if((int)$this->production === 1) {
 			$websitePath = $this->app['trace.config']->websitesDirectoryProduction;
 		}
 
@@ -200,8 +200,10 @@ class BuildAWebsiteBaseModel {
 		$dbPass = $this->app['trace.config']->databasePassword;
 		$buildPath = $this->sitePathBuildDirectory . '/';
 		$email = $this->app['trace.config']->siteEmail;
+		if((int)$this->production === 0) {
+			$sitename = $this->testPrefix.$sitename;
+		}	
 		$siteVars = " $websiteType $sitename $user $password $dbUser $dbPass $buildPath $email";
-
 		$install = $this->app['trace.config']->bashDirectory . $this->installationType . $siteVars;
 
 		$execOutput = $this->execShell->executeShell($install);
@@ -335,7 +337,7 @@ class BuildAWebsiteBaseModel {
 	 * @param type $setProductionPrefix
 	 */
 	public function setProductionPrefix($setProductionPrefix) {
-		$this->productionPrefix = $setProductionPrefix;
+		$this->testPrefix = $setProductionPrefix;
 	}
 
 	/**

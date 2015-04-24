@@ -1,14 +1,21 @@
 #!/bin/bash
-
 systemDir=$(dirname $(readlink -f $0))
 source "$systemDir/config"
 
-SITEPATH=$1;
+REACT=$1;
+SITEPATH=$2;
+
+
 
 ##
-# This will refresh the browser and return to ide
+#  If path is not provided it will try to compile from current directory
 ##
-REACT=$2;
+if [[ -z "$SITEPATH" ]] ; then  
+    SITEPATH="$(pwd)";
+    echo "This is the current site path to be compiled "$SITEPATH;
+fi
+
+
 
 cd $SITEPATH;
 
@@ -17,19 +24,19 @@ cd $SITEPATH;
 ##
 $DRUSHPATH/drush cc all
 
-##
-# Refresh browser
-##
 
-currentwindow=`xdotool getwindowfocus`
-id=`xdotool search --name -- $BROWSERWINDOW windowactivate key --window 0 --clearmodifiers ctrl+r`
-xdotool windowmap $id&>/dev/null;
-xdotool windowmap $currentwindow;
+   ##
+    # Refresh browser
+    ##
+    currentwindow=`xdotool getwindowfocus`
+    id=`xdotool search --name -- "$BROWSERWINDOW" windowactivate key --window 0 --clearmodifiers ctrl+r`
+    xdotool windowmap $id&>/dev/null;
+    xdotool windowmap $currentwindow;
 
 ##
-# This will refresh the browser and return to ide
+# This will refresh the browser and return to original window
 ##
-if [ -n "$REACT" ]; then
-  xdotool windowactivate $currentwindow;
+if [ "$REACT"  ==  "o" ]; then
+     xdotool windowactivate $currentwindow;
 fi
 cd $DIRPATH;

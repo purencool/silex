@@ -45,9 +45,16 @@ do
     xdotool windowmap $currentwindow;
     xdotool windowactivate $currentwindow;
 
+    if [ -d "../../../../../sass-cache" ]; then
+         cd '../../../../../sass-cache';
+        rm  -Rf ./*;
+        echo "$(pwd) cache is being cleaned"; 
+    fi
+
     cd $DIRPATH;
     chsum1=$chsum2
   fi
   sleep $WATCHSLEEP;
-  #echo "I have just slept";
+
+ 
 done

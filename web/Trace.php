@@ -21,6 +21,15 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
       'twig.path' => __DIR__.'/../src/Trace/Resources/view/',
 ));
 
+//-- Adding twig path to assests
+$app['twig'] = $app->share($app->extend('twig', function($twig) {
+	$twig->addFunction(new \Twig_SimpleFunction('asset', function ($asset) {
+		return sprintf('assets/%s', ltrim($asset));	
+	}));
+
+	return $twig;
+}));
+
 //--
 $app['twig'] = $app->share($app->extend('twig', function($twig) use ($app){
     return $twig;

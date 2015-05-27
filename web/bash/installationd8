@@ -3,7 +3,7 @@
 systemDir=$(dirname $(readlink -f $0))
 source "$systemDir/config"
 
-#Get new sitename
+#Get new site name
 WEBSITETYPE=$1;
 SITENAME=$2;
 USER=$3;
@@ -21,6 +21,10 @@ cd $SITEPATH;
 ##
 $DRUSHPATH/drush site-install -y $WEBSITETYPE --site-name=$SITENAME --account-name=$USER --account-pass=$PASSWORD --site-mail=$EMAIL  --db-url=mysql://$DATABASEUSER:$DATABASEPASSWORD@localhost/$SITENAME
 
+
+#cd modules/drupalmoduleupgrader
+#composer install
+#drush en drupalmoduleupgrader
 
 ##
 # System

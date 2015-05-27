@@ -57,6 +57,14 @@ if [ "$CONFIGTESTING"  ==  "t" ]; then echo $DRUSHPATH" this is the drush path";
 
 
 ##
+# Composer path
+##
+COMPOSERPATH="$($PHPCOMMAND $CONFIGPATH composerPath)";
+if [ "$CONFIGTESTING"  ==  "t" ]; then echo $COMPOSERPATH" this is the drush path"; fi
+
+
+
+##
 # Not use yet
 ##
 RSYNC="$($PHPCOMMAND $CONFIGPATH rsyncPath)";

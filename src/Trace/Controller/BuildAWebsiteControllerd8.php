@@ -48,10 +48,10 @@ class BuildAWebsiteControllerd8 {
 
 		$newWebSiteParamObj = new BuildAWebsiteModeld8($app);
 		$newWebSiteParamObj->buildWebsiteStructure();
-
+		
+		$appFeedback = $app[feedback]->getFeedback();
 		return $app['twig']->render('auth_build_new_website8.html.twig', array(
-			    'new_website_form' => $this->buildAWebsite($app),
-			    'new_website_obj' => (array) $newWebSiteParamObj->feedBack(),
+		            'app_feedback' =>  $appFeedback,
 		));
 	}
 
@@ -67,7 +67,7 @@ class BuildAWebsiteControllerd8 {
 		var_dump($data);
 
 		$param = "New website created";
-		return $app['twig']->render('auth_build_new_website.html.twig', $param);
+		return $app['twig']->render('auth_build_new_website8.html.twig', $param);
 	}
 
 }

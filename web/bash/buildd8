@@ -58,6 +58,7 @@ if [ -d "$DIRECTORY" ]; then
   $DRUSHPATH/drush dl ds
   $DRUSHPATH/drush dl devel
   $DRUSHPATH/drush dl honeypot
+  $DRUSHPATH/drush dl drupalmoduleupgrader
 
   #$DRUSHPATH/drush dl omega
 
@@ -72,17 +73,8 @@ if [ -d "$DIRECTORY" ]; then
   git clone --branch 8.x-1.x http://git.drupal.org/project/coffee.git
   git clone --branch 8.x-1.x http://git.drupal.org/project/examples.git
 
+    drush dl drupalmoduleupgrader
+
   cd ../themes
   git clone --branch 8.x-5.x http://git.drupal.org/project/omega.git
-  
-  ##
-  # If you need certain permissions or own settings on the 
-  # directory. By default it will work use the web server
-  ##
-  if [ -n "$CHOWNER" ]; then
-     chown -Rf $CHOWNER $DIRECTORY
-  fi
-  if [ -n "$PERMISSIONS" ]; then
-    chmod -Rf $PERMISSIONS $DIRECTORY
-  fi
 fi

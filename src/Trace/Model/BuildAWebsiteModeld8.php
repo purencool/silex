@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  *
@@ -14,12 +15,71 @@ use Trace\Model\BashExecute;
 
 class BuildAWebsiteModeld8 {
 
+	/**
+	 *
+	 * @var array Array of objects
+	 */
+	protected $app;
+
+	/**
+	 *
+	 * @var object @see Trace\Model\bashExecute()
+	 */
+	protected $execShell;
+
+	/**
+	 *
+	 * @var string The new websites name used in the creation of the files
+	 */
 	private $newWebsiteName;
-	private $app;
-	private $feedBack = array();
+
+	/**
+	 *
+	 * @var string Path to the website directory
+	 */
 	private $sitePathDirectory = '';
+
+	/**
+	 *
+	 * @var string Path to the website build directory
+	 */
 	private $sitePathBuildDirectory = '';
-	private $execShell;
+
+	/**
+	 *
+	 * @var string This tells the site path where the build directory is
+	 */
+	private $buildType = '/build ';
+
+	/**
+	 *
+	 * @var string Name of the website installation bash file
+	 */
+	private $installationType = '/installationd8';
+
+	/**
+	 *
+	 * @var string Once the website has been built a url is created
+	 */
+	private $loginUrl = '';
+
+	/**
+	 *
+	 * @var string New users email
+	 */
+	private $editorEmail = '';
+
+	/**
+	 *
+	 * @var string New users email
+	 */
+	private $production = 0;
+
+	/**
+	 *
+	 * @var string when installing adds it to the websites database name
+	 */
+	private $testPrefix = 'test_';
 
 	/**
 	 *
@@ -30,14 +90,14 @@ class BuildAWebsiteModeld8 {
 	}
 
 	public function buildWebsiteStructure() {
-		$this->feedBack[] = "<span>Creating website stucture</span>";
+		$this->app[feedback]->feedback = "<span>Creating website stucture</span>";
 
 		$buildBashPath = $this->app['trace.config']->bashDirectory . "/buildd8"
 			. ' ' . $this->app['trace.config']->websitesDirectory
 			. ' ' . $this->app['trace.config']->siteName;
-		
+
 		$siteUrl = $this->app['trace.config']->tempWebsiteUrl;
-		$this->feedBack[] = "<a href='". $siteUrl ."' target='_blank'>See your new website</a>";
+		$this->app[feedback]->feedback = "<a href='" . $siteUrl . "' target='_blank'>See your new website</a>";
 
 		//-- execute install file.
 		$buildOutput = $this->execShell->executeShell($buildBashPath);
@@ -52,7 +112,7 @@ class BuildAWebsiteModeld8 {
 		//-- Install website
 		do {
 			if (file_exists($this->sitePathBuildDirectory . '/sites/default/default.settings.php')) {
-				$this->feedBack[] = "Read me file exits";
+				$this->app[feedback]->feedback = "Read me file exits";
 
 				$this->websiteSetup();
 				$this->websiteInstallation();
@@ -64,11 +124,8 @@ class BuildAWebsiteModeld8 {
 		} while (0);
 
 
-		//$this->websiteSettingsFile();
-		//$this->websiteBackup();
-		//-- Output of exec
 		foreach ($buildOutput as $buildOutputVal) {
-			$this->feedBack[] = $buildOutputVal;
+			$this->app[feedback]->feedback = $buildOutputVal;
 		}
 	}
 
@@ -78,7 +135,7 @@ class BuildAWebsiteModeld8 {
 	public function websiteName() {
 		$siteArr = explode('/', $this->sitePathDirectory);
 		$this->newWebsiteName = end($siteArr);
-		$this->feedBack[] = "<span>The site name is $this->newWebsiteName</span>";
+		$this->app[feedback]->feedback = "<span>The site name is $this->newWebsiteName</span>";
 	}
 
 	/**
@@ -102,40 +159,40 @@ class BuildAWebsiteModeld8 {
 		$settings = $buildPath . '/sites/default/settings.php';
 		$settingsDefault = $buildPath . '/sites/default/default.settings.php';
 		copy($settingsDefault, $settings);
-
+		chmod($settings, 0775); //-- needs to be set for d8 to install
 
 		$settings = $buildPath . '/sites/default/services.yml';
 		$settingsDefault = $buildPath . '/sites/default/default.services.yml';
 		copy($settingsDefault, $settings);
+		chmod($settings, 0775); //-- needs to be set for d8 to install
 
-		$this->feedBack[] = "<span>$settings have been created</span>";
+		$this->app[feedback]->feedback = "<span>$settings have been created</span>";
 	}
 
 	/**
 	 * 
+	 *  This installs the new website using the bash shell
 	 */
 	public function websiteInstallation() {
 
-		$ENDURL = $this->app['trace.config']->endUrl;
-		$WEBSITETYPE = $this->app['trace.config']->websiteType;
-		$SITENAME = $this->newWebsiteName;
-		$USER = $this->app['trace.config']->siteUser;
-		$PASSWORD = $this->app['trace.config']->sitePassword;
-		$DATABASEUSER = $this->app['trace.config']->databaseUser;
-		$DATABASEPASSWORD = $this->app['trace.config']->databasePassword;
-		$SITEPATHBUILD = $this->sitePathBuildDirectory . '/';
-		$SITEPATH = $this->sitePathDirectory . '/';
-		$EMAIL = $this->app['trace.config']->siteEmail;
+		$websiteType = $this->app['trace.config']->websiteType;
+		$sitename = $this->newWebsiteName;
+		$user = $this->app['trace.config']->siteUser;
+		$password = $this->app['trace.config']->sitePassword;
+		$dbUser = $this->app['trace.config']->databaseUser;
+		$dbPass = $this->app['trace.config']->databasePassword;
+		$buildPath = $this->sitePathBuildDirectory . '/';
+		$email = $this->app['trace.config']->siteEmail;
 
-
-		$siteInstall = $this->app['trace.config']->bashDirectory . "/installationd8
-     $WEBSITETYPE $SITENAME $USER $PASSWORD $DATABASEUSER $DATABASEPASSWORD
-     $SITEPATHBUILD $EMAIL";
-
-		//-- execute install file.
-		foreach ($this->execShell->executeShell($siteInstall) as $installVal) {
-			$this->feedBack[] = $installVal;
+		if ((int) $this->production === 0) {
+			$sitename = $this->testPrefix . $sitename;
 		}
+
+		$siteVars = " $websiteType $sitename $user $password $dbUser $dbPass $buildPath $email";
+		$install = $this->app['trace.config']->bashDirectory . $this->installationType . $siteVars;
+		$this->app[feedback]->feedback('BuildAWebsiteD8Model', 'websiteInstallationCom', array($install));
+		$execOutput = $this->execShell->executeShell($install);
+		$this->app[feedback]->feedback('BuildAWebsiteD8Model', 'websiteInstallation', $execOutput);
 	}
 
 	/**
@@ -154,8 +211,6 @@ class BuildAWebsiteModeld8 {
 	 * 
 	 */
 	public function websiteSettingsFile() {
-		$ENDURL = $this->app['trace.config']->endUrl;
-		$WEBSITETYPE = $this->app['trace.config']->websiteType;
 		$SITENAME = $this->newWebsiteName;
 		$USER = $this->app['trace.config']->siteUser;
 		$PASSWORD = $this->app['trace.config']->sitePassword;
@@ -163,19 +218,18 @@ class BuildAWebsiteModeld8 {
 		$DATABASEPASSWORD = $this->app['trace.config']->databasePassword;
 		$SITEPATHBUILD = $this->sitePathBuildDirectory . '/';
 		$SITEPATH = $this->sitePathDirectory . '/';
-		$EMAIL = $this->app['trace.config']->siteEmail;
 
 		$newConfigName = $SITENAME . '.php';
 		$newConfigData = "<?php
-    \$appCurrentDevelopment = array(
-      'current-build-path' =>'$SITEPATHBUILD',
-      'username'=>'$USER',
-      'password'=>'$PASSWORD',
-      'database-user'=>'$DATABASEUSER',
-      'database-password'=>'$DATABASEPASSWORD',
-      'database-name'=>'$SITENAME',
-    );
-    ";
+			 \$appCurrentDevelopment = array(
+			 'current-build-path' =>'$SITEPATHBUILD',
+			'username'=>'$USER',
+			'password'=>'$PASSWORD',
+			'database-user'=>'$DATABASEUSER',
+			'database-password'=>'$DATABASEPASSWORD',
+			'database-name'=>'$SITENAME',
+			);
+		";
 		file_put_contents($SITEPATH . $newConfigName, $newConfigData, FILE_APPEND | LOCK_EX);
 	}
 
@@ -217,20 +271,13 @@ class BuildAWebsiteModeld8 {
 		$SITEPATHBUILD = $this->sitePathBuildDirectory . '/';
 		$SITEPATH = $this->sitePathDirectory . '/';
 
-
-		chmod($SITEPATH . 'databases', 0775);
-		chmod($SITEPATH . 'databases/production', 0775);
-		chmod($SITEPATH . 'databases/testing', 0775);
-		chmod($SITEPATH . 'backup-build', 0775);
-
-
 		$firstBackup = $this->app['trace.config']->bashDirectory . "/dev/backup $SITENAME $DATABASEUSER $DATABASEPASSWORD  " . $SITEPATH . "databases/production/";
 
 		//-- execute install file.
 		$backupOutput = $this->execShell->executeShell($firstBackup);
 
 		foreach ($backupOutput as $backupOutputVal) {
-			$this->feedBack[] = $backupOutputVal;
+			$this->app[feedback]->feedback = $backupOutputVal;
 		}
 
 		$firstBuildBackup = $this->app['trace.config']->bashDirectory . "/backup-build $SITENAME $SITEPATHBUILD " . $SITEPATH . "backup-build/";
@@ -239,24 +286,112 @@ class BuildAWebsiteModeld8 {
 		$backupBuildOutput = $this->execShell->executeShell($firstBuildBackup);
 
 		foreach ($backupBuildOutput as $backupBuildOutputVal) {
-			$this->feedBack[] = $backupBuildOutputVal;
+			$this->app[feedback]->feedback = $backupBuildOutputVal;
 		}
 		chmod($backupBuildOutput[1], 0775);
 	}
 
 	/**
 	 * 
-	 * @return string
+	 * Gets all the new users information and creates a new user in the build. Then adds them 
+	 * to the role of editor and then creates a url so the user can access their new
+	 * website and add their own password
 	 */
-	public function feedBack() {
-		return $this->feedBack;
+	public function websiteEditor() {
+		if ($this->editorEmail == '') {
+			$USEREDITOR = $this->app['trace.config']->userEditor;
+			$EMAILEDITOR = $this->app['trace.config']->emailEditor;
+		} else {
+			$userName = explode('@', $this->editorEmail);
+			$USEREDITOR = $userName[0];
+			$EMAILEDITOR = $this->editorEmail;
+		}
+
+		$PASSWORDEDITOR = $this->app['trace.config']->passwordEditor;
+		$SITEPATH = $this->sitePathBuildDirectory . '/';
+
+
+		$editor = $this->app['trace.config']->bashDirectory
+			. '/editor ' . " $USEREDITOR $PASSWORDEDITOR $EMAILEDITOR $SITEPATH";
+
+		$output = $this->execShell->executeShell($editor);
+		$this->app[feedback]->feedback('BuildAWebsiteBaseModel', 'websiteEditor', $output);
+		$url = array_pop($this->app[feedback]->feedback);
+		$urlEx = explode('/', $url);
+		$this->loginUrl = $urlEx[3] . "/" . $urlEx[4] . "/" . $urlEx[5] . "/" . $urlEx[6] . "/" . $urlEx[7] . "/" . $urlEx[8];
 	}
 
 	/**
-	 * @return object
+	 * 
+	 * @return string Returns $this->newWebsite when class is extended
 	 */
 	public function getWebsite() {
 		return $this->newWebsite;
+	}
+
+	/**
+	 * 
+	 * @return string Returns $this->newWebsiteName when class is extended
+	 */
+	public function getNewWebsiteName() {
+		return $this->newWebsiteName;
+	}
+
+	/**
+	 * 
+	 * @return string Returns $this->sitePathDirectory when class is extended
+	 */
+	public function getSitePathDirectory() {
+		return $this->sitePathDirectory;
+	}
+
+	/**
+	 * 
+	 * @return string Returns $this->sitePathBuildDirectory when class is extended
+	 */
+	public function getSitePathBuildDirectory() {
+		return $this->sitePathBuildDirectory;
+	}
+
+	/**
+	 * 
+	 * @return string Returns $this->buildType when class is extended
+	 */
+	public function getBuildType() {
+		return $this->buildType;
+	}
+
+	/**
+	 * 
+	 * @return string Returns  $this->installationType when class is extended
+	 */
+	public function getInstallationType() {
+		return $this->installationType;
+	}
+
+	/**
+	 * 
+	 * @return string Returns
+	 */
+	public function getLoginUrl() {
+		return $this->loginUrl;
+	
+	}
+
+	/**
+	 * 
+	 * @param type $setProduction
+	 */
+	public function setProduction($setProduction) {
+		$this->production = $setProduction;
+	}
+
+	/**
+	 * 
+	 * @param type $setProductionPrefix
+	 */
+	public function setProductionPrefix($setProductionPrefix) {
+		$this->testPrefix = $setProductionPrefix;
 	}
 
 	/**

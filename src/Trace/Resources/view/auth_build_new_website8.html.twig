@@ -1,25 +1,43 @@
-{# user_panel page template #}
-{% extends 'authenticated_user/layout.html.twig' %}
+{# index page template #}
+{% extends 'front_pages/layout.html.twig' %}
 {% import "modules/macro.html.twig" as macros %}
-
 {% block content %}
-    <div id="wrapper">
-        <h3>Build a new web site</h3>
-        <div id="page">
-            <ul id="login_form">
-                <li>
-                    <span>build a website</span>
-                    <form action="/new-website" method="">
-                        {{ form_widget(new_website_form.build_a_website) }}
-                        <input type="submit" value="login" />
-                    </form>
-                </li>
-            </ul>
-            <ul>
-                {% for new_website_objs in new_website_obj %}
-                    <li>{{ new_website_objs  |raw }}</li>
-                    {% endfor %}
-            </ul>
+        <div id="wrapper">     
+            <div id="page">
+
+                <div id="crazy-people">
+                    <div class="form-my-new">
+                        <h3>Build a website</h3>
+                        <div class="feedback" >  
+                            <div>
+                                {#form_feed_back.email #}
+                            </div>
+                        </div>
+                        <script>
+                            function reloadme() {
+                                    // yes I know it is a hack
+                                    document.location.href = './';
+                            }
+                        </script>
+                        {# if (new_website.url != '') #}
+                                <div>
+                                    <a href="{#new_website.url#}" 
+                                       target="_blank" onclick="reloadme();" 
+                                       class='new-site-a'/>Go to your new {#new_website.name#}</a>
+                                </div>
+                        {# else #}
+                                <div>
+                                    <form action="/d8" method="">
+                                        {# form_widget(new_website_form.build_a_website) #}
+                                        <input type="submit" value="make my new website" />
+                                    </form>
+                                </div>
+                        {# endif #}
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+       <pre>
+            {{ dump(app_feedback) }}
+       </pre>
 {% endblock %}

@@ -1,8 +1,11 @@
 {# user_panel page template #}
-{% extends 'authenticated_user/layout.html.twig' %}
+{% extends 'app/layout.html.twig' %}
 {% import "modules/macro.html.twig" as macros %}
 {% block content %}
     <div id="wrapper">
+      <hello-app>
+   Loading...
+ </hello-app>
         <div id="page">
             <div class="drush-l">
                 <h3>Apply Drush command to build of your choice</h3>

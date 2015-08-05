@@ -101,3 +101,30 @@ if [ "$CONFIGTESTING"  ==  "t" ]; then echo $CHOWNER" this is the chowner"; fi
 ##
 PERMISSIONS="$($PHPCOMMAND $CONFIGPATH permmissions)";
 if [ "$CONFIGTESTING"  ==  "t" ]; then echo $PERMISSIONS" this is the permissions"; fi
+
+
+##
+# Add new user to build to access it
+##
+NEWUSER="$($PHPCOMMAND $CONFIGPATH newuser)";
+if [ "$CONFIGTESTING"  ==  "t" ]; then echo $NEWUSER" this is the new user"; fi
+
+
+##
+# Add new user password to build 
+##
+NEWUSERPASSWORD="$($PHPCOMMAND $CONFIGPATH newuserpassword)";
+if [ "$CONFIGTESTING"  ==  "t" ]; then echo $NEWUSERPASSWORD" this is the new user password"; fi
+
+##
+# Add new user password to build 
+##
+NEWUSERMAIL="$($PHPCOMMAND $CONFIGPATH newusermail)";
+if [ "$CONFIGTESTING"  ==  "t" ]; then echo $NEWUSERMAIL" this is the new user email"; fi
+
+
+##
+# Add new user password to build 
+##
+NEWUSERROLE="$($PHPCOMMAND $CONFIGPATH newuserrole)";
+if [ "$CONFIGTESTING"  ==  "t" ]; then echo $NEWUSERROLE" this is the new user role"; fi

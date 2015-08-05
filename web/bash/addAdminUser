@@ -1,0 +1,83 @@
+#!/bin/bash
+# Directory Path
+
+##
+# Build System
+##
+systemDir=$(dirname $(readlink -f $0))
+source "$systemDir/config"
+
+
+USER=$1;
+PASSWORD=$2;
+MAIL=$3;
+SITEPATH=$4;
+
+if [[ -z "$MAIL" ]] ; then 
+  MAIL=$USER$((RANDOM%99))'@thisisnotreallymyemail.com';
+fi
+
+
+
+##
+#  New user is not added to variables
+##
+if [[ -z "$USER" ]] ; then  
+USER=$NEWUSER;
+PASSWORD=$NEWUSERPASSWORD;
+$MAIL=$NEWUSERMAIL;
+fi
+
+
+
+##
+#  If path is not provided it will try to compile from current directory
+##
+if [[ -z "$SITEPATH" ]] ; then  
+    SITEPATH="$(pwd)";
+    echo "This is the current site path to be compiled "$SITEPATH;
+fi
+cd $SITEPATH;
+
+
+
+##
+#  If path is not provided it will try to compile from current directory
+##
+DRUPALDIRECTORY=$($DRUSHPATH/drush status --version | grep "Drupal version");
+if [ -z "$DRUPALDIRECTORY" ]; then 
+	echo "There is no drupal software in this directory";
+	exit;
+else
+	echo "Current $DRUPALDIRECTORY";
+	echo "Adding new user $USER";
+	echo "Adding new password $PASSWORD";
+	echo "Adding new email $MAIL";
+	echo "Current Path $(pwd)";
+	echo " ";
+
+	##
+	#  Find admin role
+	##
+	ADMIN=$($DRUSHPATH/drush sql-query "SELECT * FROM  role WHERE name ='administrator'");
+	echo "The admin uid is $ADMIN";
+	
+	##
+	# Adds new user
+	##
+	$DRUSHPATH/drush ucrt "$USER"  --mail="$MAIL" --password="$PASSWORD";
+
+	##
+	# Gets user id
+	##
+	USER=$($DRUSHPATH/drush sql-query "SELECT uid FROM users WHERE  name='$USER'");
+	echo "The user uid is $USER";
+
+
+	##
+	# Adds user to roll
+	##
+	$DRUSHPATH/drush urol "$NEWUSERROLE" $USER
+fi
+
+

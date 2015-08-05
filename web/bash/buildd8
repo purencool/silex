@@ -66,15 +66,15 @@ if [ -d "$DIRECTORY" ]; then
   ###
   # Git clone until I can get the Drush make to work
   ###
-  git clone --branch 8.x-3.x http://git.drupal.org/sandbox/grayside/2120935.git features
-  git clone --branch d8panels http://git.drupal.org/sandbox/dsnopek/2290237.git d8panels
-  git clone  https://github.com/geberele/D8-Example-Module.git
-  git clone --branch 8.x-1.x http://git.drupal.org/project/adminimal_theme.git
-  git clone --branch 8.x-1.x http://git.drupal.org/project/coffee.git
-  git clone --branch 8.x-1.x http://git.drupal.org/project/examples.git
-
-    drush dl drupalmoduleupgrader
+  git clone     --branch 8.x-3.x http://git.drupal.org/sandbox/grayside/2120935.git features
+  git clone     --branch d8panels http://git.drupal.org/sandbox/dsnopek/2290237.git d8panels
+  git clone     https://github.com/geberele/D8-Example-Module.git
+  git clone     --branch 8.x-1.x http://git.drupal.org/project/adminimal_theme.git
+  git clone     --branch 8.x-1.x http://git.drupal.org/project/coffee.git
+  git clone     --branch 8.x-1.x http://git.drupal.org/project/examples.git
+  git clone     https://github.com/purencool/pncd8build.git;
 
   cd ../themes
   git clone --branch 8.x-5.x http://git.drupal.org/project/omega.git
+  git clone https://github.com/purencool/pncd8subthemes.git;
 fi

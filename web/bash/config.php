@@ -32,7 +32,9 @@ if($globalRequest === 'browser') {
 } elseif ($globalRequest === 'appConfigPath') {
 	print $path;
 } elseif ($globalRequest === 'drushPath') {
-	echo $new->drushPath;
+	print $new->drushPath;
+} elseif ($globalRequest === 'composerPath') {	
+	print $new->composerPath;
 } elseif ($globalRequest === 'rsyncPath') {
 	print $new->rsyncPath;
 }  elseif ($globalRequest === 'watchSleep') {
@@ -43,6 +45,17 @@ if($globalRequest === 'browser') {
 	print $new->chown;
 }  elseif ($globalRequest === 'permmissions') {
 	print $new->permmissions;
+}  elseif ($globalRequest === 'newuser') {
+	print $new->newuser;
+}  elseif ($globalRequest === 'newuserpassword') {
+	print $new->newuserpassword;
+}  elseif ($globalRequest === 'newusermail') {
+	print $new->newusermail;
+}  elseif ($globalRequest === 'newuserrole') {
+	print $new->newuserrole;
 } else {
 	print 'system cannot find obj';
 }
+
+
+

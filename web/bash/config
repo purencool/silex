@@ -102,13 +102,23 @@ if [ "$CONFIGTESTING"  ==  "t" ]; then echo $CHOWNER" this is the chowner"; fi
 PERMISSIONS="$($PHPCOMMAND $CONFIGPATH permmissions)";
 if [ "$CONFIGTESTING"  ==  "t" ]; then echo $PERMISSIONS" this is the permissions"; fi
 
+##
+# Database user to build to access it
+##
+DATABASEUSER="$($PHPCOMMAND $CONFIGPATH databaseuser)";
+if [ "$CONFIGTESTING"  ==  "t" ]; then echo $DATABASEUSER" this is the new user"; fi
+
+##
+# Database user password to build 
+##
+DATABASEPASSWORD="$($PHPCOMMAND $CONFIGPATH databasepassword)";
+if [ "$CONFIGTESTING"  ==  "t" ]; then echo $DATABASEPASSWORD" this is the database password"; fi
 
 ##
 # Add new user to build to access it
 ##
 NEWUSER="$($PHPCOMMAND $CONFIGPATH newuser)";
 if [ "$CONFIGTESTING"  ==  "t" ]; then echo $NEWUSER" this is the new user"; fi
-
 
 ##
 # Add new user password to build 

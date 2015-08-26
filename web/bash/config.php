@@ -31,28 +31,46 @@ if($globalRequest === 'browser') {
 	print $new->browserWindow;
 } elseif ($globalRequest === 'appConfigPath') {
 	print $path;
+	
 } elseif ($globalRequest === 'drushPath') {
 	print $new->drushPath;
+	
 } elseif ($globalRequest === 'composerPath') {	
 	print $new->composerPath;
+	
 } elseif ($globalRequest === 'rsyncPath') {
 	print $new->rsyncPath;
+	
 }  elseif ($globalRequest === 'watchSleep') {
 	print $new->watchSleep;
+	
 }  elseif ($globalRequest === 'md5') {
 	print $new->md5;
+	
 }  elseif ($globalRequest === 'chown') {
 	print $new->chown;
+	
 }  elseif ($globalRequest === 'permmissions') {
 	print $new->permmissions;
+	
+}  elseif ($globalRequest === 'databaseuser') {
+	print $new->databaseUser;
+	
+}  elseif ($globalRequest === 'databasepassword') {
+	print $new->databasePassword;
+	
 }  elseif ($globalRequest === 'newuser') {
 	print $new->newuser;
+	
 }  elseif ($globalRequest === 'newuserpassword') {
 	print $new->newuserpassword;
+	
 }  elseif ($globalRequest === 'newusermail') {
 	print $new->newusermail;
+	
 }  elseif ($globalRequest === 'newuserrole') {
 	print $new->newuserrole;
+	
 } else {
 	print 'system cannot find obj';
 }

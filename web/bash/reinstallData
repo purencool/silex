@@ -1,0 +1,54 @@
+#!/bin/bash
+# Directory Path
+
+##
+# Build System
+##
+systemDir=$(dirname $(readlink -f $0))
+source "$systemDir/config"
+
+
+DATABASENAMES=$1;
+DATABASEFILE=$2;
+
+##
+# Show that database that are available
+##
+if [[ -z "$DATABASENAMES" ]] ; then  
+    echo "There is no database file please select one";
+    echo "";
+    mysql -u$DATABASEUSER -p$DATABASEPASSWORD -e 'show databases;'
+fi
+
+##
+# Tell user no import file was added suggested
+##
+if [[ -z "$DATABASEFILE" ]] ; then  
+    echo "";
+    echo "There is no import file that was suggested";
+    exit;
+fi
+
+##
+# If file that was suggested exits then ask user do they
+# really want to over right this build if so then type yes
+##
+if [ -f "$DATABASEFILE" ] ; then  
+        while true; do
+        read -p "Do you wish to reinstall this database?" yn
+         case $yn in
+            [Yy]* ) 
+                echo "reinstalling database now"; 
+                mysqldump -u$DATABASEUSER -p$DATABASEPASSWORD --add-drop-table --no-data $DATABASENAMES | grep ^DROP | mysql -u$DATABASEUSER -p$DATABASEPASSWORD $DATABASENAMES
+                mysql -u$DATABASEUSER -p$DATABASEPASSWORD  $DATABASENAMES < $DATABASEFILE
+                echo "reinstallation of database complete"; 
+            break;;
+            [Nn]* ) exit;;
+            * ) echo "Please answer yes or no.";;
+        esac
+    done
+else
+    echo "";
+    echo "This file does not exist";
+    exit;
+fi

@@ -8,38 +8,41 @@ systemDir=$(dirname $(readlink -f $0))
 source "$systemDir/config"
 
 
-SITEPATH=$2;
-WAITING=$1;
+WATCHDIR=$1;
+
 
 ##
 #  If path is not provided it will try to compile from current directory
 ##
-if [[ -z "$SITEPATH" ]] ; then  
+if [[ -z "$SITEDIR" ]] ; then  
     SITEPATH="$(pwd)";
-    echo "This is the current directory is being watched for a change "$SITEPATH;
+    echo "This is the current site path to be compiled "$SITEPATH;
 fi
 
 
 ##
-# Monitors the directory if there is a change
-# it will refresh the browser
+#  Path watching directory
+##
+if [[ -z "$WATCHDIR" ]] ; then  
+    WATCHPATH="$(pwd)";
+    echo "This is the directory that is being watched "$WATCHPATH;
+else
+    WATCHPATH="$(pwd)/"$WATCHDIR;
+    echo "This is the directory that is being watched "$WATCHPATH;
+fi
+
+##
+# Monitors the theme directory if there is a change
+# it will compile the sass and refresh the browser
 ##
 chsum1=""
 while [[ true ]]
 do
-  chsum2=`find $SITEPATH -type f -exec $MD5 {} \;`
+  chsum2=`find $WATCHPATH -type f -exec $MD5 {} \;`
   if [[ $chsum1 != $chsum2 ]] ; then
-    echo "Something in the directory has changed";
-    if [[ $WAITING == '2' ]] ; then
-	echo "I am sleeping now";
-	sleep 5;
-    fi;
-    ##
-    # Directory that is being watched
-    ##
-    cd $SITEPATH;
-
-
+    echo "There has been a change";
+    grunt;
+        
     ##
     # Refresh browser
     ##
@@ -52,4 +55,5 @@ do
     cd $DIRPATH;
     chsum1=$chsum2
   fi
+  #sleep $WATCHSLEEP;
 done

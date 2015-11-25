@@ -7,7 +7,10 @@
 systemDir=$(dirname $(readlink -f $0))
 source "$systemDir/config"
 
-SITEPATH=$1;
+SCSSCOMP=$1;
+CSSCOMP=$2;
+SITEPATH=$3;
+
 
 ##
 #  If path is not provided it will try to compile from current directory
@@ -15,7 +18,7 @@ SITEPATH=$1;
 if [[ -z "$SITEPATH" ]] ; then  
     SITEPATH="$(pwd)";
     echo "This is the current site path to be compiled for production "$SITEPATH;
-fi
+if
 
 
 ##
@@ -24,12 +27,7 @@ fi
  if [ ! -z $SITEPATH ] ; then
     cd $SITEPATH;
                 echo 'Compiling for production';
-                compass compile  -e production --force
+               	scss -t compressed --compass $SITEPATH'/'$SCSSCOMP $SITEPATH'/'$CSSCOMP
+		echo 'Scss compile and compress  '$SCSSCOMP'  '$CSSCOMP;
     cd $DIRPATH;
 fi
-
-currentwindow=`xdotool getwindowfocus`
-id=`xdotool search --name -- "$BROWSERWINDOW" windowactivate key --window 0 --clearmodifiers ctrl+r`
-xdotool windowmap $id&>/dev/null;
-xdotool windowmap $currentwindow;
-xdotool windowactivate $currentwindow;

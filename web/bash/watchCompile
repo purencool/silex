@@ -8,53 +8,100 @@ systemDir=$(dirname $(readlink -f $0))
 source "$systemDir/config"
 
 
-SITEPATH=$1;
+SCSSCOMP=$1;
+CSSCOMP=$2;
+WATCHDIR=$3;
 
+echo "Is this"
 ##
 #  If path is not provided it will try to compile from current directory
 ##
-if [[ -z "$SITEPATH" ]] ; then  
+if [[ -z "$SITEDIR" ]] ; then  
     SITEPATH="$(pwd)";
     echo "This is the current site path to be compiled "$SITEPATH;
 fi
 
+
+##
+#  Path watching directory
+##
+if [[ -z "$WATCHDIR" ]] ; then  
+    WATCHPATH="$(pwd)";
+    echo "This is the directory that is being watched "$WATCHPATH;
+else
+    WATCHPATH="$(pwd)/"$WATCHDIR;
+    echo "This is the directory that is being watched "$WATCHPATH;
+fi
+
+
+#if [  -f $SITEPATH'/trace' ]; then
+
+#	declare -a traceArray;
+#        let i=0
+#        while read line; do
+#	    if ! [[ $line == *"#"* ]] ; then
+ #              if [ ! -z "$line" -a "$line"!=" " ]; then
+  #                traceArray[i]="$line";
+   #               echo ${traceArray[i]};
+ #              fi
+#            fi
+ #        ((++i))
+#        done < $SITEPATH'/trace'
+#	echo "${traceArray[0]}";
+#for i in "${traceArray[@]}"
+#do
+ #   if [ "$i" == "sass" ] ; then
+  #      echo "Found"
+ #   fi
+#done
+#( IFS=$'\n'; echo "${traceArray[*]}" )
+#for each in "${traceArray[@]}"
+#do
+#  echo "$each"
+#done
+
+#	SCSSCOMP="${traceArray[0]}";
+#	echo "Trace scss "$SCSSCOMP;
+ #       $CSSCOMP=${traceArray[1]};
+#	echo "Trace css "$CSSCOMP;
+#	$WATCHPATH="$(pwd)/"${traceArray[2]};
+#	echo "Trace watch "$WATCHPATH;
+#fi
 ##
 # Monitors the theme directory if there is a change
 # it will compile the sass and refresh the browser
 ##
 chsum1=""
-while [[ true ]]
-do
-  chsum2=`find $SITEPATH -type f -exec $MD5 {} \;`
-  if [[ $chsum1 != $chsum2 ]] ; then
+#while [[ true ]]
+#do
+#  chsum2=`find $WATCHPATH -type f -exec $MD5 {} \;`
+#  if [[ $chsum1 != $chsum2 ]] ; then
     echo "There has been a change";
 
     ##
     # Compile sass
     ##
-    cd $SITEPATH;
-    compass compile
-
+    echo 'Scss compile and compress  '$SCSSCOMP'  '$CSSCOMP;
+    #  scss -t compressed --compass $SITEPATH'/sass/styles.scss' $SITEPATH'/css/styles.css'
+    scss -t compressed --compass $SITEPATH'/'$SCSSCOMP  $SITEPATH'/'$CSSCOMP
+        
     ##
     # Refresh browser
     ##
-    #sleep 1;
     currentwindow=`xdotool getwindowfocus`
     id=`xdotool search --name -- "$BROWSERWINDOW" windowactivate key --window 0 --clearmodifiers ctrl+r`
     xdotool windowmap $id&>/dev/null;
     xdotool windowmap $currentwindow;
-    xdotool windowactivate $currentwindow;
+ #   xdotool windowactivate $currentwindow;
 
-    if [ -d "../../../../../sass-cache" ]; then
-         cd '../../../../../sass-cache';
-        rm  -Rf ./*;
-        echo "$(pwd) cache is being cleaned"; 
-    fi
+ #   if [ -d "../../../../../sass-cache" ]; then
+  #       cd '../../../../../sass-cache';
+   #     rm  -Rf ./*;
+   #     echo "$(pwd) cache is being cleaned"; 
+   # fi
 
-    cd $DIRPATH;
-    chsum1=$chsum2
-  fi
-  sleep $WATCHSLEEP;
-
- 
-done
+  #  cd $DIRPATH;
+  #  chsum1=$chsum2
+  #fi
+  #sleep $WATCHSLEEP;
+#done

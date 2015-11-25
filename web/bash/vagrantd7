@@ -1,0 +1,77 @@
+#!/bin/bash
+# Directory Path
+
+##
+# Build System
+##
+
+systemDir=$(dirname $(readlink -f $0))
+source "$systemDir/config"
+
+WEBSITESPATH=$1;
+
+##
+#  If path is not provided it will try to compile from current directory
+##
+if [[ -z "$WEBSITESPATH" ]] ; then  
+    WEBSITESPATH="$(pwd)";
+    echo "This is the current site path to be compiled "$WEBSITESPATH;
+fi
+
+
+MKNEWDIR=$2;
+
+##
+#  If directory does not exist it will exit build
+##
+#if ! [[ -z "$MKNEWDIR" ]] ; then  
+#    echo "I need a directory to install software ";
+#    exit;
+#fi
+
+
+
+DIRECTORY=$WEBSITESPATH/$MKNEWDIR;
+DRUSHMAKEFILE='.make.yml';
+
+###
+#  TESTING AND ADDING BUILD PATH
+###
+while true
+do
+  if [ -d "$DIRECTORY" ]; then
+     dirAdd=$(($dirAdd+1));
+     DIRECTORY=$DIRECTORY$dirAdd;
+   fi
+   if [ ! -d "$DIRECTORY" ] ; then
+        echo "create";
+        echo $DIRECTORY;
+        mkdir $DIRECTORY;
+        mkdir $DIRECTORY/'build';
+        mkdir $DIRECTORY/'images';
+        mkdir $DIRECTORY/'documents';
+        mkdir $DIRECTORY/'databases';
+
+        echo $DIRECTORY;
+     break;
+  fi
+done
+
+###
+#
+#  TESTING TO SEE IF BUILD PATH EXISTS
+#
+###
+if [ -d "$DIRECTORY" ]; then
+  ###
+  #  git clone and make file
+  ###
+  DIRBUILD=$DIRECTORY'/build';
+  cd $DIRBUILD;
+
+  ###
+  # Git clone until I can get the Drush make to work
+  ###
+  git clone https://github.com/geerlingguy/drupal-vm.git ./
+
+fi

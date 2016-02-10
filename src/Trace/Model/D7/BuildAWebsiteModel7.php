@@ -8,7 +8,7 @@
  * @license    GPL3
  */
 
-namespace Trace\Model;
+namespace Trace\Model\D7;
 
 
 class BuildAWebsiteModel7 extends BuildAWebsiteBaseModel{
@@ -20,12 +20,4 @@ class BuildAWebsiteModel7 extends BuildAWebsiteBaseModel{
 	public function __construct($app) {
 		parent::__construct($app);
 	}
-
-	/**
-	 *  @return string
-	 */
-	public function __toString() {
-		return "Trace\Model\BuildAWebsite7";
-	}
-
 }

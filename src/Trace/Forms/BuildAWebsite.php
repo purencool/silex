@@ -15,6 +15,9 @@ namespace Trace\Forms;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
+/**
+ * 
+ */
 class BuildAWebsite extends AbstractType {
 
 	/**
@@ -23,12 +26,26 @@ class BuildAWebsite extends AbstractType {
 	 * @param array $options
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options) {
+
 		$builder->add('email', 'email');
+
 		$builder->add('url', 'text', array('label' => 'Website name'));
-		$builder->add('production', 'checkbox', 
-			array(
-			    'label' => 'Production',
-			    'required' => false,
+
+		$builder->add('production', 'checkbox', array(
+		    'label' => 'Production',
+		    'required' => false,
+			)
+		);
+
+		$builder->add('D8', 'checkbox', array(
+		    'label' => 'Drupal 8',
+		    'required' => false,
+			)
+		);
+
+		$builder->add('size', 'checkbox', array(
+		    'label' => 'Small Website',
+		    'required' => false,
 			)
 		);
 	}

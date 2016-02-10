@@ -71,27 +71,27 @@ fi
 # Monitors the theme directory if there is a change
 # it will compile the sass and refresh the browser
 ##
-chsum1=""
+#chsum1=""
 #while [[ true ]]
 #do
 #  chsum2=`find $WATCHPATH -type f -exec $MD5 {} \;`
 #  if [[ $chsum1 != $chsum2 ]] ; then
-    echo "There has been a change";
+ #   echo "There has been a change";
 
     ##
     # Compile sass
     ##
-    echo 'Scss compile and compress  '$SCSSCOMP'  '$CSSCOMP;
+  #  echo 'Scss compile and compress  '$SCSSCOMP'  '$CSSCOMP;
     #  scss -t compressed --compass $SITEPATH'/sass/styles.scss' $SITEPATH'/css/styles.css'
-    scss -t compressed --compass $SITEPATH'/'$SCSSCOMP  $SITEPATH'/'$CSSCOMP
+   # scss -t compressed --compass $SITEPATH'/'$SCSSCOMP  $SITEPATH'/'$CSSCOMP
         
     ##
     # Refresh browser
     ##
-    currentwindow=`xdotool getwindowfocus`
-    id=`xdotool search --name -- "$BROWSERWINDOW" windowactivate key --window 0 --clearmodifiers ctrl+r`
-    xdotool windowmap $id&>/dev/null;
-    xdotool windowmap $currentwindow;
+    #currentwindow=`xdotool getwindowfocus`
+    #id=`xdotool search --name -- "$BROWSERWINDOW" windowactivate key --window 0 --clearmodifiers ctrl+r`
+    #xdotool windowmap $id&>/dev/null;
+    #xdotool windowmap $currentwindow;
  #   xdotool windowactivate $currentwindow;
 
  #   if [ -d "../../../../../sass-cache" ]; then
@@ -105,3 +105,38 @@ chsum1=""
   #fi
   #sleep $WATCHSLEEP;
 #done
+
+##
+# Monitors the directory if there is a change
+# it will refresh the browser
+##
+chsum1=""
+while [[ true ]]
+do
+  chsum2=`find $SITEPATH -type f -exec $MD5 {} \;`
+  if [[ $chsum1 != $chsum2 ]] ; then
+    echo "Something in the directory has changed";
+    if [[ $WAITING == '2' ]] ; then
+	echo "I am sleeping now";
+	sleep 5;
+    fi;
+    ##
+    # Directory that is being watched
+    ##
+    cd $SITEPATH;
+    compass compile
+
+
+    ##
+    # Refresh browser
+    ##
+    currentwindow=`xdotool getwindowfocus`
+    id=`xdotool search --name -- "$BROWSERWINDOW" windowactivate key --window 0 --clearmodifiers ctrl+r`
+    xdotool windowmap $id&>/dev/null;
+    xdotool windowmap $currentwindow;
+    xdotool windowactivate $currentwindow;
+
+    cd $DIRPATH;
+    chsum1=$chsum2
+  fi
+done

@@ -1,4 +1,5 @@
 <?php
+
 /**
  *  The reason of this class is to create a basic Drupal website using drush 
  *  as the build tool. This class to adds an abstraction that will allow 
@@ -11,7 +12,7 @@
  *
  */
 
-namespace Trace\Model;
+namespace Trace\Model\D7;
 
 class BuildAWebsiteBaseModel {
 
@@ -68,14 +69,13 @@ class BuildAWebsiteBaseModel {
 	 * @var string New users email
 	 */
 	private $editorEmail = '';
-	
+
 	/**
 	 *
 	 * @var string New users email
 	 */
 	private $production = 0;
-	
-	
+
 	/**
 	 *
 	 * @var string when installing adds it to the websites database name
@@ -135,7 +135,7 @@ class BuildAWebsiteBaseModel {
 
 		$this->editorEmail = $editorEmail;
 		$websitePath = $this->app['trace.config']->websitesDirectory;
-		if((int)$this->production === 1) {
+		if ((int) $this->production === 1) {
 			$websitePath = $this->app['trace.config']->websitesDirectoryProduction;
 		}
 
@@ -200,9 +200,9 @@ class BuildAWebsiteBaseModel {
 		$dbPass = $this->app['trace.config']->databasePassword;
 		$buildPath = $this->sitePathBuildDirectory . '/';
 		$email = $this->app['trace.config']->siteEmail;
-		if((int)$this->production === 0) {
-			$sitename = $this->testPrefix.$sitename;
-		}	
+		if ((int) $this->production === 0) {
+			$sitename = $this->testPrefix . $sitename;
+		}
 		$siteVars = " $websiteType $sitename $user $password $dbUser $dbPass $buildPath $email";
 		$install = $this->app['trace.config']->bashDirectory . $this->installationType . $siteVars;
 
@@ -323,7 +323,7 @@ class BuildAWebsiteBaseModel {
 	public function getLoginUrl() {
 		return $this->loginUrl;
 	}
-	
+
 	/**
 	 * 
 	 * @param type $setProduction
@@ -331,20 +331,13 @@ class BuildAWebsiteBaseModel {
 	public function setProduction($setProduction) {
 		$this->production = $setProduction;
 	}
-	
+
 	/**
 	 * 
 	 * @param type $setProductionPrefix
 	 */
 	public function setProductionPrefix($setProductionPrefix) {
 		$this->testPrefix = $setProductionPrefix;
-	}
-
-	/**
-	 *  @return string BuildAWebsiteBaseModel
-	 */
-	public function __toString() {
-		return "Model\BuildAWebsiteBaseModel";
 	}
 
 }

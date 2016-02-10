@@ -14,7 +14,7 @@
  *
  */
 
-namespace Trace\Model;
+namespace Trace\Model\D7;
 
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -108,13 +108,6 @@ class SmallWebsiteModel extends BuildAWebsiteBaseModel {
 		}
 		
 		return $return;
-	}
-
-	/**
-	 *  @return string
-	 */
-	public function __toString() {
-		return "Trace\Model\SmallWebsite";
 	}
 
 }

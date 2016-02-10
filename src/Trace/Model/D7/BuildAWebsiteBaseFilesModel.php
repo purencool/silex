@@ -10,7 +10,7 @@
  *
  */
 
-namespace Trace\Model;
+namespace Trace\Model\D7;
 
 class BuildAWebsiteBaseFilesModel {
 
